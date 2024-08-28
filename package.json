@@ -3,10 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "local": "env-cmd -f .env.local next dev",
+    "dev": "env-cmd -f .env.development next dev",
+    "prod": "env-cmd -f .env.prodction next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:local": "env-cmd -f .env.local next build",
+    "build:dev": "env-cmd -f .env.development next build",
+    "build:prod": "env-cmd -f .env.prodction next build"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
