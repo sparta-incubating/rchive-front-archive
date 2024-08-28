@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react';
 import CompoundProvider from '@/provider/compoundProvider';
+import MainHeader from '@/components/molecules/mainHeader';
 
 /**
  * Root layout component
@@ -9,7 +10,14 @@ import CompoundProvider from '@/provider/compoundProvider';
  * @constructor
  */
 const RootLayout = ({ children }: PropsWithChildren) => {
-  return <CompoundProvider>{children}</CompoundProvider>;
+  return (
+    <CompoundProvider>
+      <div className="flex flex-col">
+        <MainHeader />
+        {children}
+      </div>
+    </CompoundProvider>
+  );
 };
 
 export default RootLayout;
