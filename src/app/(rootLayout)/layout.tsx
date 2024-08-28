@@ -12,9 +12,11 @@ import MainHeader from '@/components/molecules/mainHeader';
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <CompoundProvider>
-      <div className="flex flex-col">
-        <MainHeader />
-        {children}
+      <div className="flex">
+        <div className="mx-auto flex w-[1150px] flex-col">
+          <MainHeader />
+          {children}
+        </div>
       </div>
     </CompoundProvider>
   );
