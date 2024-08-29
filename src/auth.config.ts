@@ -1,17 +1,9 @@
-<<<<<<< HEAD
-import { login } from '@/api/server/authApi';
-import axios from 'axios';
-import type { NextAuthConfig } from 'next-auth';
-import Credentials from 'next-auth/providers/credentials';
-import { extractAccessToken, extractRefreshToken } from '@/utils/auth.util';
-=======
 import { login } from './api/server/authApi';
 
 import axios from 'axios';
 import type { NextAuthConfig } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { extractAccessToken, extractRefreshToken } from './utils/auth.util';
->>>>>>> dev
 
 export const authConfig = {
   pages: {
