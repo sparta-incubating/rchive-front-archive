@@ -1,3 +1,5 @@
+import { TrackType } from './posts.types';
+
 export type trackRole = 'PM' | 'APM' | 'USER';
 
 export type LastConnectRoleDataType = {
@@ -11,17 +13,3 @@ export type LastConnectRoleResponseType = {
   message: string;
   data: LastConnectRoleDataType;
 };
-
-export type TrackType =
-  | ''
-  | 'UNITY'
-  | 'NODEJS'
-  | 'SPRING_JAVA'
-  | 'SPRING_KOTLIN'
-  | 'REACT'
-  | 'AI'
-  | 'ANDROID'
-  | 'IOS'
-  | 'DATA'
-  | 'UXUI'
-  | 'SPRING_DEEP';

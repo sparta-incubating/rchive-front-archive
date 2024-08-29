@@ -8,26 +8,26 @@ import search from '@/../public/assets/icons/search.svg';
 import rtan from '@/../public/assets/icons/signin-rtan.svg';
 
 import { useModalContext } from '@/context/useModalContext';
+import { setAuth } from '@/redux/slice/auth.slice';
 import { useAppDispatch } from '@/redux/storeConfig';
 import { signupModalType } from '@/types/signup.types';
 import { loginSchema } from '@/validators/auth/login.validator';
-
+import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn, useSession } from 'next-auth/react';
+
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import Button from '../atoms/button';
+import FormSpan from '../atoms/formSpan';
 import Input from '../atoms/input';
 import InputContainer from '../atoms/InputContainer';
 import Label from '../atoms/label';
 import InputField from '../molecules/InputField';
 import SignupModal from './signupModal';
-import { setAuth } from '@/redux/slice/auth.slice';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import FormSpan from '../atoms/formSpan';
 
 const SignIn = () => {
   const [signInError, setSignInError] = useState<string>('');
