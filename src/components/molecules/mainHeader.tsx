@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import HeaderProfileContainer from '@/components/molecules/profile/headerProfileContainer';
 
 const MainHeader = () => {
   return (
@@ -8,6 +9,8 @@ const MainHeader = () => {
           르탄이의 아카이브
         </h1>
       </Link>
+
+      <HeaderProfileContainer />
     </header>
   );
 };

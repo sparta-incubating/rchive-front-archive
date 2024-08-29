@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import { cva, VariantProps } from 'class-variance-authority';
+import { classMerge } from '@/utils/utils';
 
-const profileImageVariants = cva('relative', {
+const profileImageVariants = cva('relative overflow-hidden', {
   variants: {
     size: {
       sm: 'h-6 w-6 rounded-[8px]',
@@ -15,12 +16,13 @@ const profileImageVariants = cva('relative', {
 
 interface ProfileImageProps extends VariantProps<typeof profileImageVariants> {
   imageUrl: string;
+  className?: string;
 }
 
-const profileImage = ({ imageUrl, size }: ProfileImageProps) => {
+const profileImage = ({ imageUrl, className, size }: ProfileImageProps) => {
   return (
-    <div>
-      <Image src={`/assets/icons/${imageUrl}.svg`} alt={'프로필 이미지'} fill />
+    <div className={classMerge(profileImageVariants({ size }), className)}>
+      <Image src={`${imageUrl}`} alt={'프로필 이미지'} fill />
     </div>
   );
 };
