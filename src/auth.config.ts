@@ -19,6 +19,11 @@ export const authConfig = {
             credentials?.password as string,
           );
 
+          console.log(
+            credentials?.username,
+            credentials?.password,
+            '입력받은 정보',
+          );
           // refresh token cookie에 저장
           const setCookie = response.headers['set-cookie'] as string[];
           const refreshToken = extractRefreshToken(setCookie);

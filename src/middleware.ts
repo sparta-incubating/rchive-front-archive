@@ -25,8 +25,6 @@ export default async function middleware(req: NextRequest) {
   const loginPeriod = session?.user.loginPeriod;
   const roleApply = session?.user.roleApply;
 
-  console.log('this is middle ware');
-
   const role = trackRole;
   const { pathname } = req.nextUrl;
 

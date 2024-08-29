@@ -1,10 +1,9 @@
 import { getLastConnectRole, getRoleApplyStatus } from '@/api/server/authApi';
 import { authConfig } from '@/auth.config';
 import { trackRole } from '@/types/auth.types';
-
+import { TrackType } from '@/types/posts.types';
+import axiosAPI from '@/utils/axiosAPI';
 import NextAuth from 'next-auth';
-import axiosAPI from './utils/axios/axiosAPI';
-import { TrackType } from './types/posts.types';
 
 export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
   ...authConfig,
