@@ -36,7 +36,7 @@ const SignIn = () => {
   const { open } = useModalContext();
   const dispatch = useAppDispatch();
   const handleSignupModalOpen = () => {
-    open(<SignupModal signupModalType={signupModalType.MANAGER} />, false);
+    open(<SignupModal signupModalType={signupModalType.USER} />, false);
   };
   const router = useRouter();
 

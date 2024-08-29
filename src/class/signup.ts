@@ -86,8 +86,6 @@ export class Admin extends SignupUserForm {
 }
 
 export class User extends SignupUserForm {
-  nickname: string;
-
   constructor(
     oAuthType: OAuthEnum,
     email: string,
@@ -120,6 +118,5 @@ export class User extends SignupUserForm {
       profileImg,
       nickname,
     );
-    this.nickname = nickname;
   }
 }
