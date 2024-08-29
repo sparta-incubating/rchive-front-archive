@@ -28,9 +28,18 @@ export default async function middleware(req: NextRequest) {
   const role = trackRole;
   const { pathname } = req.nextUrl;
 
+  // 루트 경로('/')로 접속하는 모든 사용자를 '/backoffice'로 리다이렉트
+  if (pathname === '/') {
+    return NextResponse.redirect(new URL('/login', req.url));
+  }
+
   // /login 페이지는 아무 조건 없이 접근 가능
   if (pathname === '/login') {
     return NextResponse.next();
+  }
+
+  if (pathname === '/' || !accessToken) {
+    return NextResponse.redirect(new URL('/login', req.url));
   }
 
   // /role, /role/result는 AccessToken이 있어야 접근 가능

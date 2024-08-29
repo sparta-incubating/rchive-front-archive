@@ -1,6 +1,6 @@
 import { queryClient } from '@/provider/tanstackQueryProvider/TanstackQueryProvider';
 import { useMutation } from '@tanstack/react-query';
-import axiosInstance from '../../utils/axios/axiosAPI';
+import axiosAPI from '../../utils/axios/axiosAPI';
 import { SIGNUP_QUERY_KEYS } from './keys.constant';
 
 export interface PhoneInfo {
@@ -20,7 +20,7 @@ export const sendPhoneAuthNumber = async (userInfo: PhoneInfo) => {
   const { username, phone } = userInfo;
 
   try {
-    const res = await axiosInstance.post(`/apis/v1/users/auth/phone/send`, {
+    const res = await axiosAPI.post(`/apis/v1/users/auth/phone/send`, {
       username,
       phone,
     });
@@ -36,7 +36,7 @@ export const checkPhoneAuth = async (userInfo: PhoneChange) => {
   const { username, phone, authCode } = userInfo;
 
   try {
-    const res = await axiosInstance.post(`/apis/v1/users/auth/phone/valid`, {
+    const res = await axiosAPI.post(`/apis/v1/users/auth/phone/valid`, {
       username,
       phone,
       authCode,

@@ -59,8 +59,6 @@ const SignIn = () => {
       redirect: false,
     });
 
-    console.log(result, 'result');
-
     if (result?.error) {
       setSignInError(
         '가입되지 않은 이메일이거나 비밀번호가 일치하지 않습니다.',

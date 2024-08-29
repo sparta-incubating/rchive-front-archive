@@ -6,6 +6,9 @@ import { cookies } from 'next/headers';
 
 const RolePage = () => {
   const email = getCookie('loginId', { cookies });
+
+  //student 처리변경 예정
+  // ex) const trackRole = isTeamSpartaEmail(String(email)) ? 'PM' : 'STUDENT';
   const trackRole = isTeamSpartaEmail(String(email)) ? 'PM' : 'APM';
 
   return (

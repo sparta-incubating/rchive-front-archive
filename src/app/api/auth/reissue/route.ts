@@ -1,6 +1,7 @@
 import { auth, unstable_update } from '@/auth';
 import { extractRefreshToken } from '@/utils/auth.util';
-import axiosInstance from '@/utils/axiosAPI';
+import axiosAPI from '@/utils/axios/axiosAPI';
+
 import axios from 'axios';
 import { NextResponse } from 'next/server';
 
@@ -13,7 +14,7 @@ export async function POST() {
   const session = await auth();
   const refreshToken = session?.user.refreshToken;
   try {
-    const response = await axiosInstance.post<ReissueResponse>(
+    const response = await axiosAPI.post<ReissueResponse>(
       '/apis/v1/users/reissue',
       {},
       {
