@@ -1,7 +1,7 @@
 import ProfileImage from '@/components/atoms/profile/profileImage';
 import ProfileRoleBadge from '@/components/atoms/profile/profileRoleBadge';
 
-interface SelectItemSpanProps {
+interface ProfileDropDownItemCardProps {
   profileImage: string;
   nickname: string;
   role: string;
@@ -15,7 +15,7 @@ const ProfileDropDownItemCard = ({
   role,
   track,
   selected,
-}: SelectItemSpanProps) => {
+}: ProfileDropDownItemCardProps) => {
   return (
     <div className="flex items-center gap-4">
       <ProfileImage imageUrl={profileImage} size="lg" />

@@ -13,7 +13,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <CompoundProvider>
       <div className="flex">
-        <div className="mx-auto flex w-[1150px] flex-col">
+        <div className="mx-auto flex w-[1152px] flex-col">
           <MainHeader />
           {children}
         </div>

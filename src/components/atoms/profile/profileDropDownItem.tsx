@@ -17,7 +17,7 @@ const ProfileDropDownItemVariants = cva(
   },
 );
 
-interface SelectItemProps
+interface ProfileDropDownItemProps
   extends VariantProps<typeof ProfileDropDownItemVariants> {
   children: ReactNode;
   onClick?: () => void;
@@ -29,7 +29,7 @@ const ProfileDropDownItem = ({
   onClick,
   selected = false,
   variant = 'primary',
-}: SelectItemProps) => {
+}: ProfileDropDownItemProps) => {
   return (
     <div onClick={onClick} className={ProfileDropDownItemVariants({ variant })}>
       {children}
