@@ -1,5 +1,5 @@
-import { trackEnum } from '@/validators/commons';
 import { z } from 'zod';
+import { trackEnum } from '../commons';
 
 export const roleSchema = z
   .object({

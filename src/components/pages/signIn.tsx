@@ -6,6 +6,7 @@ import comment from '@/../public/assets/icons/comment.svg';
 import lecture from '@/../public/assets/icons/lecture.svg';
 import search from '@/../public/assets/icons/search.svg';
 import rtan from '@/../public/assets/icons/signin-rtan.svg';
+
 import { useModalContext } from '@/context/useModalContext';
 import { useAppDispatch } from '@/redux/storeConfig';
 import { signupModalType } from '@/types/signup.types';
@@ -26,15 +27,18 @@ import SignupModal from './signupModal';
 import { setAuth } from '@/redux/slice/auth.slice';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import FormSpan from '../atoms/formSpan';
 
 const SignIn = () => {
-  const [pwErrorMsg, setpwErrorMsg] = useState<string>('');
+  const [signInError, setSignInError] = useState<string>('');
   const { data: session } = useSession();
+
   const { open } = useModalContext();
   const dispatch = useAppDispatch();
   const handleSignupModalOpen = () => {
-    open(<SignupModal signupModalType={signupModalType.USER} />, false);
+    open(<SignupModal signupModalType={signupModalType.MANAGER} />, false);
   };
+  const router = useRouter();
 
   const {
     register,
@@ -48,13 +52,22 @@ const SignIn = () => {
     },
   });
 
-  const router = useRouter();
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
-    await signIn('credentials', {
+    const result = await signIn('credentials', {
       username: data.username,
       password: data.password,
       redirect: false,
     });
+
+    console.log(result, 'result');
+
+    if (result?.error) {
+      setSignInError(
+        '가입되지 않은 이메일이거나 비밀번호가 일치하지 않습니다.',
+      );
+    } else {
+      router.push('/');
+    }
   };
 
   useEffect(() => {
@@ -124,13 +137,16 @@ const SignIn = () => {
                     </InputField>
                   </InputContainer>
                   <span className="text-sm text-primary-400">
-                    {errors.password?.message || pwErrorMsg}
-                  </span>
+                    {errors.password?.message}
+                  </span>{' '}
+                  {signInError && (
+                    <FormSpan variant="error">{signInError}</FormSpan>
+                  )}
                 </section>
               </section>
               {/* 회원가입*/}
               <section className="flex justify-center py-5">
-                <Button size="sm" className="w-[360px]">
+                <Button size="sm" className="w-[360px]" type="submit">
                   로그인
                 </Button>
               </section>

@@ -34,6 +34,7 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
     authCheck,
     isErrorMsg,
     setIsErrorMsg,
+    emailError,
   } = useSignupForm(signupModalType);
 
   const usernameCheck = watch('username');
@@ -77,8 +78,10 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
           {isEmailUnique && (
             <FormSpan variant="error">이미 사용중인 이메일입니다.</FormSpan>
           )}
+          {!errors.email?.message && !isEmailUnique && emailError && (
+            <FormSpan variant="error">{emailError}</FormSpan>
+          )}
         </section>
-
         {/* password */}
         <section>
           <PasswordContainer>
@@ -110,7 +113,6 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
             )}
           </div>
         </section>
-
         {/* name */}
         <section>
           <InputContainer>
@@ -127,7 +129,22 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
             <FormSpan variant="error">{errors.username?.message}</FormSpan>
           )}
         </section>
-
+        {/* nickname */}
+        <section>
+          <InputContainer>
+            <InputField>
+              <Label htmlFor="userName">닉네임</Label>
+              <Input
+                {...register('nickname')}
+                placeholder="닉네임 입력"
+                className="bold h-[20px] w-full bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
+              />
+            </InputField>
+          </InputContainer>
+          {errors.nickname?.message && (
+            <FormSpan variant="error">{errors.nickname?.message}</FormSpan>
+          )}
+        </section>
         {/* phone */}
         <PhoneForm
           register={register}
@@ -136,7 +153,9 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
           isErrorMsg={isErrorMsg}
           setIsErrorMsg={setIsErrorMsg}
         />
-
+        {errors.phone?.message && (
+          <FormSpan variant="error">휴대폰 인증번호는 필수입니다.</FormSpan>
+        )}
         {/* birthday */}
         <section>
           <InputContainer>
@@ -154,7 +173,6 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
             <FormSpan variant="error">{errors.birth?.message}</FormSpan>
           )}
         </section>
-
         {/*약관*/}
         <AcceptTermsGroup
           register={register}
@@ -162,7 +180,6 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
           errors={errors}
           getValues={getValues}
         />
-
         {/*submit button*/}
         <div className="mt-5 flex w-full items-center justify-center">
           <Button
