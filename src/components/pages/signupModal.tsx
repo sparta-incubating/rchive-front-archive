@@ -35,6 +35,9 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
     isErrorMsg,
     setIsErrorMsg,
     emailError,
+    nicknameError,
+    checkNickname,
+    isNicknameUnique,
   } = useSignupForm(signupModalType);
 
   const usernameCheck = watch('username');
@@ -133,16 +136,37 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
         <section>
           <InputContainer>
             <InputField>
-              <Label htmlFor="userName">닉네임</Label>
+              <Label htmlFor="nickname">닉네임</Label>
               <Input
                 {...register('nickname')}
                 placeholder="닉네임 입력"
                 className="bold h-[20px] w-full bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
               />
             </InputField>
+            {watch('nickname').length > 0 && (
+              <Button
+                size="sm"
+                variant={'submit'}
+                type="button"
+                disabled={!!errors.nickname?.message}
+                className="h-[42px] w-[85px] p-2 text-xs"
+                onClick={() => checkNickname(getValues('nickname'))}
+              >
+                중복 확인
+              </Button>
+            )}
           </InputContainer>
           {errors.nickname?.message && (
             <FormSpan variant="error">{errors.nickname?.message}</FormSpan>
+          )}
+          {isNicknameUnique === false && (
+            <FormSpan variant="success">사용가능한 닉네임입니다.</FormSpan>
+          )}
+          {isNicknameUnique && (
+            <FormSpan variant="error">이미 사용중인 닉네임입니다.</FormSpan>
+          )}
+          {!errors.nickname?.message && !isNicknameUnique && nicknameError && (
+            <FormSpan variant="error">{nicknameError}</FormSpan>
           )}
         </section>
         {/* phone */}

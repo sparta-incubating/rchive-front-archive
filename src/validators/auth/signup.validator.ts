@@ -18,7 +18,10 @@ export const signupSchema = z
     passwordConfirm: z.string(),
     phone: z.string().min(8, '휴대폰 인증은 필수입니다.'),
     authCode: z.string().min(6, '휴대폰 인증은 필수입니다.'),
-    nickname: z.string().min(10, '닉네임 중복 확인은 필수입니다.'),
+    nickname: z
+      .string()
+      .min(1, { message: '닉네임 중복확인은 필수입니다.' })
+      .max(10, { message: '닉네임은 최대 10글자 입니다.' }),
     profileImg: z.string().default('default'),
     birth: z
       .string()
