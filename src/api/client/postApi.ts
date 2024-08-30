@@ -1,6 +1,7 @@
 import { PostForm } from '@/class/postForm';
 import { TrackType, tutorApiType } from '@/types/posts.types';
-import { client } from '@/utils/clientAPI';
+import { client } from '@/utils/axios/clientAPI';
+
 import { createToast } from '@/utils/toast';
 import axios from 'axios';
 
