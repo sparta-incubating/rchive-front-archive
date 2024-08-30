@@ -6,14 +6,18 @@ import { cookies } from 'next/headers';
 
 const RolePage = () => {
   const email = getCookie('loginId', { cookies });
-  const trackRole = isTeamSpartaEmail(String(email)) ? 'PM' : 'APM';
+
   //student 처리변경 예정
   // ex) const trackRole = isTeamSpartaEmail(String(email)) ? 'PM' : 'STUDENT';
+  // const trackRole = isTeamSpartaEmail(String(email)) ? 'PM' : 'APM';
+  const trackRole = 'STUDENT';
+
   return (
     <RoleContainerPage>
       <RoleSelectForm trackRole={trackRole}>
         <span className="text-center text-xl font-medium text-gray-900">
-          {trackRole === 'PM' ? '트랙 선택' : '트랙 및 기수 선택'}
+          {/* {trackRole === 'PM' ? '트랙 선택' : '트랙 및 기수 선택'} */}
+          '트랙 및 기수 선택'
         </span>
       </RoleSelectForm>
     </RoleContainerPage>
