@@ -3,15 +3,13 @@ import RoleContainerPage from '@/components/pages/roleContainerPage';
 import RoleWait from '@/components/pages/roleResult/roleWait';
 import { RoleResultEnum } from '@/types/role.types';
 import { createServerAPI } from '@/utils/axios/serverAPI';
+
 import { isTeamSpartaEmail } from '@/utils/utils';
 import { getCookie } from 'cookies-next';
 import { cookies } from 'next/headers';
 
 const RoleResultPage = async () => {
   const email = getCookie('loginId', { cookies });
-
-  //student 처리변경 예정
-  // ex) const trackRole = isTeamSpartaEmail(String(email)) ? 'PM' : 'STUDENT';
   const trackRole = isTeamSpartaEmail(String(email)) ? 'PM' : 'APM';
 
   // 권한 신청 결과 조회 endpoint
@@ -20,7 +18,6 @@ const RoleResultPage = async () => {
 
     try {
       const response = await serverAPI.get('/apis/v1/role/result');
-
       return response.data.data;
     } catch (error) {
       throw new Error('권한 신청 결과 조회에 실패했습니다.');

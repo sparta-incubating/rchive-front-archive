@@ -2,15 +2,14 @@
 
 import { postRoleApply } from '@/api/server/authApi';
 import Button from '@/components/atoms/button';
-
+import SelectFormBox from '@/components/organisms/selectFormBox';
+import useGetPeriod from '@/hooks/useGetPeriod';
 import { trackOptions } from '@/types/posts.types';
 import { RoleFormSchema } from '@/types/role.types';
 import { roleSchema } from '@/validators/auth/role.validator';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ReactNode } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import SelectFormBox from './selectFormBox';
-import useGetPeriod from '@/hooks/useGetPeriod';
 
 interface RoleSelectFormProps {
   trackRole: string;
@@ -65,7 +64,7 @@ const RoleSelectForm = ({ trackRole, children }: RoleSelectFormProps) => {
           <p className="text-red-500">{errors.trackName.message}</p>
         )}
 
-        {trackRole === 'STUDENT' && period && (
+        {trackRole === 'APM' && period && (
           <>
             <Controller
               name="period"

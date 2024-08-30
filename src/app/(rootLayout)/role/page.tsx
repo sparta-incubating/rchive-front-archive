@@ -6,11 +6,9 @@ import { cookies } from 'next/headers';
 
 const RolePage = () => {
   const email = getCookie('loginId', { cookies });
-
+  const trackRole = isTeamSpartaEmail(String(email)) ? 'PM' : 'APM';
   //student 처리변경 예정
   // ex) const trackRole = isTeamSpartaEmail(String(email)) ? 'PM' : 'STUDENT';
-  const trackRole = isTeamSpartaEmail(String(email)) ? 'PM' : 'APM';
-
   return (
     <RoleContainerPage>
       <RoleSelectForm trackRole={trackRole}>

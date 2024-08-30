@@ -9,7 +9,7 @@ export const roleSchema = z
   })
   .refine(
     (data) => {
-      return !(data.trackRole === 'USER' && !data.period);
+      return !(data.trackRole === 'APM' && !data.period);
     },
     {
       message: '기수를 선택해주세요.',

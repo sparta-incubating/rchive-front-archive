@@ -1,7 +1,6 @@
 import { RootState } from '@/redux/storeConfig';
 import { trackRole } from '@/types/auth.types';
 import { TrackType } from '@/types/posts.types';
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface authInitialType {

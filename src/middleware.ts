@@ -37,10 +37,6 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  if (pathname === '/' || !accessToken) {
-    return NextResponse.redirect(new URL('/login', req.url));
-  }
-
   // /role, /role/result는 AccessToken이 있어야 접근 가능
   if ((pathname === '/role' || pathname === '/role/result') && accessToken) {
     return NextResponse.next();
