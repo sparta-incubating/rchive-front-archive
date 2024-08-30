@@ -3,13 +3,13 @@ import { GenderEnum, OAuthEnum, UserRoleEnum } from '@/types/signup.types';
 class SignupUserForm {
   oAuthType: OAuthEnum;
   email: string;
-  username: string;
   password: string;
+  username: string;
   birth: string;
   phone: string;
-  nickname: string;
-  profileImg: string;
   gender: GenderEnum;
+  profileImg: string;
+  nickname: string;
   userRole: UserRoleEnum;
   termUserAge: boolean;
   termUseService: boolean;
@@ -19,33 +19,33 @@ class SignupUserForm {
   constructor(
     oAuthType: OAuthEnum,
     email: string,
-    username: string,
     password: string,
+    username: string,
     birth: string,
     phone: string,
     gender: GenderEnum,
+    profileImg: string,
+    nickname: string,
     userRole: UserRoleEnum,
     termUserAge: boolean,
     termUseService: boolean,
     termPersonalInfo: boolean,
     termAdvertisement: boolean,
-    nickname: string,
-    profileImg: string,
   ) {
     this.oAuthType = oAuthType;
     this.email = email;
-    this.username = username;
     this.password = password;
+    this.username = username;
     this.birth = birth;
     this.phone = phone;
     this.gender = gender;
+    this.profileImg = profileImg;
+    this.nickname = nickname;
     this.userRole = userRole;
     this.termUserAge = termUserAge;
     this.termUseService = termUseService;
     this.termPersonalInfo = termPersonalInfo;
     this.termAdvertisement = termAdvertisement;
-    this.profileImg = profileImg;
-    this.nickname = nickname;
   }
 }
 
@@ -53,34 +53,34 @@ export class Admin extends SignupUserForm {
   constructor(
     oAuthType: OAuthEnum,
     email: string,
-    username: string,
     password: string,
+    username: string,
     birth: string,
     phone: string,
     gender: GenderEnum,
+    profileImg: string,
+    nickname: string,
     userRole: UserRoleEnum,
     termUserAge: boolean,
     termUseService: boolean,
     termPersonalInfo: boolean,
     termAdvertisement: boolean,
-    profileImg: string,
-    nickname: string,
   ) {
     super(
       oAuthType,
       email,
-      username,
       password,
+      username,
       birth,
       phone,
       gender,
+      profileImg,
+      nickname,
       userRole,
       termUserAge,
       termUseService,
       termPersonalInfo,
       termAdvertisement,
-      profileImg,
-      nickname,
     );
   }
 }
@@ -89,34 +89,34 @@ export class User extends SignupUserForm {
   constructor(
     oAuthType: OAuthEnum,
     email: string,
-    username: string,
     password: string,
+    username: string,
     birth: string,
     phone: string,
     gender: GenderEnum,
+    profileImg: string,
+    nickname: string,
     userRole: UserRoleEnum,
     termUserAge: boolean,
     termUseService: boolean,
     termPersonalInfo: boolean,
     termAdvertisement: boolean,
-    nickname: string,
-    profileImg: string,
   ) {
     super(
       oAuthType,
       email,
-      username,
       password,
+      username,
       birth,
       phone,
       gender,
+      profileImg,
+      nickname,
       userRole,
       termUserAge,
       termUseService,
       termPersonalInfo,
       termAdvertisement,
-      profileImg,
-      nickname,
     );
   }
 }
