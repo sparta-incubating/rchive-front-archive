@@ -14,9 +14,6 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
 
-        console.log(user?.roleApply, 'auth-apply');
-        console.log(user?.trackRole, 'auth-trackRole');
-
         // 여기서 추가 정보를 가져옵니다
         try {
           // 이때는 session이 없으므로 token 직접 주입
@@ -24,7 +21,6 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
 
           const { trackId, trackRole, trackName, period } = response.data.data;
 
-          console.log(trackRole, 'token-trackRole');
           token.trackId = trackId;
           token.trackRole = trackRole;
           token.trackName = trackName;
@@ -35,6 +31,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           // 여기도 마찬가지로 session이 없음.
           const roleResponse = await getRoleApplyStatus(user.accessToken);
           const { data } = roleResponse.data;
+
           token.roleApply = data;
         }
       }
@@ -61,6 +58,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       session.user.trackRole = token.trackRole as trackRole;
       session.user.trackName = token.trackName as TrackType;
       session.user.loginPeriod = token.loginPeriod as number;
+      session.user.roleApply = token.roleApply as boolean;
 
       return session;
     },

@@ -10,14 +10,15 @@ import { cookies } from 'next/headers';
 
 const RoleResultPage = async () => {
   const email = getCookie('loginId', { cookies });
-  const trackRole = isTeamSpartaEmail(String(email)) ? 'PM' : 'APM';
-
+  // const trackRole = isTeamSpartaEmail(String(email)) ? 'PM' : 'STUDENT';
+  const trackRole = 'STUDENT';
   // 권한 신청 결과 조회 endpoint
   const getRoleApplyResult = async () => {
     const serverAPI = await createServerAPI();
 
     try {
       const response = await serverAPI.get('/apis/v1/role/result');
+
       return response.data.data;
     } catch (error) {
       console.log(error, 'error');
@@ -26,7 +27,6 @@ const RoleResultPage = async () => {
   };
 
   const roleApplyResult = await getRoleApplyResult();
-  console.log(roleApplyResult, '상태');
 
   return (
     <RoleContainerPage>
