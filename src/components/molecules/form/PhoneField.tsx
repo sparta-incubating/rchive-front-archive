@@ -101,15 +101,15 @@ const PhoneField = ({
         )}
       </InputContainer>
       {isErrorMsg && (
-        <span
+        <p
           className={
-            isErrorMsg.includes('일치하지 않습니다')
-              ? 'text-primary-400'
-              : 'text-success-green'
+            isErrorMsg.includes('완료되었습니다.')
+              ? 'text-sm text-success-green'
+              : 'text-sm text-primary-400'
           }
         >
           {isErrorMsg}
-        </span>
+        </p>
       )}
       {requestAuthNumber && <AuthTimer setExpire={setExpire} />}
     </>

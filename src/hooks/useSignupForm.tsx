@@ -141,7 +141,7 @@ const useSignupForm = (signupType: signupModalType) => {
   const authCheck = async (authInfo: authCodeType) => {
     try {
       await checkPhoneAuthMutate.mutateAsync(authInfo);
-      setIsErrorMsg('인증이 완료됐습니다.');
+      setIsErrorMsg('인증이 완료되었습니다.');
       setPhoneVerified(true);
     } catch (error) {
       setIsErrorMsg('인증 번호가 일치하지 않습니다.');

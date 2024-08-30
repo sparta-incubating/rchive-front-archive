@@ -9,7 +9,7 @@ import rtan from '@/../public/assets/icons/signin-rtan.svg';
 
 import { useModalContext } from '@/context/useModalContext';
 import { setAuth } from '@/redux/slice/auth.slice';
-import { useAppDispatch, useAppSelector } from '@/redux/storeConfig';
+import { useAppDispatch } from '@/redux/storeConfig';
 import { signupModalType } from '@/types/signup.types';
 import { loginSchema } from '@/validators/auth/login.validator';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -93,17 +93,17 @@ const SignIn = () => {
           className="flex w-[500px] items-center justify-center"
         >
           <div className="flex w-full flex-col items-center justify-center py-[148px]">
-            <div className="flex w-full items-center justify-center pb-[20px]">
-              <figure>
+            <div className="flex w-full items-center justify-center">
+              <figure className="h-[174px] pb-[20px]">
                 <Image src={rtan} height={154} width={154} alt="르탄이" />
               </figure>
             </div>
-            <div className="flex h-[32px] w-full items-center justify-center pb-[20px] pt-[36px]">
+            <div className="flex h-[32px] w-full items-center justify-center pb-[26px] pt-[36px]">
               <p className="text-2xl font-bold">르탄이의 아카이브</p>
             </div>
-            <div className="flex w-full flex-col items-center justify-center pt-[20px]">
-              <section className="mx-auto">
-                {/*이메일*/}
+            <div className="flex w-full flex-col items-center justify-center gap-[20px] p-[20px]">
+              {/*이메일*/}
+              <div className="h-[84px] w-[360px]">
                 <InputContainer>
                   <InputField>
                     <Label htmlFor="username">이메일</Label>
@@ -117,9 +117,9 @@ const SignIn = () => {
                 <span className="flex h-[20px] text-sm text-primary-400">
                   {errors.username?.message}
                 </span>
-              </section>
-
-              <section className="mx-auto">
+              </div>
+              {/*이메일*/}
+              <div className="h-[84px] w-[360px]">
                 {/*비밀번호*/}
                 <InputContainer>
                   <InputField>
@@ -139,9 +139,10 @@ const SignIn = () => {
                 {signInError && (
                   <FormSpan variant="error">{signInError}</FormSpan>
                 )}
-              </section>
+              </div>{' '}
+              {/*이메일*/}
             </div>
-            <div className="flex h-[64px] w-full items-center justify-center py-[20px]">
+            <div className="flex h-[104px] w-full items-center justify-center py-[20px]">
               <Button size="sm" className="w-[360px]" type="submit">
                 로그인
               </Button>
@@ -154,8 +155,57 @@ const SignIn = () => {
           </div>
         </form>
 
-        <div className="flex-1 bg-custom-gradient shadow-signInBox">
-          <h1 className="p-4 text-center text-white">Right Side</h1>
+        <div className="flex flex-1 items-center justify-center bg-custom-gradient shadow-signInBox">
+          <section>
+            <div className="relative">
+              <div className="absolute bottom-[380px] right-[0px] z-20 h-[463px] w-[242px]">
+                <Image
+                  src={search}
+                  height={243}
+                  width={107}
+                  alt="test"
+                  className="h-[107px] w-[243px] pt-[13.8px]"
+                />
+                <Image
+                  src={lecture}
+                  height={243}
+                  width={107}
+                  alt="test"
+                  className="h-[107px] w-[243px] pt-[13.8px]"
+                />
+                <Image
+                  src={comment}
+                  height={243}
+                  width={107}
+                  alt="test"
+                  className="h-[107px] w-[243px] pt-[13.8px]"
+                />
+                <Image
+                  src={bookmark}
+                  height={243}
+                  width={107}
+                  alt="test"
+                  className="h-[107px] w-[243px] pt-[13.8px]"
+                />
+              </div>
+              {/*문구 */}
+              <div className="z-10 pl-[38px]">
+                <p className="text-2xl font-bold text-gray-700">
+                  강의 자료를 찾는 가장 쉬운 방법!
+                </p>
+                <p className="text-2xl font-bold text-gray-700">
+                  르탄이의 아카이브에서 자료들을 찾아보세요
+                </p>
+              </div>
+              {/*문구 */}
+              {/*대시보드*/}
+              <div className="z-20">
+                <Image src={dashboard} height={814} width={739} alt="test" />
+              </div>
+
+              {/*대시보드*/}
+            </div>
+          </section>
         </div>
       </div>
     </>
