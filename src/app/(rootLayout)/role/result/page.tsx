@@ -2,6 +2,7 @@ import RoleSelectForm from '@/components/organisms/roleSelectForm';
 import RoleContainerPage from '@/components/pages/roleContainerPage';
 import RoleWait from '@/components/pages/roleResult/roleWait';
 import { RoleResultEnum } from '@/types/role.types';
+import { signupModalType } from '@/types/signup.types';
 import { createServerAPI } from '@/utils/axios/serverAPI';
 
 import { isTeamSpartaEmail } from '@/utils/utils';
@@ -10,8 +11,13 @@ import { cookies } from 'next/headers';
 
 const RoleResultPage = async () => {
   const email = getCookie('loginId', { cookies });
+  // const trackRole = isTeamSpartaEmail(String(email))
+  // ? `${signupModalType.USER}`
+  // : 'STUDENT';
+
   // const trackRole = isTeamSpartaEmail(String(email)) ? 'PM' : 'STUDENT';
   const trackRole = 'STUDENT';
+
   // 권한 신청 결과 조회 endpoint
   const getRoleApplyResult = async () => {
     const serverAPI = await createServerAPI();

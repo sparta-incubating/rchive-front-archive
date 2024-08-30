@@ -17,9 +17,7 @@ export default async function middleware(req: NextRequest) {
   );
 
   const session = await auth();
-  console.log('-----------------');
-  console.log(session);
-  console.log('-----------------');
+
   const accessToken = session?.user.accessToken;
   const trackId = session?.user.trackId;
   const trackRole = session?.user.trackRole;
