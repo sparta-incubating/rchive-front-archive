@@ -11,8 +11,17 @@ export const serverSession = async () => {
   const trackId = session?.user.trackId as number;
   const accessToken = session?.user.accessToken as string;
   const refreshToken = session?.user.refreshToken as string;
+  const nickname = session?.user.nickname as string;
 
-  return { period, trackName, trackRole, trackId, accessToken, refreshToken };
+  return {
+    period,
+    trackName,
+    trackRole,
+    trackId,
+    accessToken,
+    refreshToken,
+    nickname,
+  };
 };
 
 export const updateAccessToken = async (accessToken: string) => {

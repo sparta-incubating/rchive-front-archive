@@ -28,6 +28,10 @@ export default async function middleware(req: NextRequest) {
   const role = trackRole;
   const { pathname } = req.nextUrl;
 
+  console.log(accessToken, role, '미들웨어');
+  console.log(roleApply, '미들웨어2');
+  console.log('pathname:', pathname);
+
   // /login 페이지는 아무 조건 없이 접근 가능
   if (pathname === '/login') {
     return NextResponse.next();

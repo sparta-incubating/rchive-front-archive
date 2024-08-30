@@ -65,7 +65,7 @@ const RoleSelectForm = ({ trackRole, children }: RoleSelectFormProps) => {
           <p className="text-red-500">{errors.trackName.message}</p>
         )}
 
-        {trackRole === 'APM' && period && (
+        {trackRole === 'STUDENT' && period && (
           <>
             <Controller
               name="period"
