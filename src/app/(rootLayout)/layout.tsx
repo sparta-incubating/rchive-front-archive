@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react';
 import CompoundProvider from '@/provider/compoundProvider';
 import MainHeader from '@/components/molecules/mainHeader';
+import Footer from '@/components/molecules/footer';
 
 /**
  * Root layout component
@@ -12,11 +13,12 @@ import MainHeader from '@/components/molecules/mainHeader';
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <CompoundProvider>
-      <div className="flex">
+      <div className="flex flex-col">
         <div className="mx-auto flex w-[1152px] flex-col">
           <MainHeader />
           {children}
         </div>
+        <Footer />
       </div>
     </CompoundProvider>
   );
