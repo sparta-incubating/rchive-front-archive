@@ -14,12 +14,17 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
 
+        console.log(user?.roleApply, 'auth-apply');
+        console.log(user?.trackRole, 'auth-trackRole');
+
         // 여기서 추가 정보를 가져옵니다
         try {
           // 이때는 session이 없으므로 token 직접 주입
           const response = await getLastConnectRole(user.accessToken);
 
           const { trackId, trackRole, trackName, period } = response.data.data;
+
+          console.log(trackRole, 'token-trackRole');
           token.trackId = trackId;
           token.trackRole = trackRole;
           token.trackName = trackName;

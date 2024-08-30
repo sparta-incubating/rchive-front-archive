@@ -12,7 +12,7 @@ const CompoundProvider = async ({ children }: PropsWithChildren) => {
   const session = await auth();
   const accessToken = session?.user.accessToken || '';
   const trackName = session?.user.trackName || '';
-  const trackRole = session?.user.trackRole || 'USER';
+  const trackRole = session?.user.trackRole || '';
   const period = String(session?.user.loginPeriod) || '';
   return (
     <StoreProvider>

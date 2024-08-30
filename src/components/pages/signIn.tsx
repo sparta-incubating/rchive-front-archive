@@ -9,7 +9,7 @@ import rtan from '@/../public/assets/icons/signin-rtan.svg';
 
 import { useModalContext } from '@/context/useModalContext';
 import { setAuth } from '@/redux/slice/auth.slice';
-import { useAppDispatch } from '@/redux/storeConfig';
+import { useAppDispatch, useAppSelector } from '@/redux/storeConfig';
 import { signupModalType } from '@/types/signup.types';
 import { loginSchema } from '@/validators/auth/login.validator';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -70,12 +70,13 @@ const SignIn = () => {
 
   useEffect(() => {
     if (session) {
+      console.log(session, '클라이언트 session');
       const { trackName, trackRole, accessToken, loginPeriod } = session.user;
       dispatch(
         setAuth({
           accessToken,
           trackName: trackName || '',
-          trackRole: trackRole || 'USER',
+          trackRole: trackRole || '',
           period: String(loginPeriod) || '',
         }),
       );

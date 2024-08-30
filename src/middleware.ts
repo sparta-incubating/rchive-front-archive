@@ -42,7 +42,8 @@ export default async function middleware(req: NextRequest) {
   if (accessToken && role) {
     return NextResponse.next();
   }
-
+  console.log(trackRole, '미들웨어-trackRole');
+  console.log(roleApply, '미들웨어-roleApply');
   // 2. AccessToken은 있지만 Role이 없는 경우, /role로 리다이렉션
   if (accessToken && !role) {
     if (roleApply) {

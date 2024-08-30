@@ -1,6 +1,6 @@
 import { TrackType } from './posts.types';
 
-export type trackRole = 'PM' | 'APM' | 'USER';
+export type trackRole = 'PM' | 'APM' | 'ADMIN' | 'STUDENT' | 'TUTOR' | '';
 
 export type LastConnectRoleDataType = {
   trackId: number;
