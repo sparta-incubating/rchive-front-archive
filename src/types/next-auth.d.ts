@@ -12,6 +12,7 @@ declare module 'next-auth' {
     loginPeriod?: number;
     roleApply?: boolean;
     roleError?: string;
+    nickname?: string;
   }
 
   // session 타입확장
@@ -31,6 +32,7 @@ declare module 'next-auth/jwt' {
     trackName?: TrackType;
     loginPeriod?: number;
     roleApply?: boolean;
+    nickname?: string;
     error?: 'tokenErrors';
   }
 }

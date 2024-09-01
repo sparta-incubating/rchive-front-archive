@@ -20,6 +20,12 @@ export type emailUniqueResponseType = {
   data: false;
 };
 
+export type nicknameUniqueResponseType = {
+  status: string;
+  message: string;
+  data: false;
+};
+
 export type SignupFormSchema = z.infer<typeof signupSchema>;
 
 export enum OAuthEnum {
@@ -43,3 +49,9 @@ export enum signupModalType {
   MANAGER = 'MANAGER',
   USER = 'USER',
 }
+
+export type authCodeType = {
+  username: string;
+  phone: string;
+  authCode: string;
+};
