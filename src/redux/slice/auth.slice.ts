@@ -13,7 +13,7 @@ interface authInitialType {
 const initialState: authInitialType = {
   accessToken: '',
   trackName: '' as TrackType,
-  trackRole: 'USER' as trackRole,
+  trackRole: '' as trackRole,
   period: '0',
 };
 

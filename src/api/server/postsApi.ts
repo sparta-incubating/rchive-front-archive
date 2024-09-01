@@ -1,5 +1,5 @@
 import { PostListResponse, TrackType } from '@/types/posts.types';
-import { createServerAPI } from '@/utils/serverAPI';
+import { createServerAPI } from '@/utils/axios/serverAPI';
 import { cache } from 'react';
 
 export const getPostList = cache(

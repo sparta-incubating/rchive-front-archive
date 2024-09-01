@@ -2,6 +2,7 @@ import { PropsWithChildren } from 'react';
 import CompoundProvider from '@/provider/compoundProvider';
 import MainHeader from '@/components/molecules/mainHeader';
 import Footer from '@/components/molecules/footer';
+import Toast from '@/components/molecules/toast';
 
 /**
  * Root layout component
@@ -20,6 +21,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
         </div>
         <Footer />
       </div>
+      <Toast />
     </CompoundProvider>
   );
 };
