@@ -70,7 +70,6 @@ const SignIn = () => {
 
   useEffect(() => {
     if (session) {
-      console.log(session, '클라이언트 session');
       const { trackName, trackRole, accessToken, loginPeriod } = session.user;
       dispatch(
         setAuth({

@@ -59,7 +59,6 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       session.user.trackName = token.trackName as TrackType;
       session.user.loginPeriod = token.loginPeriod as number;
       session.user.roleApply = token.roleApply as boolean;
-
       return session;
     },
   },
