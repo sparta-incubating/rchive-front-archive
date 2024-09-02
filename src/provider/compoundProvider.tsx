@@ -7,7 +7,6 @@ import StoreProvider from '@/provider/reduxProvider/storeProvider';
 import TanstackQueryProvider from '@/provider/tanstackQueryProvider/TanstackQueryProvider';
 import SetAuthInfo from '@/utils/setAuthInfo/setAuthInfo';
 import { PropsWithChildren } from 'react';
-import { getAllMyRoles } from '@/api/server/authApi';
 
 const CompoundProvider = async ({ children }: PropsWithChildren) => {
   const session = await auth();
@@ -15,7 +14,11 @@ const CompoundProvider = async ({ children }: PropsWithChildren) => {
   const trackName = session?.user.trackName || '';
   const trackRole = session?.user.trackRole || '';
   const period = String(session?.user.loginPeriod) || '';
-  const getRoles = await getAllMyRoles();
+  const nickname = session?.user.nickname || '';
+  const username = session?.user.username || '';
+  const birth = session?.user.birth || '';
+  const profileImg = session?.user.profileImg || '';
+  const myRoles = session?.user.myRoles || [];
 
   return (
     <StoreProvider>
@@ -27,7 +30,11 @@ const CompoundProvider = async ({ children }: PropsWithChildren) => {
               trackName={trackName}
               trackRole={trackRole}
               period={String(period)}
-              myRoles={getRoles?.data.data}
+              nickname={nickname}
+              username={username}
+              birth={birth}
+              profileImg={profileImg}
+              myRoles={myRoles}
             />
             <NextAuthProvider>{children}</NextAuthProvider>
           </ConfirmProvider>

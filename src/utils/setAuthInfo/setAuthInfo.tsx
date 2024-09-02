@@ -1,7 +1,7 @@
 'use client';
 
 import { setAuth } from '@/redux/slice/auth.slice';
-import { LastConnectRoleDataType, trackRole } from '@/types/auth.types';
+import { MyRoleDataType, trackRole } from '@/types/auth.types';
 import { TrackType } from '@/types/posts.types';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -12,7 +12,11 @@ interface SetAuthInfoProps {
   trackName: TrackType;
   trackRole: trackRole;
   period: string;
-  myRoles: LastConnectRoleDataType | undefined;
+  nickname: string;
+  username: string;
+  birth: string;
+  profileImg: string;
+  myRoles: MyRoleDataType[];
 }
 
 const SetAuthInfo = ({
@@ -20,26 +24,31 @@ const SetAuthInfo = ({
   trackName,
   trackRole,
   period,
+  nickname,
+  username,
+  birth,
+  profileImg,
   myRoles,
 }: SetAuthInfoProps) => {
   const dispatch = useDispatch();
+
+  console.log('setauthinfo---------------------');
+  console.log(nickname, username, birth, profileImg, myRoles);
+  console.log('setauthinfo---------------------');
+
   dispatch(
     setAuth({
       accessToken,
       trackName,
       trackRole,
       period,
-      myRoles: myRoles || undefined,
+      nickname,
+      username,
+      birth,
+      profileImg,
+      myRoles: myRoles,
     }),
   );
-  /*
-    {
-      "trackId": 11,
-      "trackRoleEnum": "PM",
-      "trackName": "ANDROID",
-      "period": 1
-    },
-   */
 
   const router = useRouter();
   useEffect(() => {

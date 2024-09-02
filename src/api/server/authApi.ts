@@ -1,10 +1,9 @@
 import { RoleFormSchema } from '@/types/role.types';
 import { client } from '@/utils/axios/clientAPI';
 import axiosAPI from '@/utils/axios/axiosAPI';
-import { createServerAPI } from '@/utils/axios/serverAPI';
 import axios from 'axios';
-import { LastConnectRoleResponseType } from '@/types/auth.types';
-import { TrackType } from '@/types/posts.types';
+import { MyRoleResponse } from '@/types/auth.types';
+import { TrackType } from '@/types/posts.types'; // 권한 신청 endpoint
 
 // 권한 신청 endpoint
 export const postRoleApply = async (data: RoleFormSchema) => {
@@ -65,10 +64,13 @@ export const refreshToken = async (refreshToken: string) => {
 };
 
 // 로그인 정보의 모든 role 가져오기
-export const getAllMyRoles = async () => {
-  const serverAPI = await createServerAPI();
+export const getAllMyRoles = async (accessToken: string) => {
   try {
-    return await serverAPI.get<LastConnectRoleResponseType>('/apis/v1/role');
+    return await axiosAPI.get<MyRoleResponse>('/apis/v1/role', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
   } catch (error) {
     if (axios.isAxiosError(error)) {
       if (error.response?.status === 400) {

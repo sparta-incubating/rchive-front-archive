@@ -1,10 +1,11 @@
 import {
+  getAllMyRoles,
   getLastConnectRole,
   getMyProfile,
   getRoleApplyStatus,
 } from '@/api/server/authApi';
 import { authConfig } from '@/auth.config';
-import { trackRole } from '@/types/auth.types';
+import { MyRoleDataType, trackRole } from '@/types/auth.types';
 import { TrackType } from '@/types/posts.types';
 
 import NextAuth from 'next-auth';
@@ -24,29 +25,26 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           const response = await getLastConnectRole(user.accessToken);
 
           const { trackId, trackRole, trackName, period } = response.data.data;
-
+          console.log({ trackId, trackRole, trackName, period });
           token.trackId = trackId;
           token.trackRole = trackRole;
           token.trackName = trackName;
           token.loginPeriod = period;
 
+          // 프로필 조회
           const profileResponse = await getMyProfile(
             trackName,
             trackRole === 'PM' ? 0 : period,
             user.accessToken,
           );
-          console.log({ profileResponse });
 
-          /*
-           "email": "android_pm@teamsparta.co",
-           "username": "Android PM",
-           "profileImg": "MRT_2",
-           "birth": "2024-08-12",
-           "phone": "24470114546",
-           "trackRole": "PM",
-           "trackName": "ANDROID",
-           "period": 0
-          * */
+          token.username = profileResponse?.data.data.username;
+          token.birth = profileResponse?.data.data.birth;
+          token.phone = profileResponse?.data.data.phone;
+          token.profileImg = profileResponse?.data.data.profileImg;
+
+          const myRoleResponse = await getAllMyRoles(user.accessToken);
+          token.myRole = myRoleResponse?.data.data.roleResList;
         } catch (error) {
           // 권한이 없을때
           // 권한 신청이 있는지 조회
@@ -81,6 +79,11 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       session.user.trackName = token.trackName as TrackType;
       session.user.loginPeriod = token.loginPeriod as number;
       session.user.roleApply = token.roleApply as boolean;
+      session.user.nickname = token.nickname as string;
+      session.user.username = token.username as string;
+      session.user.birth = token.birth as string;
+      session.user.profileImg = token.profileImg as string;
+      session.user.myRoles = token.myRole as MyRoleDataType[];
 
       return session;
     },
