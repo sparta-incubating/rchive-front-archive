@@ -1,9 +1,5 @@
 import { SelectOptionType } from '@/types/signup.types';
 import { TagType } from '@/types/tag.types';
-import { postsSchema } from '@/validators/posts/posts.validator';
-import { z } from 'zod';
-
-export type PostsFormSchema = z.infer<typeof postsSchema>;
 
 export const postTypeList: SelectOptionType[] = [
   { value: 'Sparta_Lecture', label: '강의자료', selected: false },
@@ -103,6 +99,13 @@ export type PostType =
   | 'Level_Standard'
   | 'Level_Basic'
   | 'Project_Description'
+  | 'all';
+
+export type CategoryType =
+  | 'Sparta_Lecture'
+  | 'Special_Lecture'
+  | 'Project_Description'
+  | 'Level'
   | 'all';
 
 export type tutorApiType = {
@@ -205,3 +208,12 @@ export type PostTabType = {
   id: PostType;
   title: string;
 };
+export type CategoryTabType = {
+  id: CategoryType;
+  title: string;
+};
+
+export enum OrderByEnum {
+  NEW = 'new',
+  POPULAR = 'popular',
+}

@@ -153,11 +153,14 @@ const config = {
       dropDownBox:
         '0px 2px 6px 0px rgba(0, 0, 0, 0.05), 0px 1px 10px 0px rgba(0, 0, 0, 0.15)',
       inquiryButton: ' 0px 4px 6px 0px rgba(0, 0, 0, 0.02)',
+      searchInput: '0px 0px 24px 0px rgba(12, 12, 13, 0.10)',
+      searchDropDown:
+        '0px 2px 6px 0px rgba(0, 0, 0, 0.05), 0px 1px 10px 0px rgba(0, 0, 0, 0.15)',
       archiveShadow: '0px 4px 100px 0px rgba(185, 210, 225, 0.80)',
     },
     backgroundImage: {
       'custom-gradient':
-        'linear-gradient(180deg, #E2F0FA 29.54%, #F8BFC7 135.4%)',
+        ' linear-gradient(180deg, #E2F1FD 16.75%, #C3E2FB 40.96%, #4BA9F4 135.4%, #B9DDFB 135.4%)',
     },
   },
   plugins: [require('tailwindcss-animate'), require('tailwind-scrollbar-hide')],

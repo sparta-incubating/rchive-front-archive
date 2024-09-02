@@ -1,7 +1,8 @@
-import Toast from '@/components/molecules/toast';
-import CompoundProvider from '@/provider/compoundProvider';
-
 import { PropsWithChildren } from 'react';
+import CompoundProvider from '@/provider/compoundProvider';
+import MainHeader from '@/components/molecules/mainHeader';
+import Footer from '@/components/molecules/footer';
+import Toast from '@/components/molecules/toast';
 
 /**
  * Root layout component
@@ -13,7 +14,13 @@ import { PropsWithChildren } from 'react';
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <CompoundProvider>
-      {children}
+      <div className="flex flex-col">
+        <div className="mx-auto flex w-[1152px] flex-col">
+          <MainHeader />
+          {children}
+        </div>
+        <Footer />
+      </div>
       <Toast />
     </CompoundProvider>
   );
