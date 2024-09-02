@@ -1,11 +1,11 @@
 'use client';
 
-import bookmark from '@/../public/assets/icons/bookmark.svg';
-import dashboard from '@/../public/assets/icons/dashboard.svg';
-import comment from '@/../public/assets/icons/comment.svg';
-import lecture from '@/../public/assets/icons/lecture.svg';
-import search from '@/../public/assets/icons/search.svg';
-import rtan from '@/../public/assets/icons/signin-rtan.svg';
+import bookmark from '@/../public/assets/icons/bookmark-rtan.svg';
+import dashboard from '@/../public/assets/icons/signin-dashboard.svg';
+import comment from '@/../public/assets/icons/comment-rtan.svg';
+import lecture from '@/../public/assets/icons/lecture-rtan.svg';
+import search from '@/../public/assets/icons/search-rtan.svg';
+import rtan from '@/../public/assets/icons/arcive-rtan.svg';
 
 import { useModalContext } from '@/context/useModalContext';
 import { setAuth } from '@/redux/slice/auth.slice';
@@ -154,7 +154,7 @@ const SignIn = () => {
           </div>
         </form>
 
-        <div className="flex flex-1 items-center justify-center bg-custom-gradient shadow-signInBox">
+        <div className="flex flex-1 items-center justify-center bg-archive-gradient shadow-signInBox">
           <section>
             <div className="relative">
               <div className="absolute bottom-[380px] right-[0px] z-20 h-[463px] w-[242px]">

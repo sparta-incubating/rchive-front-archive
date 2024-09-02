@@ -161,6 +161,8 @@ const config = {
     backgroundImage: {
       'custom-gradient':
         ' linear-gradient(180deg, #E2F1FD 16.75%, #C3E2FB 40.96%, #4BA9F4 135.4%, #B9DDFB 135.4%)',
+      'archive-gradient':
+        'linear-gradient(180deg, #E2F0FA 29.54%, #F8BFC7 135.4%)',
     },
   },
   plugins: [require('tailwindcss-animate'), require('tailwind-scrollbar-hide')],
