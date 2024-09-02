@@ -6,10 +6,11 @@ import CategoryGroup from '@/components/molecules/categoryGroup/categoryGroup';
 import SubCategoryGroup from '@/components/molecules/subCategoryGroup/subCategoryGroup';
 import PostListContainer from '@/components/organisms/postList/postListContainer';
 import PageNation from '@/components/atoms/pageNation';
+import HelperButton from '@/components/atoms/helperButton';
 
 const page = () => {
   return (
-    <div>
+    <div className="relative">
       <SearchInputContainer />
       <section className="flex flex-col gap-6">
         <CategoryGroup />
@@ -22,14 +23,9 @@ const page = () => {
           onPageChange={() => {}}
         />
       </section>
+      <HelperButton />
     </div>
   );
- /* return (
-    <>
-      {/!*PM 프로필 선택 페이지 or 자바 심화 수강생*!/}
-      <SelectAccountPage />
-    </>
-  );*/
 };
 
 export default page;
