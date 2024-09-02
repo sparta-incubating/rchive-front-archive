@@ -1,12 +1,30 @@
-import { useQuery } from '@tanstack/react-query';
-import { getProfile } from './profileApi';
-import { PROFILE_QUERY_KEYS } from './keys.constant';
+'use client';
 
-export function useGetProfileQuery() {
-  const { data, isPending, isError } = useQuery({
+import { useQuery } from '@tanstack/react-query';
+import { PROFILE_QUERY_KEYS } from './keys.constant';
+import { getTrackPeriodList, getUserInfo } from './profileApi';
+
+export function useUserInfoDataQuery() {
+  const {
+    data: userData,
+    isPending,
+    isError,
+  } = useQuery({
     queryKey: [PROFILE_QUERY_KEYS.PROFILE],
-    queryFn: getProfile,
+    queryFn: getUserInfo,
   });
 
-  return { data, isPending, isError };
+  return { userData, isPending, isError };
+}
+
+export function usePeriodListQuery(trackName: string) {
+  const { data } = useQuery({
+    queryKey: [PROFILE_QUERY_KEYS.PERIODLIST, trackName],
+    queryFn: () => getTrackPeriodList(trackName),
+    enabled: !!trackName,
+  });
+
+  const periodList = data?.data?.trackPeriodList;
+
+  return periodList;
 }
