@@ -1,6 +1,6 @@
 import { RoleFormSchema } from '@/types/role.types';
-import axiosAPI from '../../utils/axios/axiosAPI';
-import { client } from '../../utils/axios/clientAPI';
+import { client } from '@/utils/axios/clientAPI';
+import axiosAPI from '@/utils/axios/axiosAPI';
 
 // 권한 신청 endpoint
 export const postRoleApply = async (data: RoleFormSchema) => {
