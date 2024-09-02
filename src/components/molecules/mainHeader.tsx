@@ -9,7 +9,6 @@ const MainHeader = () => {
           르탄이의 아카이브
         </h1>
       </Link>
-
       <HeaderProfileContainer />
     </header>
   );

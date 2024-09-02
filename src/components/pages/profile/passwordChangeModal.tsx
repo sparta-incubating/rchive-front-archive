@@ -1,4 +1,4 @@
-import { useProfileUpdate } from '@/api/profile/useMutation';
+import { useMyPageUpdate } from '@/api/profile/useMutation';
 import Input from '@/components/atoms/input';
 import InputContainer from '@/components/atoms/InputContainer';
 import Label from '@/components/atoms/label';
@@ -32,7 +32,7 @@ const PasswordChangeModal = ({ onClose }: ChangeModalProps) => {
     },
   });
 
-  const { updatePasswordMutate } = useProfileUpdate();
+  const { updatePasswordMutate } = useMyPageUpdate();
 
   const onSubmit = async (data: z.infer<typeof profilePasswordSchema>) => {
     try {

@@ -1,10 +1,10 @@
-import { useProfileUpdate } from '@/api/profile/useMutation';
+import { useMyPageUpdate } from '@/api/profile/useMutation';
 import AuthTimer from '@/components/atoms/authTimer';
 import Label from '@/components/atoms/label';
 import PasswordContainer from '@/components/atoms/PasswordContainer';
 import PhoneChangeField from '@/components/molecules/form/PhonChangeField';
 import InputField from '@/components/molecules/InputField';
-import ProfileChangeForm from '@/components/organisms/profileChangeForm';
+
 import { PhoneChangeModalProps } from '@/types/profile.types';
 import { profilePhoneSchema } from '@/validators/auth/profile.validator';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import ChangeSuccessModal from './changeSuccessModal';
+import ProfileChangeForm from '@/components/organisms/profileChangeForm';
 
 const PhoneChangeModal = ({ onClose, username }: PhoneChangeModalProps) => {
   const [isSuccessful, setIsSuccessful] = useState<boolean>(false);
@@ -32,7 +33,7 @@ const PhoneChangeModal = ({ onClose, username }: PhoneChangeModalProps) => {
     },
   });
 
-  const { updatePhoneNumberMutate, checkPhoneAuthMutate } = useProfileUpdate();
+  const { updatePhoneNumberMutate, checkPhoneAuthMutate } = useMyPageUpdate();
 
   const onSubmit = async (data: z.infer<typeof profilePhoneSchema>) => {
     const userInfo = {

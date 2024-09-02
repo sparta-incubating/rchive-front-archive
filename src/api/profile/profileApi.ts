@@ -10,6 +10,7 @@ import { client } from '@/utils/axios/clientAPI';
 
 import { getSession } from 'next-auth/react';
 
+//프로필 조회
 export const getUserInfo = async () => {
   try {
     const session = await getSession();
@@ -122,5 +123,15 @@ export const updatePhoneNumber = async (phone: string) => {
     return res.data;
   } catch (error) {
     throw new Error('휴대폰 번호 변경에 실패했습니다. 다시 시도해주세요.');
+  }
+};
+
+//프로필 삭제
+export const deleteUser = async () => {
+  try {
+    const res = await client.delete(`/apis/v1/users`);
+    return res.data;
+  } catch (error) {
+    throw new Error('회원 탈퇴에 실패했습니다.');
   }
 };

@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { PROFILE_QUERY_KEYS } from './keys.constant';
 import {
   checkPhoneAuth,
+  deleteUser,
   sendPhoneAuthNumber,
   updatePassword,
   updatePhoneNumber,
@@ -10,7 +11,7 @@ import {
   updateRole,
 } from './profileApi';
 
-export const useProfileUpdate = () => {
+export const useMyPageUpdate = () => {
   //휴대폰 인증번호 전송
   const postPhoneAuthNumberMutate = useMutation({
     mutationFn: sendPhoneAuthNumber,
@@ -79,6 +80,16 @@ export const useProfileUpdate = () => {
       console.log('변경 실패:', error);
     },
   });
+  const deleteUserMutate = useMutation({
+    mutationFn: deleteUser,
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: [PROFILE_QUERY_KEYS.PROFILE],
+      }),
+    onError: (error) => {
+      console.log('변경 실패:', error);
+    },
+  });
   return {
     updatePhoneNumberMutate,
     updatePasswordMutate,
@@ -86,5 +97,6 @@ export const useProfileUpdate = () => {
     updateProfileInfoMutate,
     postPhoneAuthNumberMutate,
     checkPhoneAuthMutate,
+    deleteUserMutate,
   };
 };

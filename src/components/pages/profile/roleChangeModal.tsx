@@ -1,5 +1,6 @@
-import { useProfileUpdate } from '@/api/profile/useMutation';
+import { useMyPageUpdate } from '@/api/profile/useMutation';
 import ProfileChangeForm from '@/components/organisms/profileChangeForm';
+
 import SelectFormBox from '@/components/organisms/selectFormBox';
 import useGetPeriod from '@/hooks/useGetPeriod';
 import { trackOptions } from '@/types/posts.types';
@@ -34,7 +35,7 @@ const RoleChangeModal = ({ onClose, trackRole }: RoleChangeModalProps) => {
 
   const period = useGetPeriod(watch('trackName'), trackRole);
 
-  const { updateRoleMutate } = useProfileUpdate();
+  const { updateRoleMutate } = useMyPageUpdate();
 
   const onSubmit = async (data: z.infer<typeof roleSchema>) => {
     const { trackName, period } = data;

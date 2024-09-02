@@ -70,6 +70,7 @@ const config = {
         },
         gray: {
           50: '#FAFAFA',
+          55: '#9A9999', //회원탈퇴 글씨color
           100: '#DEE1E3',
           200: '#C3C8CB',
           300: '#A8AFB3',

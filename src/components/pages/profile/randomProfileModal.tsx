@@ -1,7 +1,7 @@
 'use client';
 
 import refresh from '@/../public/assets/icons/refresh-button.svg';
-import { useProfileUpdate } from '@/api/profile/useMutation';
+import { useMyPageUpdate } from '@/api/profile/useMutation';
 import ProfileChangeForm from '@/components/organisms/profileChangeForm';
 
 import { RandomProfileModalProps } from '@/types/profile.types';
@@ -24,7 +24,7 @@ const RandomProfileModal = ({
     }
   }, [profileImg]);
 
-  const { updateProfileInfoMutate } = useProfileUpdate();
+  const { updateProfileInfoMutate } = useMyPageUpdate();
 
   const randomProfile = [
     'MRT_1',

@@ -1,7 +1,10 @@
 'use client';
 
+import { useMyPageUpdate } from '@/api/profile/useMutation';
 import { useUserInfoDataQuery } from '@/api/profile/useQuery';
+import { useProfileUpdate } from '@/api/signup/useMutation';
 import ProfileLayout from '@/components/atoms/profileLayout';
+import MypageHeader from '@/components/molecules/mypageHeader';
 import AccountInfo from '@/components/pages/accountInfo';
 import PasswordChangeModal from '@/components/pages/profile/passwordChangeModal';
 import PhoneChangeModal from '@/components/pages/profile/phoneChangeModal';
@@ -10,12 +13,15 @@ import RandomProfileModal from '@/components/pages/profile/randomProfileModal';
 import RoleChangeModal from '@/components/pages/profile/roleChangeModal';
 import ProgressModal from '@/components/pages/progressModal';
 import UserInfo from '@/components/pages/userInfo';
+import { useRouter } from 'next/navigation';
 
 import { useState } from 'react';
 
 const Profile = () => {
   const { userData, isError, isPending } = useUserInfoDataQuery();
+  const { deleteUserMutate } = useMyPageUpdate();
   const [modalType, setModalType] = useState<string | null>(null);
+  const router = useRouter();
 
   const { email, username, profileImg, trackName, period, trackRole, phone } =
     userData?.data ?? '';
@@ -28,14 +34,27 @@ const Profile = () => {
 
   if (isPending) {
     return (
-      <ProgressModal>
-        <span>프로필을 불러오는 중</span>
-      </ProgressModal>
+      // <ProgressModal>
+      //   <span>프로필을 불러오는 중</span>
+      // </ProgressModal>
+      <div>로딩중</div>
     );
   }
-  console.log(profileImg, '현재 이미지는?');
+
+  const handleDelete = async () => {
+    alert('진짜 회원탈퇴 하시겠습니까?');
+    try {
+      await deleteUserMutate.mutateAsync();
+      router.push('/');
+    } catch (error) {
+      alert('회원탈퇴 실패');
+    }
+  };
+
   return (
     <>
+      <MypageHeader />
+      {/*프로필 */}
       <ProfileLayout variant="userInfo">
         <UserInfo
           profileImg={profileImg}
@@ -55,7 +74,6 @@ const Profile = () => {
           handleChangePhoneNumber={() => openModal('phone')}
         />
       </ProfileLayout>
-
       {modalType === 'password' && <PasswordChangeModal onClose={closeModal} />}
       {modalType === 'phone' && (
         <PhoneChangeModal onClose={closeModal} username={username} />
@@ -66,6 +84,12 @@ const Profile = () => {
       {modalType === 'image' && (
         <RandomProfileModal onClose={closeModal} profileImg={profileImg} />
       )}
+      {/*프로필 */}
+      <button onClick={handleDelete}>
+        <p className="text-gray-55 w-full text-right text-[18px] font-medium">
+          회원 탈퇴
+        </p>
+      </button>
     </>
   );
 };
