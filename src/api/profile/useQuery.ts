@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { PROFILE_QUERY_KEYS } from './keys.constant';
-import { getTrackPeriodList, getUserInfo } from './profileApi';
+import { getMyRole, getTrackPeriodList, getUserInfo } from './profileApi';
 
 export function useUserInfoDataQuery() {
   const {
@@ -27,4 +27,13 @@ export function usePeriodListQuery(trackName: string) {
   const periodList = data?.data?.trackPeriodList;
 
   return periodList;
+}
+
+export function useGetRoleQuery() {
+  const { data, isPending, isError } = useQuery({
+    queryKey: [PROFILE_QUERY_KEYS.ROLE],
+    queryFn: getMyRole,
+  });
+
+  return { data, isPending, isError };
 }

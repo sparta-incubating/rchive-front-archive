@@ -135,3 +135,13 @@ export const deleteUser = async () => {
     throw new Error('회원 탈퇴에 실패했습니다.');
   }
 };
+
+//내 권한 조회
+export const getMyRole = async () => {
+  try {
+    const res = await client.get(`/apis/v1/role`);
+    return res.data;
+  } catch (error) {
+    throw new Error('권한(트랙 및 기수) 조회에 실패했습니다.');
+  }
+};

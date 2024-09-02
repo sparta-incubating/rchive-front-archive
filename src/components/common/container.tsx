@@ -14,16 +14,18 @@ const Container = ({
   const path = usePathname();
   const session = useSession();
   const layout =
-    !session || !['/login', '/role', '/role/result'].includes(path);
+    !session || !['/login', '/role', '/role/result', '/wait'].includes(path);
   return (
     <>
       {layout ? (
         <>
-          <div className="mx-auto flex w-[1152px] flex-col">
-            <MainHeader />
-            {children}
+          <div className="flex flex-col">
+            <div className="mx-auto flex w-[1152px] flex-col">
+              <MainHeader />
+              {children}
+            </div>
+            <Footer />
           </div>
-          <Footer />
         </>
       ) : (
         children

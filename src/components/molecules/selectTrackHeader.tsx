@@ -1,11 +1,14 @@
+'use client';
+
 import profile from '@/../public/assets/icons/select-profile.svg';
-import { useGetProfileQuery } from '@/api/profile/useQuery';
+import { useSession } from 'next-auth/react';
+
 import Image from 'next/image';
 
 const SelectTrackHeader = () => {
-  const { data } = useGetProfileQuery();
-  console.log(data, '프로필 조회');
-  // console.log(nickname, name, '테스트');
+  const { data } = useSession();
+  const name = data?.user?.name;
+
   return (
     <main className="flex h-[154px] w-full items-center justify-center rounded-t-[40px] bg-blue-55 px-[10px] py-[40px]">
       {/*헤더 랩*/}
@@ -21,7 +24,7 @@ const SelectTrackHeader = () => {
           <span className="text-2xl font-bold leading-8 text-secondary-600">
             계정 선택
           </span>
-          {/* <span className="text-base font-medium">{`안녕하세요 ${nickname ? nickname : name}님`}</span> */}
+          <span className="text-base font-medium">{`안녕하세요 ${name}님`}</span>
           <span className="text-base font-medium">
             아카이빙을 시작할 계정을 선택하세요.
           </span>

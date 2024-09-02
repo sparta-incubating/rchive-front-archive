@@ -41,6 +41,7 @@ const Profile = () => {
     );
   }
 
+  //수정 예정
   const handleDelete = async () => {
     alert('진짜 회원탈퇴 하시겠습니까?');
     try {
