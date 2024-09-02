@@ -1,4 +1,8 @@
-import { getLastConnectRole, getRoleApplyStatus } from '@/api/server/authApi';
+import {
+  getLastConnectRole,
+  getMyProfile,
+  getRoleApplyStatus,
+} from '@/api/server/authApi';
 import { authConfig } from '@/auth.config';
 import { trackRole } from '@/types/auth.types';
 import { TrackType } from '@/types/posts.types';
@@ -25,6 +29,24 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           token.trackRole = trackRole;
           token.trackName = trackName;
           token.loginPeriod = period;
+
+          const profileResponse = await getMyProfile(
+            trackName,
+            trackRole === 'PM' ? 0 : period,
+            user.accessToken,
+          );
+          console.log({ profileResponse });
+
+          /*
+           "email": "android_pm@teamsparta.co",
+           "username": "Android PM",
+           "profileImg": "MRT_2",
+           "birth": "2024-08-12",
+           "phone": "24470114546",
+           "trackRole": "PM",
+           "trackName": "ANDROID",
+           "period": 0
+          * */
         } catch (error) {
           // 권한이 없을때
           // 권한 신청이 있는지 조회

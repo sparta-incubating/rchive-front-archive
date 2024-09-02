@@ -11,6 +11,15 @@ export const getPostList = cache(
   },
 );
 
+export const getNoSearchKeywordPostList = cache(
+  async (trackName: TrackType, period: number, queryString: string) => {
+    const serverAPI = await createServerAPI();
+    return serverAPI.get(
+      `/apis/v1/posts/category?trackName=${trackName}&loginPeriod=${period}&${queryString}`,
+    );
+  },
+);
+
 export const getPost = cache(
   async (postId: number, trackName: TrackType, period: number) => {
     const serverAPI = await createServerAPI();

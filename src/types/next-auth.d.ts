@@ -1,4 +1,4 @@
-import { trackRole } from '@/types/auth.types';
+import { LastConnectRoleDataType, trackRole } from '@/types/auth.types';
 import { TrackType } from '@/types/posts.types';
 
 declare module 'next-auth' {
@@ -13,6 +13,7 @@ declare module 'next-auth' {
     roleApply?: boolean;
     roleError?: string;
     nickname?: string;
+    myRoles?: LastConnectRoleDataType[];
   }
 
   // session 타입확장

@@ -6,9 +6,13 @@ import ProfileDropDown from '@/components/atoms/profile/profileDropDown';
 import ProfileDropDownItem from '@/components/atoms/profile/profileDropDownItem';
 import ProfileDropDownItemCard from '@/components/atoms/profile/ProfileDropDownItemCard';
 import useDropDownOpen from '@/hooks/useDropDownOpen';
+import { useAppSelector } from '@/redux/storeConfig';
 
 const HeaderProfileContainer = () => {
   const { isOpen, dropdownRef, handleClick } = useDropDownOpen();
+  const { trackName, period, trackRole, myRoles } = useAppSelector(
+    (state) => state.authSlice,
+  );
 
   return (
     <article

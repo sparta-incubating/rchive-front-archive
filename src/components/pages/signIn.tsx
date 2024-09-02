@@ -71,13 +71,15 @@ const SignIn = () => {
   useEffect(() => {
     if (session) {
       console.log(session, '클라이언트 session');
-      const { trackName, trackRole, accessToken, loginPeriod } = session.user;
+      const { trackName, trackRole, accessToken, loginPeriod, myRoles } =
+        session.user;
       dispatch(
         setAuth({
           accessToken,
           trackName: trackName || '',
           trackRole: trackRole || '',
           period: String(loginPeriod) || '',
+          myRoles: myRoles || [],
         }),
       );
 
