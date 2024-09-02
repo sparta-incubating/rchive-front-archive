@@ -28,6 +28,10 @@ export default async function middleware(req: NextRequest) {
   const role = trackRole;
   const { pathname } = req.nextUrl;
 
+  if (pathname === '/' && !accessToken) {
+    return NextResponse.redirect(new URL('/login', req.url));
+  }
+
   // /login 페이지는 아무 조건 없이 접근 가능
   if (pathname === '/login') {
     return NextResponse.next();
