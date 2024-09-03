@@ -31,6 +31,7 @@ const page = async ({ searchParams }: PostProps) => {
 
   const period = session?.user.loginPeriod;
   const trackName = session?.user.trackName;
+  console.log({ period, trackName });
 
   const query = new URLSearchParams();
   if (searchParamsData.postType && searchParams.postType !== 'all')
@@ -70,6 +71,7 @@ const page = async ({ searchParams }: PostProps) => {
       </MainPage>
     );
   } catch (error) {
+    console.log('post list error!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     if (axios.isAxiosError(error)) {
       const data = error?.response?.data;
       const status = error?.response?.status;

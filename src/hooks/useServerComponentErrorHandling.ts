@@ -13,7 +13,6 @@ const useServerComponentErrorHandling = (errorData: ErrorResponseType) => {
   const { status, data } = errorData;
   const router = useRouter();
 
-  console.log({ status });
   useEffect(() => {
     if (status === 401) {
       if (typeof data === 'object') {

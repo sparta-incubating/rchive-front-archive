@@ -5,7 +5,7 @@ import { PropsWithChildren } from 'react';
 const MainPage = ({ children }: PropsWithChildren) => {
   return (
     <div className="flex flex-col">
-      <div className="mx-auto flex w-[1152px] flex-col">
+      <div className="relative mx-auto flex w-[1152px] flex-col">
         <MainHeader />
         {children}
       </div>

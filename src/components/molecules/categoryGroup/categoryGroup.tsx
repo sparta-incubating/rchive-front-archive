@@ -4,8 +4,15 @@ import SearchResultTitle from '@/components/atoms/searchResultTitle';
 import { useState } from 'react';
 import CategoryTapMenu from '@/components/atoms/category/categoryTabMenu';
 import { postTabArr } from '@/constatns/post.constant';
+import { PostTabType } from '@/types/posts.types';
 
-const CategoryGroup = () => {
+type CategoryGroupProps = {
+  data: PostTabType[];
+  activeTab: string;
+  setActiveTab: (idx: string) => void;
+};
+
+const CategoryGroup = ({}: CategoryGroupProps) => {
   const [activeTab, setActiveTab] = useState<string>('all');
   const handleTabChange = (newTab: string) => {
     setActiveTab(newTab);
