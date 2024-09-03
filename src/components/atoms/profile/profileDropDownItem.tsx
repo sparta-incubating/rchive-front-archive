@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ComponentProps, ReactNode } from 'react';
 import Image from 'next/image';
 import { cva, VariantProps } from 'class-variance-authority';
 
@@ -18,7 +18,8 @@ const ProfileDropDownItemVariants = cva(
 );
 
 interface ProfileDropDownItemProps
-  extends VariantProps<typeof ProfileDropDownItemVariants> {
+  extends VariantProps<typeof ProfileDropDownItemVariants>,
+    ComponentProps<'div'> {
   children: ReactNode;
   onClick?: () => void;
   selected?: boolean;
@@ -29,9 +30,14 @@ const ProfileDropDownItem = ({
   onClick,
   selected = false,
   variant = 'primary',
+  ...props
 }: ProfileDropDownItemProps) => {
   return (
-    <div onClick={onClick} className={ProfileDropDownItemVariants({ variant })}>
+    <div
+      onClick={onClick}
+      className={ProfileDropDownItemVariants({ variant })}
+      {...props}
+    >
       {children}
       <div
         data-selected={selected}

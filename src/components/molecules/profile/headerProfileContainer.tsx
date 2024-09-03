@@ -8,12 +8,40 @@ import ProfileDropDownItemCard from '@/components/atoms/profile/ProfileDropDownI
 import useDropDownOpen from '@/hooks/useDropDownOpen';
 import { useAppSelector } from '@/redux/storeConfig';
 import { getNameCategory } from '@/utils/setAuthInfo/post.util';
-import { PostType } from '@/types/posts.types';
+import { PostType, TrackType } from '@/types/posts.types';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { patchLastConnectRole } from '@/api/client/authApi';
 
 const HeaderProfileContainer = () => {
   const { isOpen, dropdownRef, handleClick } = useDropDownOpen();
-  const { trackName, period, trackRole, myRoles, profileImg, username } =
-    useAppSelector((state) => state.authSlice);
+  const router = useRouter();
+  const { period, trackRole, myRoles, profileImg, username } = useAppSelector(
+    (state) => state.authSlice,
+  );
+
+  const { update, data: session } = useSession();
+  const handleToTrack = async (trackName: TrackType, period: number) => {
+    await update({
+      ...session,
+      user: {
+        ...session?.user,
+        trackName,
+        period,
+      },
+    });
+
+    try {
+      await patchLastConnectRole(trackName, period);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error);
+      }
+    }
+
+    router.refresh();
+  };
 
   return (
     <article
@@ -43,6 +71,7 @@ const HeaderProfileContainer = () => {
               role.period === Number(period) && role.trackRoleEnum === trackRole
             }
             key={role.trackId + role.trackName}
+            onClick={() => handleToTrack(role.trackName, role.period)}
           >
             <ProfileDropDownItemCard
               profileImage={`/assets/icons/${profileImg}.svg`}

@@ -32,10 +32,6 @@ const SetAuthInfo = ({
 }: SetAuthInfoProps) => {
   const dispatch = useDispatch();
 
-  console.log('setauthinfo---------------------');
-  console.log(nickname, username, birth, profileImg, myRoles);
-  console.log('setauthinfo---------------------');
-
   dispatch(
     setAuth({
       accessToken,

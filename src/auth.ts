@@ -25,7 +25,6 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           const response = await getLastConnectRole(user.accessToken);
 
           const { trackId, trackRole, trackName, period } = response.data.data;
-          console.log({ trackId, trackRole, trackName, period });
           token.trackId = trackId;
           token.trackRole = trackRole;
           token.trackName = trackName;
@@ -63,6 +62,13 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           accessToken: session.user.accessToken,
           sub: session.user.accessToken,
           refreshToken: session.user.refreshToken,
+          trackName: session.user.trackName,
+          loginPeriod: session.user.period,
+          username: session.user.username,
+          birth: session.user.birth,
+          phone: session.user.phone,
+          profileImg: session.user.profileImg,
+          myRole: [...session.user.myRoles],
         };
 
         return token;

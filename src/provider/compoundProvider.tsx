@@ -20,6 +20,18 @@ const CompoundProvider = async ({ children }: PropsWithChildren) => {
   const profileImg = session?.user.profileImg || '';
   const myRoles = session?.user.myRoles || [];
 
+  console.log({
+    accessToken,
+    trackName,
+    trackRole,
+    period,
+    nickname,
+    username,
+    birth,
+    profileImg,
+    myRoles,
+  });
+
   return (
     <StoreProvider>
       <TanstackQueryProvider>

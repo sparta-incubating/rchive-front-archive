@@ -29,7 +29,7 @@ const page = async ({ searchParams }: PostProps) => {
 
   const session = await auth();
 
-  const period = 1;
+  const period = session?.user.loginPeriod;
   const trackName = session?.user.trackName;
 
   const query = new URLSearchParams();
@@ -38,8 +38,6 @@ const page = async ({ searchParams }: PostProps) => {
   if (searchParamsData.startDate)
     query.set('startDate', searchParamsData.startDate);
   if (searchParamsData.endDate) query.set('endDate', searchParamsData.endDate);
-  if (searchParamsData.searchPeriod)
-    query.set('searchPeriod', searchParamsData.searchPeriod);
   if (searchParamsData.isOpened && searchParams.isOpened !== 'all')
     query.set('isOpened', searchParamsData.isOpened);
   if (searchParamsData.tutorId) query.set('tutorId', searchParamsData.tutorId);
@@ -48,6 +46,7 @@ const page = async ({ searchParams }: PostProps) => {
   query.set('size', searchParamsData.size || DEFAULT_PAGE_SIZE);
 
   let postListResponse;
+
   try {
     if (!searchParamsData.title) {
       postListResponse = await getNoSearchKeywordPostList(
@@ -62,7 +61,6 @@ const page = async ({ searchParams }: PostProps) => {
         query.toString(),
       );
     }
-
     return (
       <MainPage>
         <PostList
