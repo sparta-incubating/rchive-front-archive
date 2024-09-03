@@ -61,45 +61,49 @@ const Profile = () => {
 
   return (
     <>
-      <MypageHeader />
-      {/*프로필 */}
-      <ProfileLayout variant="userInfo">
-        <UserInfo
-          profileImg={profileImg}
-          username={username}
-          trackName={trackName}
-          period={period}
-          trackRole={trackRole}
-          nickname={nickname}
-          handleChangeRole={() => openModal('role')}
-          handleChangeImage={() => openModal('image')}
-        />
-      </ProfileLayout>
-      <ProfileLayout variant="accountInfo">
-        <AccountInfo
-          email={email}
-          phone={phone}
-          handleChangePassword={() => openModal('password')}
-          handleChangePhoneNumber={() => openModal('phone')}
-        />
-      </ProfileLayout>
-      {modalType === 'password' && <PasswordChangeModal onClose={closeModal} />}
-      {modalType === 'phone' && (
-        <PhoneChangeModal onClose={closeModal} username={username} />
-      )}
-      {modalType === 'role' && (
-        <RoleChangeModal onClose={closeModal} trackRole={trackRole} />
-      )}
-      {modalType === 'image' && (
-        <RandomProfileModal onClose={closeModal} profileImg={profileImg} />
-      )}
+      <div className="mx-auto flex h-screen flex-col gap-[40px] bg-gray-50">
+        <MypageHeader />
+        {/*프로필 */}
+        <ProfileLayout variant="userInfo">
+          <UserInfo
+            profileImg={profileImg}
+            username={username}
+            trackName={trackName}
+            period={period}
+            trackRole={trackRole}
+            nickname={nickname}
+            handleChangeRole={() => openModal('role')}
+            handleChangeImage={() => openModal('image')}
+          />
+        </ProfileLayout>
+        <ProfileLayout variant="accountInfo">
+          <AccountInfo
+            email={email}
+            phone={phone}
+            handleChangePassword={() => openModal('password')}
+            handleChangePhoneNumber={() => openModal('phone')}
+          />
+        </ProfileLayout>
+        {modalType === 'password' && (
+          <PasswordChangeModal onClose={closeModal} />
+        )}
+        {modalType === 'phone' && (
+          <PhoneChangeModal onClose={closeModal} username={username} />
+        )}
+        {modalType === 'role' && (
+          <RoleChangeModal onClose={closeModal} trackRole={trackRole} />
+        )}
+        {modalType === 'image' && (
+          <RandomProfileModal onClose={closeModal} profileImg={profileImg} />
+        )}
 
-      {/*프로필 */}
-      <button onClick={handleDelete}>
-        <p className="w-full text-right text-[18px] font-medium text-gray-55">
-          회원 탈퇴
-        </p>
-      </button>
+        {/*프로필 */}
+        <button onClick={handleDelete}>
+          <p className="w-full text-right text-[18px] font-medium text-gray-55">
+            회원 탈퇴
+          </p>
+        </button>
+      </div>
     </>
   );
 };

@@ -24,7 +24,7 @@ const SelectAccountPage = () => {
 
           {/*버튼 */}
           <section className="flex h-[60px] justify-end px-[40px]">
-            <button onClick={handleSelect}>확인</button>
+            <button>확인</button>
             {/* <Button
               size="sm"
               className="w-[190px]"
