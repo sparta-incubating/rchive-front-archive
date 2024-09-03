@@ -1,4 +1,3 @@
-import { ErrorResponseType } from '@/components/atoms/customError';
 import {
   TOKEN_EXPIRATION_ERROR_CODE,
   TOKEN_EXPIRATION_ERROR_STATUS,
@@ -8,11 +7,13 @@ import axios from 'axios';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { ErrorResponseType } from '@/components/pages/customError';
 
 const useServerComponentErrorHandling = (errorData: ErrorResponseType) => {
   const { status, data } = errorData;
   const router = useRouter();
 
+  console.log({ status });
   useEffect(() => {
     if (status === 401) {
       if (typeof data === 'object') {

@@ -1,6 +1,11 @@
-import { getLastConnectRole, getRoleApplyStatus } from '@/api/server/authApi';
+import {
+  getAllMyRoles,
+  getLastConnectRole,
+  getMyProfile,
+  getRoleApplyStatus,
+} from '@/api/server/authApi';
 import { authConfig } from '@/auth.config';
-import { trackRole } from '@/types/auth.types';
+import { MyRoleDataType, trackRole } from '@/types/auth.types';
 import { TrackType } from '@/types/posts.types';
 
 import NextAuth from 'next-auth';
@@ -20,11 +25,25 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           const response = await getLastConnectRole(user.accessToken);
 
           const { trackId, trackRole, trackName, period } = response.data.data;
-
           token.trackId = trackId;
           token.trackRole = trackRole;
           token.trackName = trackName;
           token.loginPeriod = period;
+
+          // 프로필 조회
+          const profileResponse = await getMyProfile(
+            trackName,
+            trackRole === 'PM' ? 0 : period,
+            user.accessToken,
+          );
+
+          token.username = profileResponse?.data.data.username;
+          token.birth = profileResponse?.data.data.birth;
+          token.phone = profileResponse?.data.data.phone;
+          token.profileImg = profileResponse?.data.data.profileImg;
+
+          const myRoleResponse = await getAllMyRoles(user.accessToken);
+          token.myRole = myRoleResponse?.data.data.roleResList;
         } catch (error) {
           // 권한이 없을때
           // 권한 신청이 있는지 조회
@@ -43,6 +62,13 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           accessToken: session.user.accessToken,
           sub: session.user.accessToken,
           refreshToken: session.user.refreshToken,
+          trackName: session.user.trackName,
+          loginPeriod: session.user.period,
+          username: session.user.username,
+          birth: session.user.birth,
+          phone: session.user.phone,
+          profileImg: session.user.profileImg,
+          myRole: [...session.user.myRoles],
         };
 
         return token;
@@ -59,6 +85,11 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       session.user.trackName = token.trackName as TrackType;
       session.user.loginPeriod = token.loginPeriod as number;
       session.user.roleApply = token.roleApply as boolean;
+      session.user.nickname = token.nickname as string;
+      session.user.username = token.username as string;
+      session.user.birth = token.birth as string;
+      session.user.profileImg = token.profileImg as string;
+      session.user.myRoles = token.myRole as MyRoleDataType[];
 
       return session;
     },

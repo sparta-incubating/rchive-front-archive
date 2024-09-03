@@ -13,3 +13,18 @@ export type LastConnectRoleResponseType = {
   message: string;
   data: LastConnectRoleDataType;
 };
+export type MyRoleResponse = {
+  status: number;
+  data: {
+    roleResList: MyRoleDataType;
+    nickname?: string;
+    profileImg: string;
+  };
+};
+
+export type MyRoleDataType = {
+  trackId: number;
+  trackRoleEnum: trackRole;
+  trackName: TrackType;
+  period: number;
+};

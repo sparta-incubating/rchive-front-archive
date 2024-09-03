@@ -2,29 +2,29 @@ import PostThumbnail from '@/components/atoms/post/postThumbnail';
 import PostTitle from '@/components/atoms/post/postTitle';
 import PostInfoTextGroup from '@/components/molecules/post/postInfoTextGroup';
 import TagNameGroup from '@/components/molecules/post/tagNamegroup';
+import { PostContentType } from '@/types/posts.types';
+import { getNameCategory } from '@/utils/setAuthInfo/post.util';
+import dayjs from 'dayjs';
 
 interface PostCardProps {
-  bookmark: boolean;
-  tags: string[];
+  postData: PostContentType;
 }
 
-const PostCard = ({ bookmark, tags }: PostCardProps) => {
+const PostCard = ({ postData }: PostCardProps) => {
   return (
     <article className="flex flex-col gap-3 pb-[22.5px] pt-2">
-      <PostThumbnail />
-      <PostTitle href={'#'} bookmark={bookmark}>
-        피그마 활용법(1) - 2주차피그마 활용법(1) - 2주차피그마 활용법(1) -
-        2주차피그마 활용법(1) - 2주차피그마 활용법(1) - 2주차피그마 활용법(1) -
-        2주차피그마 활용법(1) - 2주차피그마 활용법(1) - 2주차피그마 활용법(1) -
-        2주차피그마 활용법(1) - 2주차피그마 활용법(1) - 2주차피그마 활용법(1) -
-        2주차피그마 활용법(1) - 2주차피그마 활용법(1) - 2주차
+      <PostThumbnail thumbnail={postData.thumbnailUrl} />
+      <PostTitle href={'#'} bookmark={postData.isBookmarked}>
+        {postData.title}
       </PostTitle>
       <PostInfoTextGroup
-        trackName="특강/실시간 세션"
-        tutor="김태길"
-        updatedAt="2024.08.29"
+        trackName={getNameCategory(postData.postType)}
+        tutor={postData.tutor}
+        updatedAt={dayjs(postData.uploadedAt).format('YYYY.MM.DD')}
       />
-      <TagNameGroup tags={tags} />
+      {postData.tagList && (
+        <TagNameGroup tags={postData.tagList.map((tag) => tag.tagName)} />
+      )}
     </article>
   );
 };
