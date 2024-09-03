@@ -14,6 +14,24 @@ const CompoundProvider = async ({ children }: PropsWithChildren) => {
   const trackName = session?.user.trackName || '';
   const trackRole = session?.user.trackRole || '';
   const period = String(session?.user.loginPeriod) || '';
+  const nickname = session?.user.nickname || '';
+  const username = session?.user.username || '';
+  const birth = session?.user.birth || '';
+  const profileImg = session?.user.profileImg || '';
+  const myRoles = session?.user.myRoles || [];
+
+  console.log({
+    accessToken,
+    trackName,
+    trackRole,
+    period,
+    nickname,
+    username,
+    birth,
+    profileImg,
+    myRoles,
+  });
+
   return (
     <StoreProvider>
       <TanstackQueryProvider>
@@ -24,6 +42,11 @@ const CompoundProvider = async ({ children }: PropsWithChildren) => {
               trackName={trackName}
               trackRole={trackRole}
               period={String(period)}
+              nickname={nickname}
+              username={username}
+              birth={birth}
+              profileImg={profileImg}
+              myRoles={myRoles}
             />
             <NextAuthProvider>{children}</NextAuthProvider>
           </ConfirmProvider>

@@ -1,4 +1,4 @@
-import { trackRole } from '@/types/auth.types';
+import { MyRoleDataType, trackRole } from '@/types/auth.types';
 import { TrackType } from '@/types/posts.types';
 
 declare module 'next-auth' {
@@ -12,6 +12,12 @@ declare module 'next-auth' {
     loginPeriod?: number;
     roleApply?: boolean;
     roleError?: string;
+    nickname?: string;
+    username?: string;
+    birth?: string;
+    phone?: string;
+    profileImg?: string;
+    myRoles?: MyRoleDataType[];
   }
 
   // session 타입확장
@@ -31,6 +37,12 @@ declare module 'next-auth/jwt' {
     trackName?: TrackType;
     loginPeriod?: number;
     roleApply?: boolean;
+    nickname?: string;
+    username?: string;
+    birth?: string;
+    phone?: string;
+    profileImg?: string;
+    myRoles?: MyRoleDataType[];
     error?: 'tokenErrors';
   }
 }

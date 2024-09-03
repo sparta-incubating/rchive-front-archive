@@ -70,13 +70,28 @@ const SignIn = () => {
 
   useEffect(() => {
     if (session) {
-      const { trackName, trackRole, accessToken, loginPeriod } = session.user;
+      const {
+        trackName,
+        trackRole,
+        accessToken,
+        loginPeriod,
+        myRoles,
+        nickname,
+        username,
+        profileImg,
+        birth,
+      } = session.user;
       dispatch(
         setAuth({
           accessToken,
           trackName: trackName || '',
           trackRole: trackRole || '',
           period: String(loginPeriod) || '',
+          nickname: nickname || '',
+          username: username || '',
+          birth: birth || '',
+          profileImg: profileImg || '',
+          myRoles: myRoles || [],
         }),
       );
 

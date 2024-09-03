@@ -5,6 +5,8 @@ import {
 } from '@/types/signup.types';
 import axiosAPI from '../../utils/axios/axiosAPI';
 import axios from 'axios';
+import { client } from '@/utils/axios/clientAPI';
+import { TrackType } from '@/types/posts.types';
 
 export const postSignup = async (userData: User | Admin) => {
   try {
@@ -39,11 +41,23 @@ export const getNicknameCheck = async (nickname: string) => {
   }
 };
 
-// 마지막 접속 권한 endpoint
+// 마지막 접속 권한 조회 endpoint
 export const getLastConnectRole = async () => {
   try {
     await axios.get('/api/auth/lastConnectRole');
   } catch (error) {
     throw new Error('마지막 권한 조회에 실패했습니다.');
+  }
+};
+
+// 마지막 접속 권한 등록 endpoint
+export const patchLastConnectRole = async (
+  trackName: TrackType,
+  period: number,
+) => {
+  try {
+    await client.patch('/apis/v1/role/select', { trackName, period });
+  } catch (error) {
+    throw new Error('마지막 권한 등록에 실패했습니다.');
   }
 };

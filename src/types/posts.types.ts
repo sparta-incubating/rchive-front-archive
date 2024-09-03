@@ -170,7 +170,7 @@ export type PostListResponse = {
     content: PostContentType[];
     number: number;
     sort: { empty: boolean; sorted: boolean; unsorted: boolean };
-    numberOfElements: 7;
+    numberOfElements: number;
     pageable: {
       sort: SortType;
       offset: number;
@@ -191,11 +191,10 @@ export type PostContentType = {
   title: string;
   postType: PostType;
   tutor: string;
-  period: number;
-  isOpened: boolean;
   uploadedAt: string;
-  tagInfoList?: TagType[];
+  tagList?: TagType[];
   contentLink?: string;
+  isBookmarked: boolean;
 };
 
 export type SortType = {
