@@ -1,4 +1,4 @@
-import { useMyPageUpdate } from '@/api/profile/useMutation';
+import { useMyPageUpdate } from '@/api/mypage/useMutation';
 import ProfileChangeForm from '@/components/organisms/profileChangeForm';
 
 import SelectFormBox from '@/components/organisms/selectFormBox';
@@ -35,6 +35,8 @@ const RoleChangeModal = ({ onClose, trackRole }: RoleChangeModalProps) => {
 
   const period = useGetPeriod(watch('trackName'), trackRole);
 
+  console.log(period, '권한 추가 요청');
+
   const { updateRoleMutate } = useMyPageUpdate();
 
   const onSubmit = async (data: z.infer<typeof roleSchema>) => {
@@ -47,10 +49,10 @@ const RoleChangeModal = ({ onClose, trackRole }: RoleChangeModalProps) => {
 
     try {
       await updateRoleMutate.mutateAsync(roleChangeInfo);
-      createToast('권한 수정이 요청되었습니다.', 'primary');
+      createToast('권한 추가 요청이 완료되었습니다.', 'primary');
     } catch (error) {
       console.error('Error updating password:', error);
-      alert('권한 수정 요청에 실패했습니다. 다시 시도해 주세요.');
+      alert('권한 추가 요청에 실패했습니다. 다시 시도해 주세요.');
     }
   };
 
@@ -58,8 +60,8 @@ const RoleChangeModal = ({ onClose, trackRole }: RoleChangeModalProps) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <ProfileChangeForm
         labels={{
-          main: '권한 수정 요청 페이지입니다.',
-          sub: '해당하는 트랙 및 기수를 입력하세요',
+          main: '권한 추가 요청 페이지입니다.',
+          sub: '추가할 트랙 및 기수를 입력하세요',
         }}
         onClose={onClose}
         isValid={isValid}
@@ -81,7 +83,7 @@ const RoleChangeModal = ({ onClose, trackRole }: RoleChangeModalProps) => {
           <p className="text-red-500">{errors.trackName.message}</p>
         )}
 
-        {trackRole === 'APM' && period && (
+        {trackRole === 'STUDENT' && period && (
           <>
             <Controller
               name="period"

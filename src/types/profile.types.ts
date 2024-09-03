@@ -14,6 +14,7 @@ export interface UserInfoProps {
   period: string;
   trackRole: string;
   profileImg: string;
+  nickname: string;
   handleChangeImage: () => void;
   handleChangeRole: () => void;
 }

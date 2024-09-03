@@ -1,8 +1,7 @@
 'use client';
 
-import { useMyPageUpdate } from '@/api/profile/useMutation';
-import { useUserInfoDataQuery } from '@/api/profile/useQuery';
-import { useProfileUpdate } from '@/api/signup/useMutation';
+import { useMyPageUpdate } from '@/api/mypage/useMutation';
+import { useUserInfoDataQuery } from '@/api/mypage/useQuery';
 import ProfileLayout from '@/components/atoms/profileLayout';
 import MypageHeader from '@/components/molecules/mypageHeader';
 import AccountInfo from '@/components/pages/accountInfo';
@@ -23,8 +22,16 @@ const Profile = () => {
   const [modalType, setModalType] = useState<string | null>(null);
   const router = useRouter();
 
-  const { email, username, profileImg, trackName, period, trackRole, phone } =
-    userData?.data ?? '';
+  const {
+    email,
+    username,
+    profileImg,
+    trackName,
+    period,
+    trackRole,
+    phone,
+    nickname,
+  } = userData?.data ?? '';
   const openModal = (type: string) => setModalType(type);
   const closeModal = () => setModalType(null);
 
@@ -63,6 +70,7 @@ const Profile = () => {
           trackName={trackName}
           period={period}
           trackRole={trackRole}
+          nickname={nickname}
           handleChangeRole={() => openModal('role')}
           handleChangeImage={() => openModal('image')}
         />
@@ -85,9 +93,10 @@ const Profile = () => {
       {modalType === 'image' && (
         <RandomProfileModal onClose={closeModal} profileImg={profileImg} />
       )}
+
       {/*프로필 */}
       <button onClick={handleDelete}>
-        <p className="text-gray-55 w-full text-right text-[18px] font-medium">
+        <p className="w-full text-right text-[18px] font-medium text-gray-55">
           회원 탈퇴
         </p>
       </button>

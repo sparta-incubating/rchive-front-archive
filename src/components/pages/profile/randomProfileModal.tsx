@@ -1,7 +1,8 @@
 'use client';
 
 import refresh from '@/../public/assets/icons/refresh-button.svg';
-import { useMyPageUpdate } from '@/api/profile/useMutation';
+import { useMyPageUpdate } from '@/api/mypage/useMutation';
+
 import ProfileChangeForm from '@/components/organisms/profileChangeForm';
 
 import { RandomProfileModalProps } from '@/types/profile.types';

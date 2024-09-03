@@ -1,4 +1,3 @@
-import { useMyPageUpdate } from '@/api/profile/useMutation';
 import AuthTimer from '@/components/atoms/authTimer';
 import Label from '@/components/atoms/label';
 import PasswordContainer from '@/components/atoms/PasswordContainer';
@@ -13,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import ChangeSuccessModal from './changeSuccessModal';
 import ProfileChangeForm from '@/components/organisms/profileChangeForm';
+import { useMyPageUpdate } from '@/api/mypage/useMutation';
 
 const PhoneChangeModal = ({ onClose, username }: PhoneChangeModalProps) => {
   const [isSuccessful, setIsSuccessful] = useState<boolean>(false);

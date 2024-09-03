@@ -4,6 +4,7 @@ import { UserInfoProps } from '@/types/profile.types';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import UserInfoContainer from '../molecules/userInfoContainer';
+import ProfileContainer from '../molecules/profileContainer';
 
 const UserInfo: React.FC<UserInfoProps> = ({
   username,
@@ -11,18 +12,24 @@ const UserInfo: React.FC<UserInfoProps> = ({
   period,
   trackRole,
   profileImg,
+  nickname,
   handleChangeImage,
   handleChangeRole,
 }) => {
   const [init, setInit] = useState<string>(profileImg);
 
   useEffect(() => {
-    if (profileImg === 'default') {
+    if (
+      profileImg === 'default' &&
+      (trackRole === 'PM' || trackRole === 'APM')
+    ) {
       setInit('MRT_1');
+    } else if (profileImg === 'default' && trackRole === 'STUDENT') {
+      setInit('SRT_1');
     } else {
       setInit(profileImg);
     }
-  }, [profileImg, init]);
+  }, [profileImg, init, trackRole]);
 
   return (
     <main className="flex flex-col items-center justify-center gap-[24px]">
@@ -78,7 +85,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
 
                   <UserInfoContainer label="직책" data={trackRole} />
                 </>
-              ) : (
+              ) : trackRole === 'APM' ? (
                 <>
                   <UserInfoContainer
                     label="트랙"
@@ -93,6 +100,30 @@ const UserInfo: React.FC<UserInfoProps> = ({
                   <UserInfoContainer
                     label="직책"
                     data={trackRole}
+                    className="w-[263px]"
+                  />
+                </>
+              ) : (
+                <>
+                  <UserInfoContainer
+                    label="닉네임"
+                    data={nickname}
+                    className="w-[263px]"
+                  />
+                  {/* <ProfileContainer
+                    className="w-[263px]"
+                    label="닉네임"
+                    data={nickname}
+                    // onClick={}
+                  /> */}
+                  <UserInfoContainer
+                    label="트랙"
+                    data={trackName}
+                    className="w-[263px]"
+                  />
+                  <UserInfoContainer
+                    label="기수"
+                    data={period}
                     className="w-[263px]"
                   />
                 </>

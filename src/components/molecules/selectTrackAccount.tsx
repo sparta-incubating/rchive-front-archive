@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetRoleQuery } from '@/api/profile/useQuery';
+import { useGetRoleQuery } from '@/api/mypage/useQuery';
 import { useState } from 'react';
 
 type RoleList = {

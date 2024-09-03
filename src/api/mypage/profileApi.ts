@@ -145,3 +145,15 @@ export const getMyRole = async () => {
     throw new Error('권한(트랙 및 기수) 조회에 실패했습니다.');
   }
 };
+
+//닉네임 변경
+export const updateNickname = async (nickname: string) => {
+  try {
+    const res = await client.patch(`/apis/v1/profile/nickname`, {
+      nickname,
+    });
+    return res.data;
+  } catch (error) {
+    throw new Error('닉네임 변경에 실패했습니다.');
+  }
+};
