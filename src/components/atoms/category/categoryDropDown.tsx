@@ -1,6 +1,6 @@
 import { classMerge } from '@/utils/utils';
 import { cva, VariantProps } from 'class-variance-authority';
-import { ComponentProps, ReactNode } from 'react';
+import React, { ComponentProps, ReactNode } from 'react';
 
 const divVariants = cva('absolute left-0 w-[137px]', {
   variants: {
@@ -23,33 +23,32 @@ interface DivProps
   isClicked?: boolean;
 }
 
-const CategoryDropDown = ({
-  children,
-  className,
-  variant,
-  show,
-  isClicked = false,
-  ...props
-}: DivProps) => {
-  return (
-    <div
-      {...props}
-      className={classMerge(
-        divVariants({ variant }),
-        className,
-        show ? 'z-30 block' : 'hidden',
-      )}
-    >
+const CategoryDropDown = React.forwardRef<HTMLDivElement, DivProps>(
+  (
+    { children, className, variant, show, isClicked = false, ...props },
+    ref,
+  ) => {
+    return (
       <div
-        className={`flex h-auto w-full flex-col items-center overflow-y-scroll rounded-[14px] border bg-white px-3 py-[14px] scrollbar-hide ${
-          isClicked ? 'max-h-[64px]' : 'max-h-[208px]'
-        }`}
-        data-clicked={isClicked}
+        {...props}
+        ref={ref}
+        className={classMerge(
+          divVariants({ variant }),
+          className,
+          show ? 'z-30 block' : 'hidden',
+        )}
       >
-        {children}
+        <div
+          className={`flex h-auto w-full flex-col items-center overflow-y-scroll rounded-[14px] border bg-white px-3 py-[14px] scrollbar-hide ${
+            isClicked ? 'max-h-[64px]' : 'max-h-[208px]'
+          }`}
+          data-clicked={isClicked}
+        >
+          {children}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  },
+);
 
 export default CategoryDropDown;

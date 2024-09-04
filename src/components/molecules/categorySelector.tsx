@@ -9,6 +9,7 @@ import CategoryLayout from '@/components/atoms/category/categoryLayout';
 import CategoryContainer from '@/components/atoms/category/categoryContainer';
 import CategorySelectLabel from '@/components/atoms/category/categorySelectLabel';
 import CategoryDropDown from '@/components/atoms/category/categoryDropDown';
+import useDropDownOpen from '@/hooks/useDropDownOpen';
 
 interface FilterCategoryProps {
   label: string;
@@ -24,12 +25,12 @@ const CategoryCategory = ({
   defaultValue,
 }: FilterCategoryProps) => {
   const [selectedItem, setSelectedItem] = useState<SelectOptionType | null>();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { isOpen, dropdownRef, setIsOpen } = useDropDownOpen();
 
   const handleClick = (data: SelectOptionType) => {
     setSelectedItem(data);
     setValue(data.value);
-    setIsDropdownOpen(false);
+    setIsOpen(false);
   };
 
   useEffect(() => {
@@ -39,7 +40,7 @@ const CategoryCategory = ({
   }, [defaultValue, filterData]);
 
   return (
-    <CategoryContainer onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+    <CategoryContainer onClick={() => setIsOpen(!isOpen)}>
       <CategoryLayout>
         <CategorySelectLabel>
           {selectedItem ? selectedItem.label : label}
@@ -47,7 +48,7 @@ const CategoryCategory = ({
         <Image src={arrow} width={12} height={12} alt="화살표" />
       </CategoryLayout>
 
-      <CategoryDropDown show={isDropdownOpen}>
+      <CategoryDropDown show={isOpen} ref={dropdownRef}>
         <div
           className="flex h-[36px] w-full items-center rounded-[8px] px-[14px] py-[9px] hover:bg-secondary-55"
           key={0}
