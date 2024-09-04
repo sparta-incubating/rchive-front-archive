@@ -80,7 +80,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
       </button>
 
       <SearchInputDropDown clicked={isOpenSearchDropdown} ref={dropdownRef}>
-        {recentSearchData?.data.map((item, index) => (
+        {recentSearchData?.data?.map((item, index) => (
           <SearchInputDropDownItem
             key={item.keyword + index}
             variant="secondary"

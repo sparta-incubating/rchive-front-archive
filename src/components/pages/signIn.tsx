@@ -5,7 +5,7 @@ import dashboard from '@/../public/assets/icons/signin-dashboard.svg';
 import comment from '@/../public/assets/icons/comment-rtan.svg';
 import lecture from '@/../public/assets/icons/lecture-rtan.svg';
 import search from '@/../public/assets/icons/search-rtan.svg';
-import rtan from '@/../public/assets/icons/arcive-rtan.svg';
+import rtan from '@/../public/assets/icons/signin-rtan.svg';
 
 import { useModalContext } from '@/context/useModalContext';
 import { setAuth } from '@/redux/slice/auth.slice';

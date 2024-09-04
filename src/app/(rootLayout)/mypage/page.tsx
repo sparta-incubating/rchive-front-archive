@@ -3,6 +3,7 @@
 import { useMyPageUpdate } from '@/api/mypage/useMutation';
 import { useUserInfoDataQuery } from '@/api/mypage/useQuery';
 import ProfileLayout from '@/components/atoms/profileLayout';
+import MyPageHeader from '@/components/molecules/mypageHeader';
 import MypageHeader from '@/components/molecules/mypageHeader';
 import AccountInfo from '@/components/pages/accountInfo';
 import PasswordChangeModal from '@/components/pages/profile/passwordChangeModal';
@@ -62,7 +63,7 @@ const Profile = () => {
   return (
     <>
       <div className="mx-auto flex h-screen flex-col gap-[40px] bg-gray-50">
-        <MypageHeader />
+        <MyPageHeader />
         {/*프로필 */}
         <ProfileLayout variant="userInfo">
           <UserInfo
