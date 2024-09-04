@@ -1,36 +1,32 @@
 'use client';
 
 import SearchResultTitle from '@/components/atoms/searchResultTitle';
-import { useState } from 'react';
 import CategoryTapMenu from '@/components/atoms/category/categoryTabMenu';
 import { postTabArr } from '@/constatns/post.constant';
-import { PostTabType } from '@/types/posts.types';
 
 type CategoryGroupProps = {
-  data: PostTabType[];
   activeTab: string;
   setActiveTab: (idx: string) => void;
 };
 
-const CategoryGroup = ({}: CategoryGroupProps) => {
-  const [activeTab, setActiveTab] = useState<string>('all');
-  const handleTabChange = (newTab: string) => {
-    setActiveTab(newTab);
-    // updateQueryParams('postType', newTab);
-  };
+const CategoryGroup = ({ activeTab, setActiveTab }: CategoryGroupProps) => {
+  const activeCategory = postTabArr.find(
+    (category) => category.id === activeTab,
+  );
+
   return (
     <section className="pt-10">
       {/*  title:
     1순위 search keyword
     2순위 category 출력
     */}
-      <SearchResultTitle keyword="" category="전체" />
+      <SearchResultTitle keyword="" category={activeCategory!.title} />
 
       {/*  category tab */}
       <CategoryTapMenu
         data={postTabArr}
         activeTab={activeTab}
-        setActiveTab={handleTabChange}
+        setActiveTab={setActiveTab}
       />
     </section>
   );

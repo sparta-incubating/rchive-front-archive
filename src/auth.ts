@@ -57,15 +57,13 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
 
       // update 함수 호출시 실행되는 부분
       if (trigger === 'update' && session) {
-        console.log(session.user);
-
         token = {
           ...token,
           accessToken: session.user.accessToken,
           sub: session.user.accessToken,
           refreshToken: session.user.refreshToken,
           trackName: session.user.trackName,
-          loginPeriod: session.user.period,
+          loginPeriod: session.user.loginPeriod,
           username: session.user.username,
           birth: session.user.birth,
           phone: session.user.phone,

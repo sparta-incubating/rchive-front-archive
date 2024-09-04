@@ -23,6 +23,7 @@ const PostListContainer = ({ postListData }: PostListContainerProps) => {
 };
 
 export default PostListContainer;
+
 const testTags = [
   'figma',
   'javascript',

@@ -49,7 +49,7 @@ const PostList = ({ searchParams, postListData }: PostListProps) => {
       query.set('page', '1');
     }
 
-    router.push(`/${query.toString()}`);
+    router.push(`/?${query.toString()}`);
   };
 
   const getFetchTutors = useSearchTutor(trackName, loginPeriod, loginPeriod);
@@ -72,7 +72,7 @@ const PostList = ({ searchParams, postListData }: PostListProps) => {
     <div className="relative">
       <SearchInputContainer />
       <section className="flex flex-col gap-6">
-        <CategoryGroup />
+        <CategoryGroup activeTab={activeTab} setActiveTab={handleTabChange} />
         <SubCategoryGroup />
         <PostListContainer postListData={postListData} />
         <PageNation

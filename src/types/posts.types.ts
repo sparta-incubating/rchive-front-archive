@@ -105,7 +105,7 @@ export type CategoryType =
   | 'Sparta_Lecture'
   | 'Special_Lecture'
   | 'Project_Description'
-  | 'Level'
+  | 'Level_All'
   | 'all';
 
 export type tutorApiType = {
@@ -145,10 +145,6 @@ export type postFetchData = {
 
 export type SearchParamsType = {
   postType: string | undefined;
-  startDate: string | undefined;
-  endDate: string | undefined;
-  searchPeriod: string | undefined;
-  isOpened: string | undefined;
   tutorId: string | undefined;
   page: string | undefined;
   size: string | undefined;
