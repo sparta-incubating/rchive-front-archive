@@ -17,7 +17,7 @@ interface PostListProps {
   postListData: PostListResponse;
 }
 
-const PostList: React.FC<PostListProps> = ({ searchParams, postListData }) => {
+const PostList = ({ searchParams, postListData }: PostListProps) => {
   const {
     currentPage,
     tutor,
