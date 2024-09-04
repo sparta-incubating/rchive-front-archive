@@ -6,7 +6,7 @@ export const getPostList = cache(
   async (trackName: TrackType, period: number, queryString: string) => {
     const serverAPI = await createServerAPI();
     return serverAPI.get<PostListResponse>(
-      `/apis/v1/backoffice/post/search?trackName=${trackName}&period=${period}&${queryString}`,
+      `/apis/v1/posts/search?trackName=${trackName}&loginPeriod=${period}&${queryString}`,
     );
   },
 );

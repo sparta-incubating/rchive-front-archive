@@ -32,7 +32,7 @@ const page = async ({ searchParams }: PostProps) => {
   if (searchParamsData.postType && searchParams.postType !== 'all')
     query.set('category', searchParamsData.postType);
   if (searchParamsData.tutorId) query.set('tutorId', searchParamsData.tutorId);
-  if (searchParamsData.title) query.set('title', searchParamsData.title);
+  if (searchParamsData.title) query.set('keyword', searchParamsData.title);
   query.set('page', searchParamsData.page || DEFAULT_PAGE);
   query.set('size', searchParamsData.size || DEFAULT_PAGE_SIZE);
 

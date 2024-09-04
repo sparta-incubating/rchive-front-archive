@@ -15,6 +15,11 @@ import useSearchKeyword from '@/hooks/useSearchKeyword';
 import CategoryCategory from '@/components/molecules/categorySelector';
 import EmptyPage from '@/components/pages/emptyPage';
 import { postTabArr } from '@/constatns/post.constant';
+import Image from 'next/image';
+import SearchInputDropDown from '@/components/atoms/searchInput/searchInputDropDown';
+import SearchInputDropDownItem from '@/components/atoms/searchInput/searchInputDropDownItem';
+import SearchInputDropDownItemCard from '@/components/atoms/searchInput/searchInputDropDownItemCard';
+import useDropDownOpen from '@/hooks/useDropDownOpen';
 
 interface PostListProps {
   searchParams: SearchParamsType;
@@ -28,6 +33,12 @@ const PostList = ({ searchParams, postListData }: PostListProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [tutor, setTutor] = useState<string>('0');
   const [activeTab, setActiveTab] = useState<string>('all');
+  const [keyword, setKeyword] = useState<string>(searchParams?.title || '');
+  const {
+    isOpen: isOpenSearchDropdown,
+    dropdownRef,
+    handleClick: handleClickSearchDropdown,
+  } = useDropDownOpen();
 
   const {
     trackName,
@@ -72,6 +83,10 @@ const PostList = ({ searchParams, postListData }: PostListProps) => {
     updateQueryParams('page', page);
   };
 
+  const handleKeywordSearch = () => {
+    updateQueryParams('title', keyword);
+  };
+
   /*const handleOrderBy = () => {
     setOrderBy((prev) =>
       prev === OrderByEnum.NEW ? OrderByEnum.POPULAR : OrderByEnum.NEW,
@@ -94,19 +109,46 @@ const PostList = ({ searchParams, postListData }: PostListProps) => {
 
   return (
     <div className="relative">
-      <SearchInputContainer
-        placeholder="제목을 입력해주세요."
-        ref={searchInputRef}
-        onKeyDown={(e) => {
-          handleSearchKeyDown(e);
-          if (e.key === 'Enter') {
-            console.log(e.currentTarget.value);
-            // updateQueryParams('title', e.currentTarget.value);
-          }
-        }}
-      />
+      <SearchInputContainer onClick={handleClickSearchDropdown}>
+        <input
+          placeholder="어떤 자료를 찾고 계신가요?"
+          className="w-full text-lg"
+          ref={searchInputRef}
+          onChange={(e) => setKeyword(e.target.value)}
+          onKeyDown={(e) => {
+            handleSearchKeyDown(e);
+            if (e.key === 'Enter') {
+              handleKeywordSearch();
+            }
+          }}
+        />
+        <button
+          type="button"
+          className="flex h-[50px] w-[83px] items-center justify-center rounded-[32px]"
+          onClick={handleKeywordSearch}
+        >
+          <div className="relative flex h-5 w-5">
+            <Image
+              src={'/assets/icons/searchButton.svg'}
+              alt={'검색버튼'}
+              fill
+            />
+          </div>
+        </button>
+
+        {/*dropdown menu*/}
+        <SearchInputDropDown clicked={isOpenSearchDropdown} ref={dropdownRef}>
+          <SearchInputDropDownItem variant="secondary">
+            <SearchInputDropDownItemCard keyword={'REACT'} />
+          </SearchInputDropDownItem>
+        </SearchInputDropDown>
+      </SearchInputContainer>
       <section className="flex flex-col gap-6">
-        <CategoryGroup activeTab={activeTab} setActiveTab={handleTabChange} />
+        <CategoryGroup
+          keyword={searchParams?.title || ''}
+          activeTab={activeTab}
+          setActiveTab={handleTabChange}
+        />
 
         {postListData.data.totalElements > 0 ? (
           <>
@@ -132,7 +174,9 @@ const PostList = ({ searchParams, postListData }: PostListProps) => {
           </>
         ) : (
           <EmptyPage>
-            {postTabArr.find((category) => category.id === activeTab)?.title}
+            {searchParams?.title
+              ? searchParams?.title
+              : postTabArr.find((category) => category.id === activeTab)?.title}
           </EmptyPage>
         )}
       </section>

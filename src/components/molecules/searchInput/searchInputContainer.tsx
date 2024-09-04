@@ -1,48 +1,21 @@
 'use client';
 
-import useDropDownOpen from '@/hooks/useDropDownOpen';
-import Image from 'next/image';
-import SearchInputDropDown from '@/components/atoms/searchInput/searchInputDropDown';
-import SearchInputDropDownItem from '@/components/atoms/searchInput/searchInputDropDownItem';
-import SearchInputDropDownItemCard from '@/components/atoms/searchInput/searchInputDropDownItemCard';
-import { ComponentProps, forwardRef } from 'react';
+import { ComponentProps, PropsWithChildren } from 'react';
 
-const SearchInputContainer = forwardRef<
-  HTMLInputElement,
-  ComponentProps<'input'>
->(({ ...props }) => {
-  const { isOpen, dropdownRef, handleClick } = useDropDownOpen();
-
+const SearchInputContainer = ({
+  children,
+  ...props
+}: PropsWithChildren<ComponentProps<'div'>>) => {
   return (
     <section className="flex py-9">
       <article
         className="relative mx-auto flex h-[70px] w-[960px] items-center justify-between rounded-[43px] pl-12 shadow-searchInput"
-        onClick={handleClick}
+        {...props}
       >
-        <input
-          placeholder="어떤 자료를 찾고 계신가요?"
-          className="w-full text-lg"
-          {...props}
-        />
-        <button className="flex h-[50px] w-[83px] items-center justify-center rounded-[32px]">
-          <div className="relative flex h-5 w-5">
-            <Image
-              src={'/assets/icons/searchButton.svg'}
-              alt={'검색버튼'}
-              fill
-            />
-          </div>
-        </button>
-
-        {/*dropdown menu*/}
-        <SearchInputDropDown clicked={isOpen} ref={dropdownRef}>
-          <SearchInputDropDownItem variant="secondary">
-            <SearchInputDropDownItemCard keyword={'REACT'} />
-          </SearchInputDropDownItem>
-        </SearchInputDropDown>
+        {children}
       </article>
     </section>
   );
-});
+};
 
 export default SearchInputContainer;
