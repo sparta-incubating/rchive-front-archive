@@ -51,7 +51,6 @@ const SelectAccountPage = () => {
           );
 
           console.log(session?.user, '업데이트된 세션');
-          router.refresh();
           router.push('/');
         } catch (error) {
           if (axios.isAxiosError(error)) {
