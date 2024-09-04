@@ -1,12 +1,16 @@
 'use client';
 
+import useDropDownOpen from '@/hooks/useDropDownOpen';
 import Image from 'next/image';
 import SearchInputDropDown from '@/components/atoms/searchInput/searchInputDropDown';
-import useDropDownOpen from '@/hooks/useDropDownOpen';
 import SearchInputDropDownItem from '@/components/atoms/searchInput/searchInputDropDownItem';
 import SearchInputDropDownItemCard from '@/components/atoms/searchInput/searchInputDropDownItemCard';
+import { ComponentProps, forwardRef } from 'react';
 
-const SearchInputContainer = () => {
+const SearchInputContainer = forwardRef<
+  HTMLInputElement,
+  ComponentProps<'input'>
+>(({ ...props }) => {
   const { isOpen, dropdownRef, handleClick } = useDropDownOpen();
 
   return (
@@ -18,6 +22,7 @@ const SearchInputContainer = () => {
         <input
           placeholder="어떤 자료를 찾고 계신가요?"
           className="w-full text-lg"
+          {...props}
         />
         <button className="flex h-[50px] w-[83px] items-center justify-center rounded-[32px]">
           <div className="relative flex h-5 w-5">
@@ -38,6 +43,6 @@ const SearchInputContainer = () => {
       </article>
     </section>
   );
-};
+});
 
 export default SearchInputContainer;

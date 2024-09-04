@@ -48,6 +48,22 @@ const CategoryCategory = ({
       </CategoryLayout>
 
       <CategoryDropDown show={isDropdownOpen}>
+        <div
+          className="flex h-[36px] w-full items-center rounded-[8px] px-[14px] py-[9px] hover:bg-secondary-55"
+          key={0}
+          onClick={() =>
+            handleClick({ value: 'all', label: '전체', selected: false })
+          }
+        >
+          <p
+            className={`text-sm ${selectedItem?.value === 'all' ? 'text-secondary-500' : 'text-black'}`}
+          >
+            전체
+          </p>
+          {selectedItem?.value === 'all' && (
+            <Image src={select} width={16} height={12} alt="선택됨" />
+          )}
+        </div>
         {filterData &&
           filterData.map((data) => (
             <div
