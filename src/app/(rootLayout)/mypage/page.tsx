@@ -62,7 +62,7 @@ const Profile = () => {
 
   return (
     <>
-      <div className="mx-auto flex h-screen flex-col gap-[40px] bg-gray-50">
+      <div className="mx-auto flex h-screen w-full flex-col items-center justify-center gap-[40px] bg-gray-50">
         <MyPageHeader />
         {/*프로필 */}
         <ProfileLayout variant="userInfo">
@@ -99,11 +99,13 @@ const Profile = () => {
         )}
 
         {/*프로필 */}
-        <button onClick={handleDelete}>
-          <p className="w-full text-right text-[18px] font-medium text-gray-55">
-            회원 탈퇴
-          </p>
-        </button>
+        {trackRole === 'STUDENT' && (
+          <button onClick={handleDelete} className="w-[1152px] border">
+            <p className="text-right text-[18px] font-medium text-gray-55">
+              회원 탈퇴
+            </p>
+          </button>
+        )}
       </div>
     </>
   );
