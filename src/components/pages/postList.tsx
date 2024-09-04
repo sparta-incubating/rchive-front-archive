@@ -30,6 +30,7 @@ const PostList = ({ searchParams, postListData }: PostListProps) => {
     handlePageChange,
     handleKeywordSearch,
     updateQueryParams,
+    handleSearchClick,
   } = usePostList(searchParams);
 
   return (
@@ -38,6 +39,7 @@ const PostList = ({ searchParams, postListData }: PostListProps) => {
         keyword={keyword}
         setKeyword={setKeyword}
         onSearch={handleKeywordSearch}
+        handleSearchClick={handleSearchClick}
       />
       <section className="flex flex-col gap-6">
         <CategoryGroup

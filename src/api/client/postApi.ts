@@ -203,3 +203,55 @@ export const deletePost = async (
     }
   }
 };
+
+// 최근 검색어 등록
+export const postRecentSearch = async (
+  trackName: string,
+  period: number,
+  keyword: string,
+) => {
+  try {
+    const response = await client.post('/apis/v1/posts/search/recent', {
+      trackName,
+      period,
+      keyword,
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error('최근 검색어 등록에 실패했습니다.');
+  }
+};
+
+// 최근 검색어 가져오기
+export const getRecentSearch = async (trackName: string, period: number) => {
+  try {
+    const response = await client.get(
+      `/apis/v1/posts/search/recent?trackName=${trackName}&loginPeriod=${period}`,
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const data = error?.response?.data;
+      createToast(data.message, 'warning');
+      console.error(data.message);
+    }
+  }
+};
+
+// 최근 검색어 삭제
+export const deleteRecentSearch = async (
+  trackName: string,
+  period: number,
+  keyword: string,
+) => {
+  try {
+    const response = await client.delete('/apis/v1/posts/search/recent', {
+      data: { trackName, period, keyword },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error('최근 검색어 등록에 실패했습니다.');
+  }
+};

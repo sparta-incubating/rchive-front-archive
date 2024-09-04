@@ -3,6 +3,8 @@ import { useRouter } from 'next/navigation';
 import { useAppSelector } from '@/redux/storeConfig';
 import useSearchTutor from '@/hooks/useSearchTutor';
 import { SearchParamsType } from '@/types/posts.types';
+import useRecentSearchHistory from '@/hooks/useRecentSearchHistory';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const usePostList = (initialSearchParams: SearchParamsType) => {
   const router = useRouter();
@@ -12,6 +14,9 @@ export const usePostList = (initialSearchParams: SearchParamsType) => {
   const [keyword, setKeyword] = useState<string>(
     initialSearchParams?.title || '',
   );
+
+  const { recentSearchMutation } = useRecentSearchHistory();
+  const queryClient = useQueryClient();
 
   const { trackName, period: loginPeriod } = useAppSelector(
     (state) => state.authSlice,
@@ -48,8 +53,33 @@ export const usePostList = (initialSearchParams: SearchParamsType) => {
     updateQueryParams('page', page);
   };
 
-  const handleKeywordSearch = () => {
+  const handleSearchClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    keyword: string,
+  ) => {
+    e.stopPropagation();
+    setKeyword(keyword);
     updateQueryParams('title', keyword);
+  };
+
+  const handleKeywordSearch = async () => {
+    if (keyword) {
+      recentSearchMutation.mutate(
+        {
+          trackName,
+          period: Number(loginPeriod),
+          keyword,
+        },
+        {
+          onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ['recentSearch'] });
+            updateQueryParams('title', keyword);
+          },
+        },
+      );
+    } else {
+      updateQueryParams('title', keyword);
+    }
   };
 
   return {
@@ -64,5 +94,6 @@ export const usePostList = (initialSearchParams: SearchParamsType) => {
     handlePageChange,
     handleKeywordSearch,
     updateQueryParams,
+    handleSearchClick,
   };
 };

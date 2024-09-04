@@ -6,24 +6,54 @@ import SearchInputContainer from '@/components/molecules/searchInput/searchInput
 import SearchInputDropDown from '@/components/atoms/searchInput/searchInputDropDown';
 import SearchInputDropDownItem from '@/components/atoms/searchInput/searchInputDropDownItem';
 import SearchInputDropDownItemCard from '@/components/atoms/searchInput/searchInputDropDownItemCard';
+import useRecentSearchHistory from '@/hooks/useRecentSearchHistory';
+import { useAppSelector } from '@/redux/storeConfig';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface SearchInputProps {
   keyword: string;
   setKeyword: (value: string) => void;
   onSearch: () => void;
+  handleSearchClick: (
+    e: React.MouseEvent<HTMLDivElement>,
+    keyword: string,
+  ) => void;
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({
   keyword,
   setKeyword,
   onSearch,
+  handleSearchClick,
 }) => {
   const { searchInputRef, handleSearchKeyDown } = useSearchKeyword(keyword);
+  const { trackName, period } = useAppSelector((state) => state.authSlice);
+  const queryClient = useQueryClient();
+
   const {
     isOpen: isOpenSearchDropdown,
     dropdownRef,
     handleClick: handleClickSearchDropdown,
   } = useDropDownOpen();
+
+  const { recentSearchData, deleteRecentMutation } = useRecentSearchHistory();
+  const handleDeleteRecentSearch = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    trackName: string,
+    period: number,
+    keyword: string,
+  ) => {
+    e.stopPropagation();
+
+    deleteRecentMutation.mutate(
+      { trackName, period, keyword },
+      {
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({ queryKey: ['recentSearch'] });
+        },
+      },
+    );
+  };
 
   return (
     <SearchInputContainer onClick={handleClickSearchDropdown}>
@@ -38,6 +68,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
           if (e.key === 'Enter') onSearch();
         }}
       />
+
       <button
         type="button"
         className="flex h-[50px] w-[83px] items-center justify-center rounded-[32px]"
@@ -47,10 +78,29 @@ const SearchInput: React.FC<SearchInputProps> = ({
           <Image src={'/assets/icons/searchButton.svg'} alt={'검색버튼'} fill />
         </div>
       </button>
+
       <SearchInputDropDown clicked={isOpenSearchDropdown} ref={dropdownRef}>
-        <SearchInputDropDownItem variant="secondary">
-          <SearchInputDropDownItemCard keyword={'REACT'} />
-        </SearchInputDropDownItem>
+        {recentSearchData?.data.map((item, index) => (
+          <SearchInputDropDownItem
+            key={item.keyword + index}
+            variant="secondary"
+            onClick={(e: React.MouseEvent<HTMLDivElement>) =>
+              handleSearchClick(e, item.keyword)
+            }
+          >
+            <SearchInputDropDownItemCard
+              keyword={item.keyword}
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                handleDeleteRecentSearch(
+                  e,
+                  trackName,
+                  Number(period),
+                  item.keyword,
+                )
+              }
+            />
+          </SearchInputDropDownItem>
+        ))}
       </SearchInputDropDown>
     </SearchInputContainer>
   );
