@@ -7,8 +7,8 @@ import ProfileDropDownItem from '@/components/atoms/profile/profileDropDownItem'
 import ProfileDropDownItemCard from '@/components/atoms/profile/ProfileDropDownItemCard';
 import useDropDownOpen from '@/hooks/useDropDownOpen';
 import { useAppSelector } from '@/redux/storeConfig';
-import { getNameCategory } from '@/utils/setAuthInfo/post.util';
-import { PostType, TrackType } from '@/types/posts.types';
+import { getTrackName } from '@/utils/setAuthInfo/post.util';
+import { TrackType } from '@/types/posts.types';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
@@ -77,7 +77,7 @@ const HeaderProfileContainer = () => {
               profileImage={`/assets/icons/${profileImg}.svg`}
               nickname={username}
               role={role.trackRoleEnum}
-              track={`${getNameCategory(role.trackName as PostType)} ${role.period}기`}
+              track={`${getTrackName(role.trackName as TrackType)} ${role.period}기`}
               selected={
                 role.period === Number(period) &&
                 role.trackRoleEnum === trackRole

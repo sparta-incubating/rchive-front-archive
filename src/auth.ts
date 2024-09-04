@@ -134,4 +134,20 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       });
     },
   },
+  session: {
+    strategy: 'jwt',
+  },
+  cookies: {
+    sessionToken: {
+      name:
+        process.env.NEXT_PUBLIC_RUN_MODE === 'production'
+          ? `__Secure-next-auth.session-token.archive`
+          : `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+      },
+    },
+  },
 });
