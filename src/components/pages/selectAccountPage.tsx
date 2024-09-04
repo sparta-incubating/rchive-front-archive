@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import SelectTrackHeader from '../molecules/selectTrackHeader';
 import SelectTrackAccount from '../molecules/selectTrackAccount';
+import Button from '../atoms/button';
 
 const SelectAccountPage = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -23,17 +24,16 @@ const SelectAccountPage = () => {
           <SelectTrackAccount onGetId={handleSelect} />
 
           {/*버튼 */}
-          <section className="flex h-[60px] justify-end px-[40px]">
-            <button>확인</button>
-            {/* <Button
+          {/* <section className="flex h-[60px] justify-end px-[40px]">
+            <Button
               size="sm"
               className="w-[190px]"
               type="submit"
               onClick={handleSelect}
             >
               확인
-            </Button> */}
-          </section>
+            </Button>
+          </section> */}
           {/*버튼 */}
         </section>
       </section>

@@ -1,14 +1,15 @@
 'use client';
 
 import Button from '@/components/atoms/button';
+
 import SelectAccountPage from '@/components/pages/selectAccountPage';
 import { signOut } from 'next-auth/react';
-import React from 'react';
 
 const Wait = () => {
   const handleLogout = async () => {
     await signOut({ callbackUrl: '/login', redirect: true });
   };
+
   return (
     <div>
       <p>테스트용 페이지</p>
