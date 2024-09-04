@@ -5,16 +5,37 @@ import TagNameGroup from '@/components/molecules/post/tagNamegroup';
 import { PostContentType } from '@/types/posts.types';
 import { getNameCategory } from '@/utils/setAuthInfo/post.util';
 import dayjs from 'dayjs';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface PostCardProps {
   postData: PostContentType;
 }
 
 const PostCard = ({ postData }: PostCardProps) => {
+  const [isHover, setIsHover] = useState<boolean>(false);
+  const router = useRouter();
+
+  const handleClickPost = (postId: number) => {
+    console.log({ postId });
+    // router.push(`/posts/${postId}`);
+  };
+
   return (
-    <article className="flex flex-col gap-3 pb-[22.5px] pt-2">
-      <PostThumbnail thumbnail={postData.thumbnailUrl} />
-      <PostTitle href={'#'} bookmark={postData.isBookmarked}>
+    <article
+      className="group flex flex-col gap-3 pb-[22.5px] pt-2"
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+    >
+      <PostThumbnail
+        thumbnail={postData.thumbnailUrl}
+        isHover={isHover}
+        onClick={() => handleClickPost(postData.postId)}
+      />
+      <PostTitle
+        onClick={() => handleClickPost(postData.postId)}
+        bookmark={postData.isBookmarked}
+      >
         {postData.title}
       </PostTitle>
       <PostInfoTextGroup

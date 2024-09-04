@@ -63,7 +63,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           sub: session.user.accessToken,
           refreshToken: session.user.refreshToken,
           trackName: session.user.trackName,
-          loginPeriod: session.user.period,
+          loginPeriod: session.user.loginPeriod,
           username: session.user.username,
           birth: session.user.birth,
           phone: session.user.phone,
@@ -132,6 +132,22 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           Authorization: `Bearer ${accessToken}`,
         },
       });
+    },
+  },
+  session: {
+    strategy: 'jwt',
+  },
+  cookies: {
+    sessionToken: {
+      name:
+        process.env.NEXT_PUBLIC_RUN_MODE === 'production'
+          ? `__Secure-next-auth.session-token.archive`
+          : `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+      },
     },
   },
 });

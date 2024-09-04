@@ -11,9 +11,8 @@ const PostListContainer = ({ postListData }: PostListContainerProps) => {
     data: { content },
   } = postListData;
 
-  console.log({ content });
   return (
-    <section className="container mx-auto mb-14">
+    <section className="mx-auto mb-14">
       <div className="grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {content.map((item) => (
           <PostCard postData={item} key={item.postId} />
@@ -24,6 +23,7 @@ const PostListContainer = ({ postListData }: PostListContainerProps) => {
 };
 
 export default PostListContainer;
+
 const testTags = [
   'figma',
   'javascript',

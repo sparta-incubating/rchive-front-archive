@@ -17,10 +17,6 @@ interface PostProps {
 const page = async ({ searchParams }: PostProps) => {
   const searchParamsData: SearchParamsType = {
     postType: searchParams.postType ?? '',
-    startDate: searchParams.startDate ?? '',
-    endDate: searchParams.endDate ?? '',
-    searchPeriod: searchParams.searchPeriod ?? '',
-    isOpened: searchParams.isOpened ?? '',
     tutorId: searchParams.tutorId ?? '',
     page: searchParams.page ?? '',
     size: searchParams.size ?? '',
@@ -34,14 +30,9 @@ const page = async ({ searchParams }: PostProps) => {
 
   const query = new URLSearchParams();
   if (searchParamsData.postType && searchParams.postType !== 'all')
-    query.set('postType', searchParamsData.postType);
-  if (searchParamsData.startDate)
-    query.set('startDate', searchParamsData.startDate);
-  if (searchParamsData.endDate) query.set('endDate', searchParamsData.endDate);
-  if (searchParamsData.isOpened && searchParams.isOpened !== 'all')
-    query.set('isOpened', searchParamsData.isOpened);
+    query.set('category', searchParamsData.postType);
   if (searchParamsData.tutorId) query.set('tutorId', searchParamsData.tutorId);
-  if (searchParamsData.title) query.set('title', searchParamsData.title);
+  if (searchParamsData.title) query.set('keyword', searchParamsData.title);
   query.set('page', searchParamsData.page || DEFAULT_PAGE);
   query.set('size', searchParamsData.size || DEFAULT_PAGE_SIZE);
 
@@ -70,9 +61,11 @@ const page = async ({ searchParams }: PostProps) => {
       </MainPage>
     );
   } catch (error) {
+    console.log('post list error!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     if (axios.isAxiosError(error)) {
       const data = error?.response?.data;
       const status = error?.response?.status;
+      console.log(error.response);
 
       return <CustomError errorData={{ status, data }}></CustomError>;
     }

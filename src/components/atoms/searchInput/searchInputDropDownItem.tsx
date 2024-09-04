@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ComponentProps, ReactNode } from 'react';
 import { cva, VariantProps } from 'class-variance-authority';
 
 const ProfileDropDownItemVariants = cva(
@@ -17,18 +17,18 @@ const ProfileDropDownItemVariants = cva(
 );
 
 interface SelectItemProps
-  extends VariantProps<typeof ProfileDropDownItemVariants> {
+  extends VariantProps<typeof ProfileDropDownItemVariants>,
+    ComponentProps<'div'> {
   children: ReactNode;
-  onClick?: () => void;
 }
 
 const SearchInputDropDownItem = ({
   children,
-  onClick,
   variant = 'primary',
+  ...props
 }: SelectItemProps) => {
   return (
-    <div onClick={onClick} className={ProfileDropDownItemVariants({ variant })}>
+    <div {...props} className={ProfileDropDownItemVariants({ variant })}>
       {children}
     </div>
   );
