@@ -4,6 +4,10 @@ import refresh from '@/../public/assets/icons/refresh-button.svg';
 import { useMyPageUpdate } from '@/api/mypage/useMutation';
 
 import ProfileChangeForm from '@/components/organisms/profileChangeForm';
+import {
+  RANDOM_MANAGER_IMAGES,
+  RANDOM_USER_IMAGES,
+} from '@/constatns/mypage.constant';
 
 import { RandomProfileModalProps } from '@/types/profile.types';
 import Image from 'next/image';
@@ -12,38 +16,23 @@ import { useEffect, useState } from 'react';
 const RandomProfileModal = ({
   onClose,
   profileImg,
+  trackRole,
 }: RandomProfileModalProps) => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [initImg, setInitImg] = useState<string>(profileImg);
   const [selectImg, setSelectImg] = useState<number>(0);
-
-  useEffect(() => {
-    if (profileImg === 'default') {
-      setInitImg('MRT_1');
-    } else {
-      setInitImg(profileImg);
-    }
-  }, [profileImg]);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const randomManager = RANDOM_MANAGER_IMAGES;
+  const randomUser = RANDOM_USER_IMAGES;
 
   const { updateProfileInfoMutate } = useMyPageUpdate();
 
-  const randomProfile = [
-    'MRT_1',
-    'MRT_2',
-    'MRT_3',
-    'MRT_4',
-    'MRT_5',
-    'MRT_6',
-    'MRT_7',
-    'MRT_8',
-    'MRT_9',
-  ];
-
-  const imgName = 'MRT_' + (selectImg + 1);
-
   const handleRandomImg = () => {
-    setSelectImg((selectImg) => (selectImg + 1) % randomProfile.length);
-    setInitImg(imgName);
+    setSelectImg(
+      (prevSelectImg) =>
+        (prevSelectImg + 1) %
+        (trackRole === 'STUDENT' ? randomUser.length : randomManager.length),
+    );
     setIsValid(true);
   };
 
@@ -55,9 +44,17 @@ const RandomProfileModal = ({
     try {
       updateProfileInfoMutate.mutate(profileInfo);
     } catch (error) {
-      console.log(error, 'Error');
+      setErrorMessage('프로필 변경에 실패했습니다.');
     }
   };
+
+  useEffect(() => {
+    if (trackRole === 'STUDENT') {
+      setInitImg(randomUser[selectImg]);
+    } else {
+      setInitImg(randomManager[selectImg]);
+    }
+  }, [selectImg, trackRole, randomManager, randomUser]);
 
   return (
     <>
@@ -86,6 +83,7 @@ const RandomProfileModal = ({
             </div>
           </button>
           {/* 리프레시버튼 */}
+          <span className="text-sm text-primary-400">{errorMessage}</span>
         </ProfileChangeForm>
       </form>
     </>

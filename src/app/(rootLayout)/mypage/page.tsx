@@ -96,7 +96,11 @@ const Profile = () => {
           <RoleChangeModal onClose={closeModal} trackRole={trackRole} />
         )}
         {modalType === 'image' && (
-          <RandomProfileModal onClose={closeModal} profileImg={profileImg} />
+          <RandomProfileModal
+            onClose={closeModal}
+            profileImg={profileImg}
+            trackRole={trackRole}
+          />
         )}
 
         {modalType === 'nickname' && (

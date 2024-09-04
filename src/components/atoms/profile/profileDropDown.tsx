@@ -12,7 +12,7 @@ const ProfileDropDown = React.forwardRef<HTMLDivElement, ProfileDropDownProps>(
   ({ children, clicked }, ref) => {
     const router = useRouter();
     const handleProfileClick = () => {
-      router.push('/myPage');
+      router.push('/mypage');
     };
 
     return (

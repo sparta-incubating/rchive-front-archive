@@ -45,6 +45,7 @@ export interface RoleChangeModalProps {
 export interface RandomProfileModalProps {
   onClose: () => void;
   profileImg: string;
+  trackRole: string;
 }
 
 //api
