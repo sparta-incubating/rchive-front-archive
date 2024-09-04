@@ -16,10 +16,6 @@ const CategoryGroup = ({ activeTab, setActiveTab }: CategoryGroupProps) => {
 
   return (
     <section className="pt-10">
-      {/*  title:
-    1순위 search keyword
-    2순위 category 출력
-    */}
       <SearchResultTitle keyword="" category={activeCategory!.title} />
 
       {/*  category tab */}
