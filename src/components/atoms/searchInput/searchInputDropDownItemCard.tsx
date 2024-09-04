@@ -1,11 +1,13 @@
 import Image from 'next/image';
+import { ComponentProps } from 'react';
 
-interface SearchInputDropDownItemCardProps {
+interface SearchInputDropDownItemCardProps extends ComponentProps<'button'> {
   keyword: string;
 }
 
 const SearchInputDropDownItemCard = ({
   keyword,
+  ...props
 }: SearchInputDropDownItemCardProps) => {
   return (
     <div className="flex w-full items-center justify-between gap-2">
@@ -20,7 +22,11 @@ const SearchInputDropDownItemCard = ({
         {keyword}
       </span>
       <div className="group flex h-[24.02px] w-[24.02px] items-center justify-center rounded-full hover:bg-secondary-100">
-        <button className="relative h-[10.3px] w-[10.3px]">
+        <button
+          type="button"
+          className="relative h-[10.3px] w-[10.3px]"
+          {...props}
+        >
           <Image
             src={'/assets/icons/searchDeleteButton.svg'}
             alt={'최근검색 삭제 아이콘'}

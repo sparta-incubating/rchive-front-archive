@@ -9,10 +9,6 @@ type TabProps = {
 };
 
 const CategoryTapMenu = ({ data, activeTab, setActiveTab }: TabProps) => {
-  const handleTabChange = (idx: string) => {
-    setActiveTab(idx);
-  };
-
   return (
     <section className="relative w-full after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:bg-gray-200">
       <div className="relative flex">
@@ -25,7 +21,7 @@ const CategoryTapMenu = ({ data, activeTab, setActiveTab }: TabProps) => {
             }`}
             key={item.title}
             type="button"
-            onClick={() => handleTabChange(item.id)}
+            onClick={() => setActiveTab(item.id)}
           >
             <p
               className={`text-md group-hover:font-bold group-hover:text-gray-900 ${

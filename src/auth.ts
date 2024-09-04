@@ -63,7 +63,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           sub: session.user.accessToken,
           refreshToken: session.user.refreshToken,
           trackName: session.user.trackName,
-          loginPeriod: session.user.period,
+          loginPeriod: session.user.loginPeriod,
           username: session.user.username,
           birth: session.user.birth,
           phone: session.user.phone,
