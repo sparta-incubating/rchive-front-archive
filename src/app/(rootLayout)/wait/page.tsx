@@ -3,7 +3,7 @@
 import Button from '@/components/atoms/button';
 
 import SelectAccountPage from '@/components/pages/selectAccountPage';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 const Wait = () => {
   const handleLogout = async () => {

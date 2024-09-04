@@ -64,7 +64,7 @@ const SignIn = () => {
         '가입되지 않은 이메일이거나 비밀번호가 일치하지 않습니다.',
       );
     } else {
-      router.push('/');
+      router.push('/wait');
     }
   };
 
@@ -95,7 +95,7 @@ const SignIn = () => {
         }),
       );
 
-      router.push('/');
+      router.push('/wait');
     }
   }, [dispatch, router, session]);
 

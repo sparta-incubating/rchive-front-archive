@@ -4,7 +4,8 @@ import { useGetRoleQuery } from '@/api/mypage/useQuery';
 import { useCallback, useState, useMemo, useEffect } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import PageNation from '../atoms/pageNation';
-import Button from '../atoms/button';
+import { TrackType } from '@/types/posts.types';
+import { useAppSelector } from '@/redux/storeConfig';
 
 type RoleList = {
   trackId: number;
@@ -14,7 +15,7 @@ type RoleList = {
 };
 
 type SelectTrackAccountProps = {
-  onGetId: (id: number) => void;
+  onGetId: (trackName: TrackType, period: number) => void;
 };
 
 const SelectTrackAccount = ({ onGetId }: SelectTrackAccountProps) => {
@@ -24,8 +25,10 @@ const SelectTrackAccount = ({ onGetId }: SelectTrackAccountProps) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
+  const { period, trackName } = useAppSelector((state) => state.authSlice);
+
+  /*페이지 네이션 */
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
-  // 한 페이지에 보여줄 아이템 수
   const itemsPerPage = 6;
 
   const updateQueryParams = useCallback(
@@ -54,20 +57,11 @@ const SelectTrackAccount = ({ onGetId }: SelectTrackAccountProps) => {
   );
 
   const roleList = useMemo(() => data?.data?.roleResList || [], [data]);
-  console.log(roleList, '정보');
 
   const paginatedRoleList = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     return roleList.slice(startIndex, startIndex + itemsPerPage);
   }, [roleList, currentPage, itemsPerPage]);
-
-  const handleClick = useCallback(
-    (id: number) => {
-      setClickedId(id);
-      onGetId(id);
-    },
-    [onGetId],
-  );
 
   useEffect(() => {
     if (!searchParams.has('page')) {
@@ -76,6 +70,29 @@ const SelectTrackAccount = ({ onGetId }: SelectTrackAccountProps) => {
       router.replace(`${pathname}?${query.toString()}`);
     }
   }, [searchParams, router, pathname]);
+  /*페이지 네이션 */
+
+  /*프로필 선택 */
+  useEffect(() => {
+    if (trackName && period) {
+      const foundRole = roleList.find(
+        (role: RoleList) =>
+          role.trackName === trackName && role.period === Number(period),
+      );
+      if (foundRole) {
+        setClickedId(foundRole.trackId);
+      }
+    }
+  }, [trackName, period, roleList]);
+
+  const handleClick = useCallback(
+    (trackName: TrackType, period: number, trackId: number) => {
+      setClickedId(trackId);
+      onGetId(trackName, period);
+    },
+    [onGetId],
+  );
+  /*프로필 선택 */
 
   if (isPending) {
     return <div>로딩중</div>;
@@ -88,7 +105,9 @@ const SelectTrackAccount = ({ onGetId }: SelectTrackAccountProps) => {
           {paginatedRoleList.map((items: RoleList) => (
             <button
               key={items.trackId}
-              onClick={() => handleClick(items.trackId)}
+              onClick={() =>
+                handleClick(trackName, items.period, items.trackId)
+              }
             >
               <div
                 className={`flex h-[83px] w-[254px] items-center gap-[12px] rounded-[16px] px-[20px] text-2xl font-bold ${
@@ -106,18 +125,6 @@ const SelectTrackAccount = ({ onGetId }: SelectTrackAccountProps) => {
           ))}
         </div>
       </div>
-      {/*버튼 */}
-      <section className="flex h-[60px] justify-end px-[40px]">
-        <Button
-          size="sm"
-          className="w-[190px]"
-          type="submit"
-          // onClick={handleSelect}
-        >
-          확인
-        </Button>
-      </section>
-      {/*버튼 */}
       <PageNation
         currentPage={currentPage}
         totalElements={roleList.length}
