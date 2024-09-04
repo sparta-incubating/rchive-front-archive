@@ -1,14 +1,10 @@
 import Input from '@/components/atoms/input';
 import InputContainer from '@/components/atoms/InputContainer';
 import Label from '@/components/atoms/label';
-import PasswordContainer from '@/components/atoms/PasswordContainer';
 import InputField from '@/components/molecules/InputField';
 
 import { ChangeModalProps } from '@/types/profile.types';
-import {
-  profileNicknameSchema,
-  profilePasswordSchema,
-} from '@/validators/auth/profile.validator';
+import { profileNicknameSchema } from '@/validators/auth/profile.validator';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -18,7 +14,7 @@ import ProfileChangeForm from '@/components/organisms/profileChangeForm';
 import { useMyPageUpdate } from '@/api/mypage/useMutation';
 
 const NicknameChangeModal = ({ onClose }: ChangeModalProps) => {
-  const [pwErrorMsg, setpwErrorMsg] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [isSuccessful, setIsSuccessful] = useState<boolean>(false);
   const {
     register,
@@ -33,16 +29,15 @@ const NicknameChangeModal = ({ onClose }: ChangeModalProps) => {
     },
   });
 
-  const { updatePasswordMutate } = useMyPageUpdate();
+  const { updateNicknameMutate } = useMyPageUpdate();
 
   const onSubmit = async (data: z.infer<typeof profileNicknameSchema>) => {
     try {
-      // await updatePasswordMutate.mutateAsync(data);
+      await updateNicknameMutate.mutateAsync(data.nickname);
       console.log(data);
       setIsSuccessful(true);
     } catch (error) {
-      setpwErrorMsg('비밀번호가 일치하지 않습니다.');
-      throw new Error('비밀번호가 일치하지 않습니다.');
+      setErrorMessage('이미 사용 중인 닉네임입니다.');
     }
   };
 
@@ -52,7 +47,7 @@ const NicknameChangeModal = ({ onClose }: ChangeModalProps) => {
         {!isSuccessful ? (
           <ProfileChangeForm
             labels={{
-              main: '닉네임 변경하기',
+              main: '닉네임 변경',
               sub: '',
             }}
             onClose={onClose}
@@ -70,8 +65,9 @@ const NicknameChangeModal = ({ onClose }: ChangeModalProps) => {
                   />
                 </InputField>
               </InputContainer>
+
               <span className="text-sm text-primary-400">
-                {errors.nickname?.message}
+                {errors.nickname?.message || errorMessage}
               </span>
             </section>
           </ProfileChangeForm>

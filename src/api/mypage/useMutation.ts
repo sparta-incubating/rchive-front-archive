@@ -5,6 +5,7 @@ import {
   checkPhoneAuth,
   deleteUser,
   sendPhoneAuthNumber,
+  updateNickname,
   updatePassword,
   updatePhoneNumber,
   updateProfileInfo,
@@ -90,6 +91,18 @@ export const useMyPageUpdate = () => {
       console.log('변경 실패:', error);
     },
   });
+
+  const updateNicknameMutate = useMutation({
+    mutationFn: updateNickname,
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: [PROFILE_QUERY_KEYS.PROFILE],
+      }),
+    onError: (error) => {
+      console.log('변경 실패:', error);
+    },
+  });
+
   return {
     updatePhoneNumberMutate,
     updatePasswordMutate,
@@ -98,5 +111,6 @@ export const useMyPageUpdate = () => {
     postPhoneAuthNumberMutate,
     checkPhoneAuthMutate,
     deleteUserMutate,
+    updateNicknameMutate,
   };
 };

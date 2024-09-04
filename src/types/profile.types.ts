@@ -17,6 +17,7 @@ export interface UserInfoProps {
   nickname: string;
   handleChangeImage: () => void;
   handleChangeRole: () => void;
+  handleChangeNickname: () => void;
 }
 
 export interface AccountInfoProps {

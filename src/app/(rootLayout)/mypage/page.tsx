@@ -6,6 +6,7 @@ import ProfileLayout from '@/components/atoms/profileLayout';
 import MyPageHeader from '@/components/molecules/mypageHeader';
 import MypageHeader from '@/components/molecules/mypageHeader';
 import AccountInfo from '@/components/pages/accountInfo';
+import NicknameChangeModal from '@/components/pages/profile/nicknameChangeModal';
 import PasswordChangeModal from '@/components/pages/profile/passwordChangeModal';
 import PhoneChangeModal from '@/components/pages/profile/phoneChangeModal';
 import RandomProfileModal from '@/components/pages/profile/randomProfileModal';
@@ -65,26 +66,26 @@ const Profile = () => {
       <div className="mx-auto flex h-screen w-full flex-col items-center justify-center gap-[40px] bg-gray-50">
         <MyPageHeader />
         {/*프로필 */}
-        <ProfileLayout variant="userInfo">
-          <UserInfo
-            profileImg={profileImg}
-            username={username}
-            trackName={trackName}
-            period={period}
-            trackRole={trackRole}
-            nickname={nickname}
-            handleChangeRole={() => openModal('role')}
-            handleChangeImage={() => openModal('image')}
-          />
-        </ProfileLayout>
-        <ProfileLayout variant="accountInfo">
-          <AccountInfo
-            email={email}
-            phone={phone}
-            handleChangePassword={() => openModal('password')}
-            handleChangePhoneNumber={() => openModal('phone')}
-          />
-        </ProfileLayout>
+        {/*회원 정보 */}
+        <UserInfo
+          profileImg={profileImg}
+          username={username}
+          trackName={trackName}
+          period={period}
+          trackRole={trackRole}
+          nickname={nickname}
+          handleChangeRole={() => openModal('role')}
+          handleChangeImage={() => openModal('image')}
+          handleChangeNickname={() => openModal('nickname')}
+        />
+        {/*계정 정보 */}
+        <AccountInfo
+          email={email}
+          phone={phone}
+          handleChangePassword={() => openModal('password')}
+          handleChangePhoneNumber={() => openModal('phone')}
+        />
+        {/*모달 */}
         {modalType === 'password' && (
           <PasswordChangeModal onClose={closeModal} />
         )}
@@ -98,12 +99,16 @@ const Profile = () => {
           <RandomProfileModal onClose={closeModal} profileImg={profileImg} />
         )}
 
-        {/*프로필 */}
+        {modalType === 'nickname' && (
+          <NicknameChangeModal onClose={closeModal} />
+        )}
+        {/*회원탈퇴 */}
         {trackRole === 'STUDENT' && (
-          <button onClick={handleDelete} className="w-[1152px] border">
-            <p className="text-right text-[18px] font-medium text-gray-55">
-              회원 탈퇴
-            </p>
+          <button
+            onClick={handleDelete}
+            className="w-[1152px] text-right text-[18px] font-medium text-gray-55"
+          >
+            회원 탈퇴
           </button>
         )}
       </div>
