@@ -9,6 +9,7 @@ import SearchInputDropDownItemCard from '@/components/atoms/searchInput/searchIn
 import useRecentSearchHistory from '@/hooks/useRecentSearchHistory';
 import { useAppSelector } from '@/redux/storeConfig';
 import { useQueryClient } from '@tanstack/react-query';
+import { RECENT_SEARCH_KEY } from '@/api/signup/keys.constant';
 
 interface SearchInputProps {
   keyword: string;
@@ -49,7 +50,9 @@ const SearchInput: React.FC<SearchInputProps> = ({
       { trackName, period, keyword },
       {
         onSuccess: async () => {
-          await queryClient.invalidateQueries({ queryKey: ['recentSearch'] });
+          await queryClient.invalidateQueries({
+            queryKey: [RECENT_SEARCH_KEY],
+          });
         },
       },
     );
@@ -79,29 +82,31 @@ const SearchInput: React.FC<SearchInputProps> = ({
         </div>
       </button>
 
-      <SearchInputDropDown clicked={isOpenSearchDropdown} ref={dropdownRef}>
-        {recentSearchData?.data?.map((item, index) => (
-          <SearchInputDropDownItem
-            key={item.keyword + index}
-            variant="secondary"
-            onClick={(e: React.MouseEvent<HTMLDivElement>) =>
-              handleSearchClick(e, item.keyword)
-            }
-          >
-            <SearchInputDropDownItemCard
-              keyword={item.keyword}
-              onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                handleDeleteRecentSearch(
-                  e,
-                  trackName,
-                  Number(period),
-                  item.keyword,
-                )
+      {!!recentSearchData?.data && (
+        <SearchInputDropDown clicked={isOpenSearchDropdown} ref={dropdownRef}>
+          {recentSearchData?.data.map((item, index) => (
+            <SearchInputDropDownItem
+              key={item.keyword + index}
+              variant="secondary"
+              onClick={(e: React.MouseEvent<HTMLDivElement>) =>
+                handleSearchClick(e, item.keyword)
               }
-            />
-          </SearchInputDropDownItem>
-        ))}
-      </SearchInputDropDown>
+            >
+              <SearchInputDropDownItemCard
+                keyword={item.keyword}
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                  handleDeleteRecentSearch(
+                    e,
+                    trackName,
+                    Number(period),
+                    item.keyword,
+                  )
+                }
+              />
+            </SearchInputDropDownItem>
+          ))}
+        </SearchInputDropDown>
+      )}
     </SearchInputContainer>
   );
 };

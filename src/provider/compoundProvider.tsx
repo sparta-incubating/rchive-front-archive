@@ -21,19 +21,6 @@ const CompoundProvider = async ({ children }: PropsWithChildren) => {
   const myRoles = session?.user.myRoles || [];
   const email = session?.user.email || '';
 
-  console.log({
-    accessToken,
-    trackName,
-    trackRole,
-    period,
-    nickname,
-    username,
-    birth,
-    profileImg,
-    myRoles,
-    email,
-  });
-
   return (
     <StoreProvider>
       <TanstackQueryProvider>

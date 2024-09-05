@@ -129,18 +129,15 @@ export type postsEndPointFormData = {
 };
 
 export type postFetchData = {
+  postId: string;
   title: string;
-  tutorRes: { tutorId: number; tutorName: string };
-  contentLink: string;
+  tutor: string;
   videoLink: string;
-  tagNameList: string[];
+  contentLink: string;
+  isBookmarked: boolean;
   uploadedAt: string;
   postType: PostType;
-  period: number;
-  isOpened: boolean;
-  thumbnailUrl: string;
-  content: string;
-  postId: string;
+  tagList: TagType[];
 };
 
 export type SearchParamsType = {

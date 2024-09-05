@@ -7,6 +7,7 @@ import {
   postRecentSearch,
 } from '@/api/client/postApi';
 import { useAppSelector } from '@/redux/storeConfig';
+import { RECENT_SEARCH_KEY } from '@/api/signup/keys.constant';
 
 interface RecentSearchParams {
   trackName: string;
@@ -34,7 +35,7 @@ const useRecentSearchHistory = () => {
   });
 
   const { data: recentSearchData } = useQuery<RecentSearchResponse>({
-    queryKey: ['recentSearch'],
+    queryKey: [RECENT_SEARCH_KEY],
     queryFn: () => getRecentSearch(trackName, Number(period)),
     staleTime: Infinity,
     enabled: !!trackName || !!period,
