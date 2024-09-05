@@ -1,12 +1,17 @@
 import Footer from '@/components/molecules/footer';
-import { PropsWithChildren } from 'react';
+import { ReactNode } from 'react';
 
-const MainPage = ({ children }: PropsWithChildren) => {
+interface DetailPageProps {
+  children: ReactNode;
+  theme?: string;
+}
+
+const DetailPage = ({ children, theme }: DetailPageProps) => {
   return (
     <div className="flex flex-col">
       {children}
-      <Footer />
+      <Footer theme={theme} />
     </div>
   );
 };
-export default MainPage;
+export default DetailPage;

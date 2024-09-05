@@ -136,6 +136,7 @@ export type postFetchData = {
   contentLink: string;
   isBookmarked: boolean;
   uploadedAt: string;
+  postType: PostType;
   tagList: TagType[];
 };
 

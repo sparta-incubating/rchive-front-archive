@@ -1,4 +1,4 @@
-import { getPost } from '@/api/server/postsApi';
+import { getNoSearchKeywordPostList, getPost } from '@/api/server/postsApi';
 import { auth } from '@/auth';
 import axios from 'axios';
 import React from 'react';
@@ -26,8 +26,14 @@ const Post = async ({ params }: { params: { id: string } }) => {
 
     const postData = response.data.data as postFetchData;
 
+    const postListResponse = await getNoSearchKeywordPostList(
+      trackName || '',
+      Number(period),
+      `category=${postData.postType}&page=1&size=4`,
+    );
+
     return (
-      <DetailPage>
+      <DetailPage theme="light">
         <div className="w-full border-b border-gray-100">
           <div className="relative mx-auto flex w-[1152px] flex-col">
             <MainHeader />
@@ -40,7 +46,10 @@ const Post = async ({ params }: { params: { id: string } }) => {
         </div>
 
         <div className="relative mx-auto flex w-[1152px] flex-col">
-          <PostDetail postData={postData} />
+          <PostDetail
+            postData={postData}
+            postListData={postListResponse.data}
+          />
         </div>
       </DetailPage>
     );

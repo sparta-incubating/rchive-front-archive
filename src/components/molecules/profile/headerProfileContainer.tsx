@@ -13,10 +13,12 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { patchLastConnectRole } from '@/api/client/authApi';
+import { useQueryClient } from '@tanstack/react-query';
 
 const HeaderProfileContainer = () => {
   const { isOpen, dropdownRef, handleClick } = useDropDownOpen();
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { period, trackRole, myRoles, profileImg, username } = useAppSelector(
     (state) => state.authSlice,
   );
@@ -28,7 +30,7 @@ const HeaderProfileContainer = () => {
       user: {
         ...session?.user,
         trackName,
-        period,
+        loginPeriod: period,
       },
     });
 
@@ -39,8 +41,7 @@ const HeaderProfileContainer = () => {
         console.log(error);
       }
     }
-
-    router.refresh();
+    window.location.reload();
   };
 
   return (

@@ -11,7 +11,7 @@ interface PostDetailHeaderProps {
   setCurrentState: Dispatch<SetStateAction<string>>;
 }
 
-const PostDetailHeader = ({
+const PostDetailCategoryGroup = ({
   currentState,
   setCurrentState,
 }: PostDetailHeaderProps) => {
@@ -31,4 +31,4 @@ const PostDetailHeader = ({
   );
 };
 
-export default PostDetailHeader;
+export default PostDetailCategoryGroup;

@@ -22,7 +22,7 @@ const PostDetailHeader = ({
     <section className="mx-auto flex h-16 w-[1152px] items-center justify-between py-2">
       <button
         onClick={() => router.back()}
-        className="flex cursor-pointer gap-3"
+        className="flex cursor-pointer items-center gap-3"
       >
         <div className="relative h-6 w-6" onClick={() => router.back()}>
           <Image src="/assets/icons/prevPageBlack.svg" alt="이전페이지" fill />

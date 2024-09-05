@@ -1,15 +1,17 @@
 'use client';
 
-import PostDetailHeader from '@/components/atoms/postDetail/postDetailHeader';
+import PostDetailCategoryGroup from '@/components/molecules/postDetail/postDetailCategoryGroup';
 import NotionContainer from '@/components/molecules/postDetail/notionContainer';
-import PostDetailTag from '@/components/molecules/postDetail/postDetailTag';
 import VideoContainer from '@/components/molecules/postDetail/videoContainer';
 import useSocialButtonPosition from '@/hooks/useSocialButtonPosition';
 import { useMemo, useState } from 'react';
-import { postFetchData } from '@/types/posts.types';
+import { postFetchData, PostListResponse } from '@/types/posts.types';
+import PostDetailTag from '@/components/molecules/postDetail/postDetailTag';
+import MorePost from '@/components/molecules/postDetail/morePost';
 
 interface PostDetailProps {
   postData: postFetchData;
+  postListData: PostListResponse;
 }
 
 const TITLE_OPTIONS = {
@@ -17,7 +19,7 @@ const TITLE_OPTIONS = {
   CONTENT: '노션자료',
 };
 
-const PostDetail = ({ postData }: PostDetailProps) => {
+const PostDetail = ({ postData, postListData }: PostDetailProps) => {
   const initialView = useMemo(() => {
     if (postData.videoLink && postData.contentLink) {
       return TITLE_OPTIONS.VIDEO;
@@ -32,12 +34,12 @@ const PostDetail = ({ postData }: PostDetailProps) => {
   const { containerRef, fixedPosition } = useSocialButtonPosition();
 
   return (
-    <div className="mx-auto min-w-[1050px]">
+    <div className="mx-auto w-full max-w-[1152px]">
       <div className="relative m-6 w-full" ref={containerRef}>
         <section className="flex flex-col">
           <div className="mx-auto my-2 min-w-[800px]">
             {postData.videoLink && postData.contentLink && (
-              <PostDetailHeader
+              <PostDetailCategoryGroup
                 currentState={currentView}
                 setCurrentState={setCurrentView}
               />
@@ -51,9 +53,6 @@ const PostDetail = ({ postData }: PostDetailProps) => {
               >
                 <div className="flex flex-col gap-[35px]">
                   <VideoContainer videoLink={postData.videoLink} />
-                  {!postData.tagList && (
-                    <PostDetailTag tags={postData.tagList!} />
-                  )}
                 </div>
               </div>
             )}
@@ -66,19 +65,31 @@ const PostDetail = ({ postData }: PostDetailProps) => {
                 <NotionContainer notionLink={postData.contentLink!} />
               </div>
             )}
+
+            <div className="mt-9">
+              {!!postData.tagList && <PostDetailTag tags={postData.tagList!} />}
+            </div>
           </div>
         </section>
 
-        <div
+        {/*<div
           className="fixed"
           style={{
             top: `${fixedPosition.top}px`,
             left: `${fixedPosition.left}px`,
           }}
         >
-          {/*<SocialButtonGroup />*/}
-        </div>
+          <SocialButtonGroup />
+        </div>*/}
       </div>
+      {/*spacer*/}
+      <div className="h-[62px]"></div>
+
+      {/*관련 category content*/}
+      <MorePost category={postData.postType} postListData={postListData} />
+
+      {/*spacer*/}
+      <div className="h-[64px]"></div>
     </div>
   );
 };
