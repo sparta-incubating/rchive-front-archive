@@ -63,20 +63,17 @@ const SignIn = () => {
       setSignInError(
         '가입되지 않은 이메일이거나 비밀번호가 일치하지 않습니다.',
       );
-    } else {
-      router.push('/wait');
     }
   };
 
   useEffect(() => {
-    if (session) {
-      console.log(session.user, '회원가입');
+    if (session?.user) {
       const {
         trackName,
         trackRole,
         accessToken,
         loginPeriod,
-        myRoles,
+        myRoles = [],
         nickname,
         username,
         profileImg,
@@ -84,6 +81,7 @@ const SignIn = () => {
         phone,
         email,
       } = session.user;
+
       dispatch(
         setAuth({
           accessToken,
@@ -100,7 +98,13 @@ const SignIn = () => {
         }),
       );
 
-      router.push('/wait');
+      if (myRoles.length > 1) {
+        router.push('/wait');
+      } else {
+        router.push('/');
+      }
+    } else {
+      router.push('/login');
     }
   }, [dispatch, router, session]);
 
