@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import SelectTrackHeader from '../molecules/selectTrackHeader';
 import SelectTrackAccount from '../molecules/selectTrackAccount';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useAppSelector } from '@/redux/storeConfig';
 
 import { useGetRoleQuery } from '@/api/mypage/useQuery';
 

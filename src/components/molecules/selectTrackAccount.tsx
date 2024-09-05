@@ -41,8 +41,7 @@ const SelectTrackAccount = ({ paginatedRoleList }: SelectTrackAccountProps) => {
     });
 
     try {
-      const res = await patchLastConnectRole(trackName, period);
-      console.log(res, 'res----------');
+      await patchLastConnectRole(trackName, period);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error);
@@ -74,7 +73,7 @@ const SelectTrackAccount = ({ paginatedRoleList }: SelectTrackAccountProps) => {
                       ? '수강생'
                       : items.trackRoleEnum}
                   </p>
-                  <p className="w-[130px] text-center">{`${items.trackName} ${items.period}기`}</p>
+                  <p className="w-[130px] text-center">{`${items.trackName === 'SPRING_DEEP' ? '심화' : items.trackName} ${items.period}기`}</p>
                 </div>
               </button>
             ))}

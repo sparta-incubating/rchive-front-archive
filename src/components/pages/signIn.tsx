@@ -97,7 +97,7 @@ const SignIn = () => {
       );
 
       if (myRoles.length > 1) {
-        router.push('/wait');
+        router.push('/select');
       } else {
         router.push('/');
       }

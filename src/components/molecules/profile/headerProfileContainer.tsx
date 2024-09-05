@@ -49,7 +49,7 @@ const HeaderProfileContainer = () => {
       className="relative flex cursor-pointer gap-2.5 rounded-[14px] border border-gray-100 bg-gray-50 p-2"
       onClick={handleClick}
     >
-      <ProfileImage imageUrl="/assets/icons/MRT_2.svg" size="sm" />
+      <ProfileImage imageUrl={`/assets/icons/${profileImg}.svg`} size="sm" />
 
       <div className="flex items-center gap-1">
         <span className="text-sm font-medium text-gray-700">{username}님</span>
@@ -77,7 +77,9 @@ const HeaderProfileContainer = () => {
             <ProfileDropDownItemCard
               profileImage={`/assets/icons/${profileImg}.svg`}
               nickname={username}
-              role={role.trackRoleEnum}
+              role={
+                role.trackRoleEnum === 'STUDENT' ? '수강생' : role.trackRoleEnum
+              }
               track={`${getTrackName(role.trackName as TrackType)} ${role.period}기`}
               selected={
                 role.period === Number(period) &&
