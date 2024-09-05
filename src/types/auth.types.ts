@@ -28,3 +28,10 @@ export type MyRoleDataType = {
   trackName: TrackType;
   period: number;
 };
+
+export type SelectProfileRole = {
+  trackId: number;
+  trackRoleEnum: string;
+  trackName: TrackType;
+  period: number;
+};

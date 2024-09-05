@@ -16,8 +16,6 @@ const SelectAccountPage = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const { period, trackName } = useAppSelector((state) => state.authSlice);
-
   /*페이지 네이션 */
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
   const itemsPerPage = 6;
@@ -63,37 +61,27 @@ const SelectAccountPage = () => {
   }, [searchParams, router, pathname]);
   /*페이지 네이션 */
 
-  /*프로필 선택 */
-  // useEffect(() => {
-  //   if (trackName && period) {
-  //     const foundRole = roleList.find(
-  //       (role: RoleList) =>
-  //         role.trackName === trackName && role.period === Number(period),
-  //     );
-  //     if (foundRole) {
-  //       setClickedId(foundRole.trackId);
-  //     }
-  //   }
-  // }, [trackName, period, roleList]);
-
-  /*프로필 선택 */
-
   if (isPending) {
     return <div>로딩중</div>;
   }
-
+  const totalPages = Math.ceil(roleList.length / itemsPerPage);
+  console.log(totalPages, '?');
   return (
     <main className="flex h-screen w-full items-center justify-center bg-archive-gradient">
       <section className="flex h-[730px] w-[1200px] items-center justify-center rounded-[40px] border bg-white p-[10px] shadow-archiveShadow">
         <section className="h-[690px] w-[1157px] rounded-[40px] bg-blue-50">
           <SelectTrackHeader />
           <SelectTrackAccount paginatedRoleList={paginatedRoleList} />
-          <PageNation
-            currentPage={currentPage}
-            totalElements={roleList.length}
-            size={itemsPerPage}
-            onPageChange={handlePageChange}
-          />
+          {/*페이지 네이션 */}
+          {totalPages > 1 && (
+            <PageNation
+              currentPage={currentPage}
+              totalElements={roleList.length}
+              size={itemsPerPage}
+              onPageChange={handlePageChange}
+            />
+          )}
+          {/*페이지 네이션 */}
         </section>
       </section>
     </main>

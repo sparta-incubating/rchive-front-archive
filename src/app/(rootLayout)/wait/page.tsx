@@ -10,15 +10,7 @@ const Wait = () => {
     await signOut({ callbackUrl: '/login', redirect: true });
   };
 
-  return (
-    <div>
-      <p>테스트용 페이지</p>
-      <Button onClick={handleLogout} variant="submit">
-        로그아웃
-      </Button>
-      <SelectAccountPage />
-    </div>
-  );
+  return <SelectAccountPage />;
 };
 
 export default Wait;

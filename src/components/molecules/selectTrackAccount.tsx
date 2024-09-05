@@ -3,32 +3,70 @@
 import { useState } from 'react';
 
 import Button from '../atoms/button';
-
-export type RoleList = {
-  trackId: number;
-  trackRoleEnum: string;
-  trackName: string;
-  period: number;
-};
+import { useSession } from 'next-auth/react';
+import { TrackType } from '@/types/posts.types';
+import { patchLastConnectRole } from '@/api/client/authApi';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { useAppSelector } from '@/redux/storeConfig';
+import { SelectProfileRole } from '@/types/auth.types';
 
 type SelectTrackAccountProps = {
-  paginatedRoleList: RoleList[];
+  paginatedRoleList: SelectProfileRole[];
 };
 
 const SelectTrackAccount = ({ paginatedRoleList }: SelectTrackAccountProps) => {
-  const [clickedId, setClickedId] = useState<number | null>(null);
+  const { period, trackName } = useAppSelector((state) => state.authSlice);
+
+  const [clickedPeriod, setClickPeriod] = useState<number>(parseInt(period));
+  const [clickedTrackName, setClickedTrackName] =
+    useState<TrackType>(trackName);
+
+  const router = useRouter();
+
+  const handleClick = (id: number, name: TrackType) => {
+    setClickPeriod(id);
+    setClickedTrackName(name);
+  };
+
+  const { update, data: session } = useSession();
+  const handleToTrack = async (trackName: TrackType, period: number) => {
+    await update({
+      ...session,
+      user: {
+        ...session?.user,
+        trackName,
+        loginPeriod: period,
+      },
+    });
+
+    try {
+      const res = await patchLastConnectRole(trackName, period);
+      console.log(res, 'res----------');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error);
+      }
+    }
+    router.push('/');
+    router.refresh();
+  };
+
   return (
     <>
-      <main className="w-full border py-[100px]">
-        <div className="h-auto border px-[40px]">
-          <div className="grid grid-cols-3 gap-[42px] border px-[40px]">
-            {paginatedRoleList.map((items: RoleList) => (
-              <button key={items.trackId} onClick={() => alert('hi')}>
+      <main className="w-full py-[100px]">
+        <div className="h-auto px-[40px]">
+          <div className="grid grid-cols-3 gap-[42px] px-[40px]">
+            {paginatedRoleList.map((items: SelectProfileRole) => (
+              <button
+                key={items.trackId}
+                onClick={() => handleClick(items.period, items.trackName)}
+              >
                 <div
-                  className={`flex h-[83px] w-[254px] items-center gap-[12px] rounded-[16px] px-[20px] text-2xl font-bold ${
-                    clickedId === items.trackId
-                      ? `border border-point-color bg-primary-50 text-point-color`
-                      : `border text-gray-400`
+                  className={`flex h-[83px] w-[254px] items-center gap-[12px] rounded-[16px] px-[20px] text-xl font-bold ${
+                    clickedPeriod === items.period
+                      ? `border-2 border-point-color bg-primary-50 text-point-color`
+                      : `border-2 text-gray-400`
                   }`}
                 >
                   <p className="flex h-[42px] w-[70px] items-center justify-center rounded-[16px] bg-white">
@@ -36,15 +74,18 @@ const SelectTrackAccount = ({ paginatedRoleList }: SelectTrackAccountProps) => {
                       ? '수강생'
                       : items.trackRoleEnum}
                   </p>
-                  <p className="w-[130px] border text-center">{`${items.trackName} ${items.period}기`}</p>
+                  <p className="w-[130px] text-center">{`${items.trackName} ${items.period}기`}</p>
                 </div>
               </button>
             ))}
           </div>
         </div>
       </main>
-      <section className="flex justify-end border px-[40px]">
-        <Button className="h-[60px] w-[190px]" onClick={() => alert('hiiii')}>
+      <section className="flex justify-end px-[40px]">
+        <Button
+          className="h-[60px] w-[190px]"
+          onClick={() => handleToTrack(clickedTrackName, clickedPeriod)}
+        >
           확인
         </Button>
       </section>
