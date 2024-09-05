@@ -156,13 +156,16 @@ const SignIn = () => {
                     />
                   </InputField>
                 </InputContainer>
-                <span className="h-[20px] text-sm text-primary-400">
-                  {errors.password?.message}
-                </span>
-                {signInError && (
-                  <FormSpan variant="error">{signInError}</FormSpan>
-                )}
-              </div>{' '}
+                <div>
+                  {errors.password?.message ? (
+                    <span className="h-[20px] text-sm text-primary-400">
+                      {errors.password?.message}
+                    </span>
+                  ) : signInError ? (
+                    <FormSpan variant="error">{signInError}</FormSpan>
+                  ) : null}
+                </div>
+              </div>
               {/*이메일*/}
             </div>
             <div className="flex h-[104px] w-full items-center justify-center py-[20px]">
