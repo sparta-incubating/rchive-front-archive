@@ -2,7 +2,7 @@
 
 import { useMyPageUpdate } from '@/api/mypage/useMutation';
 import { useUserInfoDataQuery } from '@/api/mypage/useQuery';
-import MyPageHeader from '@/components/molecules/mypageHeader';
+
 import AccountInfo from '@/components/pages/accountInfo';
 import NicknameChangeModal from '@/components/pages/profile/nicknameChangeModal';
 import PasswordChangeModal from '@/components/pages/profile/passwordChangeModal';
@@ -15,6 +15,7 @@ import UserInfo from '@/components/pages/userInfo';
 import { useRouter } from 'next/navigation';
 
 import { useState } from 'react';
+import MyPageHeader from '../molecules/myPageHeader';
 
 const MyProfile = () => {
   const { userData, isError, isPending } = useUserInfoDataQuery();

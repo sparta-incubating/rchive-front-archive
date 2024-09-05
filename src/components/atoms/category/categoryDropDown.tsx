@@ -51,4 +51,6 @@ const CategoryDropDown = React.forwardRef<HTMLDivElement, DivProps>(
   },
 );
 
+CategoryDropDown.displayName = 'CategoryDropDown';
+
 export default CategoryDropDown;

@@ -22,4 +22,5 @@ const SearchInputDropDown = React.forwardRef<
   );
 });
 
+SearchInputDropDown.displayName = 'SearchInputDropDown';
 export default SearchInputDropDown;

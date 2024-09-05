@@ -48,4 +48,6 @@ const ProfileDropDown = React.forwardRef<HTMLDivElement, ProfileDropDownProps>(
   },
 );
 
+ProfileDropDown.displayName = 'ProfileDropDown';
+
 export default ProfileDropDown;

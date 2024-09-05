@@ -53,4 +53,6 @@ const AuthTimer = memo(({ setExpire }: AuthTimerProps) => {
   );
 });
 
+AuthTimer.displayName = 'AuthTimer';
+
 export default AuthTimer;

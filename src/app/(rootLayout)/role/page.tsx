@@ -17,7 +17,7 @@ const RolePage = () => {
       <RoleSelectForm trackRole={trackRole}>
         <span className="text-center text-xl font-medium text-gray-900">
           {/* {trackRole === 'PM' ? '트랙 선택' : '트랙 및 기수 선택'} */}
-          '트랙 및 기수 선택'
+          트랙 및 기수 선택
         </span>
       </RoleSelectForm>
     </RoleContainerPage>

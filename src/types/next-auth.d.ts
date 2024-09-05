@@ -35,8 +35,6 @@ declare module 'next-auth/jwt' {
     trackId?: number;
     trackRole?: trackRole;
     trackName?: TrackType;
-    phone?: string;
-    email?: string;
     loginPeriod?: number;
     roleApply?: boolean;
     nickname?: string;

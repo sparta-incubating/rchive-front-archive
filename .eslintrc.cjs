@@ -2,6 +2,8 @@ module.exports = {
   root: true,
   env: { browser: true, es2020: true },
   extends: [
+    'next',
+    'next/core-web-vitals',
     'eslint:recommended',
     'prettier',
     'plugin:@typescript-eslint/recommended',
