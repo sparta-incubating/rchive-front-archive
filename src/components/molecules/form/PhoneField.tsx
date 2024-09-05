@@ -39,7 +39,6 @@ const PhoneField = ({
 
   const handleRequestAuth = () => {
     const userInfo = { username: usernameCheck, phone: isInputFilled };
-    console.log(userInfo, 'userInfo');
     try {
       postPhoneAuthNumberMutate.mutate(userInfo);
       setRequestAuthNumber(false);
