@@ -23,23 +23,3 @@ const PostListContainer = ({ postListData }: PostListContainerProps) => {
 };
 
 export default PostListContainer;
-
-const testTags = [
-  'figma',
-  'javascript',
-  'java',
-  'database',
-  'spring boot',
-  'react',
-  'nextjs',
-];
-
-const testTags2 = [
-  'figma',
-  'javascript',
-  'spring boot',
-  'database',
-  'java',
-  'react',
-  'nextjs',
-];

@@ -61,7 +61,6 @@ const page = async ({ searchParams }: PostProps) => {
       </MainPage>
     );
   } catch (error) {
-    console.log('post list error!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     if (axios.isAxiosError(error)) {
       const data = error?.response?.data;
       const status = error?.response?.status;

@@ -17,8 +17,7 @@ const PostCard = ({ postData }: PostCardProps) => {
   const router = useRouter();
 
   const handleClickPost = (postId: number) => {
-    console.log({ postId });
-    // router.push(`/posts/${postId}`);
+    router.push(`/post/${postId}`);
   };
 
   return (

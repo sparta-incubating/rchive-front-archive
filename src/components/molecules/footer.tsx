@@ -1,8 +1,14 @@
-const Footer = () => {
+interface FooterProps {
+  theme?: string;
+}
+
+const Footer = ({ theme = 'dark' }: FooterProps) => {
   return (
-    <footer className="h-[218px] w-full bg-gray-900 py-9">
+    <footer
+      className={`h-[218px] w-full py-9 ${theme === 'light' ? 'border-t border-gray-100 bg-white' : 'bg-gray-900'}`}
+    >
       <section className="mx-auto flex h-full w-[1152px] flex-col gap-4">
-        <div className="flex gap-4">
+        <div className="flex min-h-[34px] items-center gap-4">
           <a
             href={
               'https://teamsparta.notion.site/7b1dc644460946f08bab08b794de685f'

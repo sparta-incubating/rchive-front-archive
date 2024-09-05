@@ -66,7 +66,6 @@ export async function POST() {
     }
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
-      console.log(error.response?.data, '로그인 오류');
       return new NextResponse(
         JSON.stringify({
           message:

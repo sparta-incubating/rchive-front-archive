@@ -5,6 +5,7 @@ import useSearchTutor from '@/hooks/useSearchTutor';
 import { SearchParamsType } from '@/types/posts.types';
 import useRecentSearchHistory from '@/hooks/useRecentSearchHistory';
 import { useQueryClient } from '@tanstack/react-query';
+import { RECENT_SEARCH_KEY } from '@/api/signup/keys.constant';
 
 export const usePostList = (initialSearchParams: SearchParamsType) => {
   const router = useRouter();
@@ -72,7 +73,9 @@ export const usePostList = (initialSearchParams: SearchParamsType) => {
         },
         {
           onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey: ['recentSearch'] });
+            await queryClient.invalidateQueries({
+              queryKey: [RECENT_SEARCH_KEY],
+            });
             updateQueryParams('title', keyword);
           },
         },

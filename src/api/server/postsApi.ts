@@ -24,7 +24,7 @@ export const getPost = cache(
   async (postId: number, trackName: TrackType, period: number) => {
     const serverAPI = await createServerAPI();
     return await serverAPI.get(
-      `/apis/v1/backoffice/post/${postId}?trackName=${trackName}&loginPeriod=${period}`,
+      `/apis/v1/posts/${postId}?trackName=${trackName}&period=${period}`,
     );
   },
 );
