@@ -64,7 +64,7 @@ const SelectAccountPage = () => {
     return <div>로딩중</div>;
   }
   const totalPages = Math.ceil(roleList.length / itemsPerPage);
-  console.log(totalPages, '?');
+
   return (
     <main className="flex h-screen w-full items-center justify-center bg-archive-gradient">
       <section className="flex h-[730px] w-[1200px] items-center justify-center rounded-[40px] border bg-white p-[10px] shadow-archiveShadow">
