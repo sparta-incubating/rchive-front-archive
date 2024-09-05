@@ -21,7 +21,7 @@ export const useMyPageUpdate = () => {
         queryKey: [PROFILE_QUERY_KEYS.PROFILE],
       }),
     onError: (error) => {
-      console.log('변경 실패:', error);
+      console.log('인증번호 전송 실패:', error);
     },
   });
 
@@ -33,7 +33,7 @@ export const useMyPageUpdate = () => {
         queryKey: [PROFILE_QUERY_KEYS.PROFILE],
       }),
     onError: (error) => {
-      console.log('변경 실패:', error);
+      console.log('인증번호 확인 실패:', error);
     },
   });
 
@@ -45,7 +45,7 @@ export const useMyPageUpdate = () => {
         queryKey: [PROFILE_QUERY_KEYS.PROFILE],
       }),
     onError: (error) => {
-      console.log('변경 실패:', error);
+      console.log('휴대폰 변경 실패:', error);
     },
   });
 
@@ -56,7 +56,7 @@ export const useMyPageUpdate = () => {
         queryKey: [PROFILE_QUERY_KEYS.PROFILE],
       }),
     onError: (error) => {
-      console.log('변경 실패:', error);
+      console.log('비밀번호 변경 실패:', error);
     },
   });
 
@@ -67,7 +67,7 @@ export const useMyPageUpdate = () => {
         queryKey: [PROFILE_QUERY_KEYS.PROFILE],
       }),
     onError: (error) => {
-      console.log('변경 실패:', error);
+      console.log('권한 추가 요청 실패:', error);
     },
   });
 
@@ -78,7 +78,7 @@ export const useMyPageUpdate = () => {
         queryKey: [PROFILE_QUERY_KEYS.PROFILE],
       }),
     onError: (error) => {
-      console.log('변경 실패:', error);
+      console.log('프로필 수정 실패:', error);
     },
   });
   const deleteUserMutate = useMutation({
@@ -88,7 +88,7 @@ export const useMyPageUpdate = () => {
         queryKey: [PROFILE_QUERY_KEYS.PROFILE],
       }),
     onError: (error) => {
-      console.log('변경 실패:', error);
+      console.log('회원 탈퇴 실패:', error);
     },
   });
 
@@ -99,7 +99,7 @@ export const useMyPageUpdate = () => {
         queryKey: [PROFILE_QUERY_KEYS.PROFILE],
       }),
     onError: (error) => {
-      console.log('변경 실패:', error);
+      console.log('닉네임 변경 실패:', error);
     },
   });
 

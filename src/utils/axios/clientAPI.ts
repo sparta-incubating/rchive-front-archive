@@ -39,7 +39,7 @@ client.interceptors.request.use(
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     } else {
-      console.log('액세스 토큰 오류');
+      console.log('액세스 토큰 오류 발생');
     }
 
     return config;

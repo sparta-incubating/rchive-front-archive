@@ -5,9 +5,6 @@ import RoleWait from '@/components/pages/roleResult/roleWait';
 import { RoleResultEnum } from '@/types/role.types';
 import { createServerAPI } from '@/utils/axios/serverAPI';
 import { isAPMEmail } from '@/utils/utils';
-import { getCookie } from 'cookies-next';
-import { getSession, useSession } from 'next-auth/react';
-import { cookies } from 'next/headers';
 
 const RoleResultPage = async () => {
   const session = await auth();
@@ -67,14 +64,15 @@ const RoleResultPage = async () => {
       ) : (
         <RoleContainerPage>
           <section className="m-auto flex w-[520px] flex-col items-center gap-5 rounded-[12px] bg-white pb-7 pt-5">
-            {roleApplyResult === RoleResultEnum.REJECT && (
-              <div className="flex w-[520px] flex-col items-center gap-5 rounded-[12px] bg-white pb-7 pt-14">
-                <span className="text-center text-xl font-medium text-gray-900">
-                  백오피스에 문의하세요.
-                </span>
-                <RoleWait />
-              </div>
-            )}
+            {roleApplyResult === RoleResultEnum.REJECT ||
+              (RoleResultEnum.WAIT && (
+                <div className="flex w-[520px] flex-col items-center gap-5 rounded-[12px] bg-white pb-7 pt-14">
+                  <span className="text-center text-xl font-medium text-gray-900">
+                    백오피스에 문의하세요.
+                  </span>
+                  <RoleWait />
+                </div>
+              ))}
           </section>
         </RoleContainerPage>
       )}

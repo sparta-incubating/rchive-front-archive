@@ -31,11 +31,9 @@ const RoleChangeModal = ({ onClose, trackRole }: RoleChangeModalProps) => {
     },
   });
 
-  const watchTrackName = watch('trackName');
+  // const watchTrackName = watch('trackName');
 
   const period = useGetPeriod(watch('trackName'), trackRole);
-
-  console.log(period, '권한 추가 요청');
 
   const { updateRoleMutate } = useMyPageUpdate();
 

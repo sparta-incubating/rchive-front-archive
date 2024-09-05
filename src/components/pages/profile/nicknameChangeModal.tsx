@@ -34,7 +34,6 @@ const NicknameChangeModal = ({ onClose }: ChangeModalProps) => {
   const onSubmit = async (data: z.infer<typeof profileNicknameSchema>) => {
     try {
       await updateNicknameMutate.mutateAsync(data.nickname);
-      console.log(data);
       setIsSuccessful(true);
     } catch (error) {
       setErrorMessage('이미 사용 중인 닉네임입니다.');
