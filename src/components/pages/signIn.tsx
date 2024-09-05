@@ -78,6 +78,7 @@ const SignIn = () => {
         username,
         profileImg,
         birth,
+        email,
       } = session.user;
 
       dispatch(
@@ -91,6 +92,7 @@ const SignIn = () => {
           birth: birth || '',
           profileImg: profileImg || '',
           myRoles: myRoles || [],
+          email: email || '',
         }),
       );
 
