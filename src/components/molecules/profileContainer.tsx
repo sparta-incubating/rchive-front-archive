@@ -7,7 +7,7 @@ const ProfileInfoDivVariants = cva(
   {
     variants: {
       variant: {
-        student: 'w-[282px]',
+        student: ' w-[282px]',
         manager: 'w-[334px]',
       },
     },

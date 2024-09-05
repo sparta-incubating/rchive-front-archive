@@ -28,7 +28,7 @@ const HeaderProfileContainer = () => {
       user: {
         ...session?.user,
         trackName,
-        period,
+        loginPeriod: period,
       },
     });
 

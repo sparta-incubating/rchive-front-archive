@@ -3,6 +3,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { PROFILE_QUERY_KEYS } from './keys.constant';
 import { getMyRole, getTrackPeriodList, getUserInfo } from './profileApi';
+import { GETUSER } from '@/types/profile.types';
+import { useSession } from 'next-auth/react';
 
 export function useUserInfoDataQuery() {
   const {

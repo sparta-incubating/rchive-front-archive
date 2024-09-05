@@ -83,7 +83,6 @@ const UserInfo: React.FC<UserInfoProps> = ({
                 {trackRole === 'PM' ? (
                   <>
                     <UserInfoContainer label="트랙" data={trackName} />
-
                     <UserInfoContainer label="직책" data={trackRole} />
                   </>
                 ) : trackRole === 'APM' ? (

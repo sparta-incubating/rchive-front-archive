@@ -70,6 +70,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (session) {
+      console.log(session.user, '회원가입');
       const {
         trackName,
         trackRole,
@@ -80,6 +81,8 @@ const SignIn = () => {
         username,
         profileImg,
         birth,
+        phone,
+        email,
       } = session.user;
       dispatch(
         setAuth({
@@ -92,6 +95,8 @@ const SignIn = () => {
           birth: birth || '',
           profileImg: profileImg || '',
           myRoles: myRoles || [],
+          phone: phone || '',
+          email: email || '',
         }),
       );
 

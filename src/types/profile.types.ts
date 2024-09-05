@@ -8,6 +8,11 @@ export interface USERPROFILE {
   period: string;
 }
 
+export interface GETUSER {
+  trackName: string;
+  period: string;
+}
+
 export interface UserInfoProps {
   username: string;
   trackName: string;

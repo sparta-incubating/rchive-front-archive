@@ -10,12 +10,17 @@ import { client } from '@/utils/axios/clientAPI';
 
 import { getSession } from 'next-auth/react';
 
-//프로필 조회
 export const getUserInfo = async () => {
   try {
     const session = await getSession();
     const trackName = session?.user.trackName;
-    const period = session?.user.loginPeriod;
+    const trackRole = session?.user.trackRole;
+    let period = session?.user.loginPeriod;
+
+    // PM은 기수 0 고정
+    if (trackRole === 'PM') {
+      period = 0;
+    }
 
     const res = await client.get(
       `/apis/v1/profile?trackName=${trackName}&period=${period}`,
@@ -29,8 +34,7 @@ export const getUserInfo = async () => {
 
 export const updatePassword = async (password: PassWordChange) => {
   const { originPassword, newPassword } = password;
-  // console.log(originPassword, '기존비밀번호');
-  // console.log(newPassword, '변경할 비밀번호');
+
   try {
     const res = await client.patch(`/apis/v1/profile/password`, {
       originPassword,

@@ -24,6 +24,8 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           // 이때는 session이 없으므로 token 직접 주입
           const response = await getLastConnectRole(user.accessToken);
 
+          console.log(response.data.data, '내가 auth');
+
           const { trackId, trackRole, trackName, period } = response.data.data;
           token.trackId = trackId;
           token.trackRole = trackRole;
@@ -41,6 +43,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           token.birth = profileResponse?.data.data.birth;
           token.phone = profileResponse?.data.data.phone;
           token.profileImg = profileResponse?.data.data.profileImg;
+          token.email = profileResponse?.data.data.email;
 
           const myRoleResponse = await getAllMyRoles(user.accessToken);
           token.myRole = myRoleResponse?.data.data.roleResList;
@@ -67,6 +70,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           username: session.user.username,
           birth: session.user.birth,
           phone: session.user.phone,
+          email: session.user.email,
           profileImg: session.user.profileImg,
           myRole: [...session.user.myRoles],
         };
@@ -89,6 +93,8 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       session.user.username = token.username as string;
       session.user.birth = token.birth as string;
       session.user.profileImg = token.profileImg as string;
+      session.user.phone = token.phone as string;
+      session.user.email = token.email as string;
       session.user.myRoles = token.myRole as MyRoleDataType[];
 
       return session;
