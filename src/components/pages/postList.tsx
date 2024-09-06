@@ -31,6 +31,7 @@ const PostList = ({ searchParams, postListData }: PostListProps) => {
     handleKeywordSearch,
     updateQueryParams,
     handleSearchClick,
+    setCurrentPage,
   } = usePostList(searchParams);
 
   return (
@@ -56,7 +57,7 @@ const PostList = ({ searchParams, postListData }: PostListProps) => {
                 defaultValue={tutor}
                 setValue={(value) => {
                   setTutor(value);
-                  updateQueryParams('tutorId', value);
+                  updateQueryParams('tutorId', value, setCurrentPage);
                 }}
               />
             </SubCategoryGroup>
