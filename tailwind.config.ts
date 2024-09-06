@@ -153,6 +153,11 @@ const config = {
       dropDownBox:
         '0px 2px 6px 0px rgba(0, 0, 0, 0.05), 0px 1px 10px 0px rgba(0, 0, 0, 0.15)',
       inquiryButton: ' 0px 4px 6px 0px rgba(0, 0, 0, 0.02)',
+      searchInput: '0px 0px 24px 0px rgba(12, 12, 13, 0.10)',
+      searchDropDown:
+        '0px 2px 6px 0px rgba(0, 0, 0, 0.05), 0px 1px 10px 0px rgba(0, 0, 0, 0.15)',
+      archiveShadow: '0px 4px 100px 0px rgba(185, 210, 225, 0.80)',
+      hoverPostCard: '0px 4px 24px 0px rgba(0, 0, 0, 0.15)',
     },
     backgroundImage: {
       'custom-gradient':

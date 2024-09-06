@@ -1,9 +1,5 @@
 import { SelectOptionType } from '@/types/signup.types';
 import { TagType } from '@/types/tag.types';
-import { postsSchema } from '@/validators/posts/posts.validator';
-import { z } from 'zod';
-
-export type PostsFormSchema = z.infer<typeof postsSchema>;
 
 export const postTypeList: SelectOptionType[] = [
   { value: 'Sparta_Lecture', label: '강의자료', selected: false },
@@ -105,6 +101,13 @@ export type PostType =
   | 'Project_Description'
   | 'all';
 
+export type CategoryType =
+  | 'Sparta_Lecture'
+  | 'Special_Lecture'
+  | 'Project_Description'
+  | 'Level_All'
+  | 'all';
+
 export type tutorApiType = {
   data: TutorType[];
   message: string;
@@ -126,30 +129,31 @@ export type postsEndPointFormData = {
 };
 
 export type postFetchData = {
+  postId: string;
   title: string;
-  tutorRes: { tutorId: number; tutorName: string };
-  contentLink: string;
+  tutor: string;
   videoLink: string;
-  tagNameList: string[];
+  contentLink: string;
+  isBookmarked: boolean;
   uploadedAt: string;
   postType: PostType;
-  period: number;
-  isOpened: boolean;
-  thumbnailUrl: string;
-  content: string;
-  postId: string;
+  tagList: TagType[];
 };
 
 export type SearchParamsType = {
   postType: string | undefined;
-  startDate: string | undefined;
-  endDate: string | undefined;
-  searchPeriod: string | undefined;
-  isOpened: string | undefined;
   tutorId: string | undefined;
   page: string | undefined;
   size: string | undefined;
   title: string | undefined;
+};
+
+export type SearchTagParamsType = {
+  tagId: string;
+  tagName: string;
+  postType: string | undefined;
+  page: string | undefined;
+  size: string | undefined;
 };
 
 export type PostFilterType = {
@@ -167,7 +171,7 @@ export type PostListResponse = {
     content: PostContentType[];
     number: number;
     sort: { empty: boolean; sorted: boolean; unsorted: boolean };
-    numberOfElements: 7;
+    numberOfElements: number;
     pageable: {
       sort: SortType;
       offset: number;
@@ -188,11 +192,10 @@ export type PostContentType = {
   title: string;
   postType: PostType;
   tutor: string;
-  period: number;
-  isOpened: boolean;
   uploadedAt: string;
-  tagInfoList?: TagType[];
+  tagList?: TagType[];
   contentLink?: string;
+  isBookmarked: boolean;
 };
 
 export type SortType = {
@@ -205,3 +208,12 @@ export type PostTabType = {
   id: PostType;
   title: string;
 };
+export type CategoryTabType = {
+  id: CategoryType;
+  title: string;
+};
+
+export enum OrderByEnum {
+  NEW = 'new',
+  POPULAR = 'popular',
+}

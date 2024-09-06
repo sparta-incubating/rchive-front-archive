@@ -1,6 +1,9 @@
 import { RoleFormSchema } from '@/types/role.types';
-import axiosInstance from '@/utils/axiosAPI';
-import { client } from '@/utils/clientAPI';
+import { client } from '@/utils/axios/clientAPI';
+import axiosAPI from '@/utils/axios/axiosAPI';
+import axios from 'axios';
+import { MyRoleResponse } from '@/types/auth.types';
+import { TrackType } from '@/types/posts.types'; // 권한 신청 endpoint
 
 // 권한 신청 endpoint
 export const postRoleApply = async (data: RoleFormSchema) => {
@@ -14,7 +17,7 @@ export const postRoleApply = async (data: RoleFormSchema) => {
 
 // 마지막 접속 정보 endpoint
 export const getLastConnectRole = async (accessToken: string) => {
-  return await axiosInstance.get('/apis/v1/role/select/last', {
+  return await axiosAPI.get('/apis/v1/role/select/last', {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -23,7 +26,7 @@ export const getLastConnectRole = async (accessToken: string) => {
 
 // 권한 신청 여부 조회 endpoint
 export const getRoleApplyStatus = async (accessToken: string) => {
-  return await axiosInstance.get('/apis/v1/role/request', {
+  return await axiosAPI.get('/apis/v1/role/request', {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -34,14 +37,14 @@ export const login = async (
   username: string | undefined,
   password: string | undefined,
 ) => {
-  return await axiosInstance.post('/apis/v1/users/login', {
+  return await axiosAPI.post('/apis/v1/users/login', {
     username,
     password,
   });
 };
 
 export const logout = async (accessToken: string) => {
-  await axiosInstance.delete('/apis/v1/users/logout', {
+  await axiosAPI.delete('/apis/v1/users/logout', {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -49,7 +52,7 @@ export const logout = async (accessToken: string) => {
 };
 
 export const refreshToken = async (refreshToken: string) => {
-  return await axiosInstance.post(
+  return await axiosAPI.post(
     '/apis/v1/users/reissue',
     {},
     {
@@ -58,4 +61,43 @@ export const refreshToken = async (refreshToken: string) => {
       },
     },
   );
+};
+
+// 로그인 정보의 모든 role 가져오기
+export const getAllMyRoles = async (accessToken: string) => {
+  try {
+    return await axiosAPI.get<MyRoleResponse>('/apis/v1/role', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 400) {
+        console.log({ error });
+      }
+    }
+  }
+};
+
+// 로그인 프로필 정보
+export const getMyProfile = async (
+  tackName: TrackType,
+  period: number,
+  accessToken: string,
+) => {
+  try {
+    return await axiosAPI.get(
+      `/apis/v1/profile?trackName=${tackName}&period=${period}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log({ error });
+    }
+  }
 };
