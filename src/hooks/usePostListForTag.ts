@@ -1,13 +1,10 @@
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { SearchTagParamsType } from '@/types/posts.types';
 import useQueryParams from '@/hooks/useQueryParams';
 
-export const usePostListForTag = (initialSearchParams: SearchTagParamsType) => {
-  const router = useRouter();
+export const usePostListForTag = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [activeTab, setActiveTab] = useState<string>('all');
-  const updateQueryParams = useQueryParams();
+  const updateQueryParams = useQueryParams('/tag');
 
   const handleTabChange = (newTab: string) => {
     setActiveTab(newTab);
