@@ -11,14 +11,18 @@ export const usePostListForTag = (initialSearchParams: SearchTagParamsType) => {
     (key: string, value: string | number | undefined) => {
       const query = new URLSearchParams(window.location.search);
 
+      if (value && !(key === 'tutorId' && value === 'all')) {
+        query.set(key, String(value));
+      } else {
+        query.delete(key);
+      }
+
       if (key !== 'page') {
         setCurrentPage(1);
         query.set('page', '1');
       }
 
-      router.push(
-        `/tag?tagId=${initialSearchParams.tagId}&${query.toString()}`,
-      );
+      router.push(`/tag?${query.toString()}`);
     },
     [router],
   );

@@ -6,6 +6,7 @@ import PageNation from '@/components/atoms/pageNation';
 import EmptyPage from '@/components/pages/emptyPage';
 import HelperButton from '@/components/atoms/helperButton';
 import { usePostListForTag } from '@/hooks/usePostListForTag';
+import TagCategoryGroup from '@/components/molecules/categoryGroup/tagCategoryGroup';
 
 interface PostListProps {
   searchParams: SearchTagParamsType;
@@ -13,23 +14,19 @@ interface PostListProps {
 }
 
 const PostList = ({ searchParams, postListData }: PostListProps) => {
-  console.log({ postListData });
-  const {
-    currentPage,
-    activeTab,
-    handleTabChange,
-    handlePageChange,
-    updateQueryParams,
-  } = usePostListForTag(searchParams);
+  const { currentPage, activeTab, handleTabChange, handlePageChange } =
+    usePostListForTag(searchParams);
+
+  const tagName = searchParams.tagName;
 
   return (
     <div className="relative">
       <section className="flex flex-col gap-6">
-        {/*<CategoryGroup
-          keyword={searchParams?.title || ''}
+        <TagCategoryGroup
+          tagName={tagName}
           activeTab={activeTab}
           setActiveTab={handleTabChange}
-        />*/}
+        />
         {postListData.data.totalElements > 0 ? (
           <>
             <PostListContainer postListData={postListData} />
@@ -41,10 +38,7 @@ const PostList = ({ searchParams, postListData }: PostListProps) => {
             />
           </>
         ) : (
-          <EmptyPage>
-            {/*{searchParams?.title ||
-              postTabArr.find((category) => category.id === activeTab)?.title}*/}
-          </EmptyPage>
+          <EmptyPage>태그</EmptyPage>
         )}
       </section>
       <HelperButton />

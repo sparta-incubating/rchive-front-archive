@@ -150,6 +150,7 @@ export type SearchParamsType = {
 
 export type SearchTagParamsType = {
   tagId: string;
+  tagName: string;
   postType: string | undefined;
   page: string | undefined;
   size: string | undefined;

@@ -11,11 +11,10 @@ interface CategorySearchPageProps {
   searchParams: SearchTagParamsType;
 }
 
-const CategorySearchPage = async ({
-  searchParams,
-}: CategorySearchPageProps) => {
+const TagSearchPage = async ({ searchParams }: CategorySearchPageProps) => {
   const searchParamsData: SearchTagParamsType = {
     tagId: searchParams.tagId,
+    tagName: searchParams.tagName,
     postType: searchParams.postType ?? '',
     page: searchParams.page ?? '',
     size: searchParams.size ?? '',
@@ -29,6 +28,7 @@ const CategorySearchPage = async ({
   const query = new URLSearchParams();
 
   query.set('tagId', searchParamsData.tagId);
+  query.set('tagName', searchParamsData.tagName);
   query.set('page', searchParamsData.page || DEFAULT_PAGE);
   query.set('size', searchParamsData.size || DEFAULT_PAGE_SIZE);
   if (searchParamsData.postType && searchParams.postType !== 'all') {
@@ -60,4 +60,4 @@ const CategorySearchPage = async ({
   }
 };
 
-export default CategorySearchPage;
+export default TagSearchPage;

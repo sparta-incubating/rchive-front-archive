@@ -47,7 +47,7 @@ const TagNameGroup = ({ tagList }: TagNameGroupProps) => {
     >
       {visibleTags.map((tag) => (
         <TagName
-          href={`/category?tagId=${tag.tagId}&page=${DEFAULT_PAGE}&size=${DEFAULT_PAGE_SIZE}`}
+          href={`/tag?tagId=${tag.tagId}&tagName=${tag.tagName}&page=${DEFAULT_PAGE}&size=${DEFAULT_PAGE_SIZE}`}
           key={tag.tagId}
         >
           {tag.tagName}
