@@ -28,13 +28,11 @@ const TagSearchPage = async ({ searchParams }: CategorySearchPageProps) => {
   const query = new URLSearchParams();
 
   query.set('tagId', searchParamsData.tagId);
-  query.set('tagName', searchParamsData.tagName);
   query.set('page', searchParamsData.page || DEFAULT_PAGE);
   query.set('size', searchParamsData.size || DEFAULT_PAGE_SIZE);
   if (searchParamsData.postType && searchParams.postType !== 'all') {
-    query.set('category', searchParamsData.postType);
+    query.set('postType', searchParamsData.postType);
   }
-
   try {
     const postListResponse = await getPostForTag(
       trackName || '',

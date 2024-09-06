@@ -15,7 +15,7 @@ interface PostListProps {
 
 const PostList = ({ searchParams, postListData }: PostListProps) => {
   const { currentPage, activeTab, handleTabChange, handlePageChange } =
-    usePostListForTag(searchParams);
+    usePostListForTag();
 
   const tagName = searchParams.tagName;
 
