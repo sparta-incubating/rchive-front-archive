@@ -42,9 +42,7 @@ const PostCard = ({ postData }: PostCardProps) => {
         tutor={postData.tutor}
         updatedAt={dayjs(postData.uploadedAt).format('YYYY.MM.DD')}
       />
-      {postData.tagList && (
-        <TagNameGroup tags={postData.tagList.map((tag) => tag.tagName)} />
-      )}
+      {postData.tagList && <TagNameGroup tagList={postData.tagList} />}
     </article>
   );
 };
