@@ -14,7 +14,7 @@ const PostThumbnail = ({
   return (
     <article
       {...props}
-      className={`relative h-[156px] w-[270px] cursor-pointer overflow-hidden rounded-[8px] transition-transform duration-300 ease-in-out ${isHover && 'shadow-hoverPostCard -translate-y-2'}`}
+      className={`relative h-[156px] w-[270px] cursor-pointer overflow-hidden rounded-[8px] transition-transform duration-300 ease-in-out ${isHover && '-translate-y-2 shadow-hoverPostCard'}`}
     >
       <Image
         src={thumbnail ? thumbnail : '/assets/icons/defaultThumbnail.png'}
