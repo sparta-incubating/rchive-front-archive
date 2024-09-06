@@ -29,6 +29,15 @@ export const getPost = cache(
   },
 );
 
+export const getPostForTag = cache(
+  async (trackName: TrackType, period: number, queryString: string) => {
+    const serverAPI = await createServerAPI();
+    return await serverAPI.get(
+      `/apis/v1/posts/tags/search?trackName=${trackName}&loginPeriod=${period}&${queryString}`,
+    );
+  },
+);
+
 export const getPostPeriod = async (trackName: TrackType) => {
   const serverAPI = await createServerAPI();
   return serverAPI.get(`/apis/v1/role/track/period?trackName=${trackName}`);
