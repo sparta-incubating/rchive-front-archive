@@ -56,7 +56,7 @@ const page = async ({ searchParams }: PostProps) => {
       <MainPage>
         <PostList
           searchParams={searchParamsData}
-          postListData={postListResponse.data}
+          postListDataResponse={postListResponse.data}
         />
       </MainPage>
     );

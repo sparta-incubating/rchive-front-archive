@@ -11,13 +11,16 @@ import PageNation from '@/components/atoms/pageNation';
 import EmptyPage from '@/components/pages/emptyPage';
 import { postTabArr } from '@/constatns/post.constant';
 import HelperButton from '@/components/atoms/helperButton';
+import { useEffect, useState } from 'react';
 
 interface PostListProps {
   searchParams: SearchParamsType;
-  postListData: PostListResponse;
+  postListDataResponse: PostListResponse;
 }
 
-const PostList = ({ searchParams, postListData }: PostListProps) => {
+const PostList = ({ searchParams, postListDataResponse }: PostListProps) => {
+  const [postListData, setPostListData] = useState<PostListResponse>();
+
   const {
     currentPage,
     tutor,
@@ -34,6 +37,10 @@ const PostList = ({ searchParams, postListData }: PostListProps) => {
     setCurrentPage,
   } = usePostList(searchParams);
 
+  useEffect(() => {
+    setPostListData(postListDataResponse);
+  }, [postListDataResponse]);
+
   return (
     <div className="relative">
       <SearchInput
@@ -48,33 +55,34 @@ const PostList = ({ searchParams, postListData }: PostListProps) => {
           activeTab={activeTab}
           setActiveTab={handleTabChange}
         />
-        {postListData.data.totalElements > 0 ? (
-          <>
-            <SubCategoryGroup>
-              <CategoryCategory
-                label="튜터"
-                filterData={getFetchTutors || []}
-                defaultValue={tutor}
-                setValue={(value) => {
-                  setTutor(value);
-                  updateQueryParams('tutorId', value, setCurrentPage);
-                }}
+        {!!postListData &&
+          (postListData.data.totalElements > 0 ? (
+            <>
+              <SubCategoryGroup>
+                <CategoryCategory
+                  label="튜터"
+                  filterData={getFetchTutors || []}
+                  defaultValue={tutor}
+                  setValue={(value) => {
+                    setTutor(value);
+                    updateQueryParams('tutorId', value, setCurrentPage);
+                  }}
+                />
+              </SubCategoryGroup>
+              <PostListContainer postListData={postListData} />
+              <PageNation
+                currentPage={currentPage}
+                totalElements={postListData.data.totalElements}
+                size={postListData.data.size}
+                onPageChange={handlePageChange}
               />
-            </SubCategoryGroup>
-            <PostListContainer postListData={postListData} />
-            <PageNation
-              currentPage={currentPage}
-              totalElements={postListData.data.totalElements}
-              size={postListData.data.size}
-              onPageChange={handlePageChange}
-            />
-          </>
-        ) : (
-          <EmptyPage>
-            {searchParams?.title ||
-              postTabArr.find((category) => category.id === activeTab)?.title}
-          </EmptyPage>
-        )}
+            </>
+          ) : (
+            <EmptyPage>
+              {searchParams?.title ||
+                postTabArr.find((category) => category.id === activeTab)?.title}
+            </EmptyPage>
+          ))}
       </section>
       <HelperButton />
     </div>
