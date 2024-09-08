@@ -1,15 +1,15 @@
 import MyPageHeader from '@/components/molecules/myPageHeader';
+import BookMarkPage from '@/components/pages/bookMarkPage';
 import MainPage from '@/components/pages/mainPage';
-import MyProfile from '@/components/pages/myProfile';
 import React from 'react';
 
-const MyPage = () => {
+const BookMark = () => {
   return (
     <MainPage>
       <MyPageHeader />
-      <MyProfile />
+      <BookMarkPage />
     </MainPage>
   );
 };
 
-export default MyPage;
+export default BookMark;

@@ -62,7 +62,6 @@ const MyProfile = () => {
 
   return (
     <>
-      <MyPageHeader />
       <div className="mx-auto flex h-screen w-full flex-col items-center justify-center gap-[40px] bg-gray-50">
         {/*프로필 */}
         {/*회원 정보 */}
