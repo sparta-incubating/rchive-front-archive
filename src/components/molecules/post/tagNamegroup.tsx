@@ -2,27 +2,29 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import TagName from '@/components/atoms/post/tagNameProps';
+import { TagType } from '@/types/tag.types';
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@/constatns/posts.constant';
 
 interface TagNameGroupProps {
-  tags: string[];
+  tagList: TagType[];
 }
 
-const TagNameGroup = ({ tags }: TagNameGroupProps) => {
-  const [visibleTags, setVisibleTags] = useState<string[]>([]);
+const TagNameGroup = ({ tagList }: TagNameGroupProps) => {
+  const [visibleTags, setVisibleTags] = useState<TagType[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let totalWidth = 0;
-    const newVisibleTags: string[] = [];
+    const newVisibleTags: TagType[] = [];
 
     if (containerRef.current) {
       const container = containerRef.current;
 
-      tags.forEach((tag) => {
+      tagList.forEach((tag) => {
         const tagElement = document.createElement('span');
         tagElement.style.position = 'absolute';
         tagElement.style.whiteSpace = 'nowrap';
-        tagElement.textContent = tag;
+        tagElement.textContent = tag.tagName;
         container.appendChild(tagElement);
 
         const tagWidth = tagElement.offsetWidth;
@@ -36,7 +38,7 @@ const TagNameGroup = ({ tags }: TagNameGroupProps) => {
 
       setVisibleTags(newVisibleTags);
     }
-  }, [tags]);
+  }, [tagList]);
 
   return (
     <section
@@ -44,8 +46,11 @@ const TagNameGroup = ({ tags }: TagNameGroupProps) => {
       ref={containerRef}
     >
       {visibleTags.map((tag) => (
-        <TagName href={'#'} key={tag}>
-          {tag}
+        <TagName
+          href={`/tag?tagId=${tag.tagId}&tagName=${tag.tagName}&page=${DEFAULT_PAGE}&size=${DEFAULT_PAGE_SIZE}`}
+          key={tag.tagId}
+        >
+          {tag.tagName}
         </TagName>
       ))}
     </section>

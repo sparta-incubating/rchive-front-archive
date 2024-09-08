@@ -148,6 +148,14 @@ export type SearchParamsType = {
   title: string | undefined;
 };
 
+export type SearchTagParamsType = {
+  tagId: string;
+  tagName: string;
+  postType: string | undefined;
+  page: string | undefined;
+  size: string | undefined;
+};
+
 export type PostFilterType = {
   key: number;
   value: string;
