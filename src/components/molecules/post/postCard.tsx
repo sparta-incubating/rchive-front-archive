@@ -7,6 +7,7 @@ import { getNameCategory } from '@/utils/setAuthInfo/post.util';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useBookmarkUpdate } from '@/api/bookmark/useMutation';
 
 interface PostCardProps {
   postData: PostContentType;
@@ -14,12 +15,23 @@ interface PostCardProps {
 
 const PostCard = ({ postData }: PostCardProps) => {
   const [isHover, setIsHover] = useState<boolean>(false);
+  const [isBookmarked, setIsBookmarked] = useState(postData.isBookmarked);
   const router = useRouter();
 
   const handleClickPost = (postId: number) => {
     router.push(`/post/${postId}`);
   };
 
+  const { postBookmarkMutate, deleteBookMarkMutate } = useBookmarkUpdate();
+  const handleToggleBookmark = async () => {
+    if (isBookmarked) {
+      await deleteBookMarkMutate.mutateAsync(postData.postId);
+    } else {
+      await postBookmarkMutate.mutateAsync(postData.postId);
+    }
+    setIsBookmarked(!isBookmarked);
+    router.refresh();
+  };
   return (
     <article
       className="group flex flex-col gap-3 pb-[22.5px] pt-2"
@@ -42,7 +54,10 @@ const PostCard = ({ postData }: PostCardProps) => {
         tutor={postData.tutor}
         updatedAt={dayjs(postData.uploadedAt).format('YYYY.MM.DD')}
       />
-      {postData.tagList && <TagNameGroup tagList={postData.tagList} />}
+      {postData.tagList && <TagNameGroup tagList={postData.tagList} />}{' '}
+      <button onClick={handleToggleBookmark}>
+        {isBookmarked ? '북마크 삭제' : '북마크 추가'}
+      </button>
     </article>
   );
 };

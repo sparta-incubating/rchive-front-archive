@@ -1,7 +1,7 @@
 import { client } from '@/utils/axios/clientAPI';
 
 //북마크 목록 조회
-export const getBookMarkList = async () => {
+export const getBookmarkList = async () => {
   try {
     const res = await client.get(`/apis/v1/profile/bookmark`);
     return res.data;
