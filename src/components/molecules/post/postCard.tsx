@@ -23,11 +23,11 @@ const PostCard = ({ postData }: PostCardProps) => {
   };
 
   const { postBookmarkMutate, deleteBookMarkMutate } = useBookmarkUpdate();
-  const handleToggleBookmark = async () => {
+  const handleToggleBookmark = async (postId: number) => {
     if (isBookmarked) {
-      await deleteBookMarkMutate.mutateAsync(postData.postId);
+      await deleteBookMarkMutate.mutateAsync(postId);
     } else {
-      await postBookmarkMutate.mutateAsync(postData.postId);
+      await postBookmarkMutate.mutateAsync(postId);
     }
     setIsBookmarked(!isBookmarked);
     router.refresh();
@@ -44,8 +44,10 @@ const PostCard = ({ postData }: PostCardProps) => {
         onClick={() => handleClickPost(postData.postId)}
       />
       <PostTitle
-        onClick={() => handleClickPost(postData.postId)}
+        onClickPost={() => handleClickPost(postData.postId)}
         bookmark={postData.isBookmarked}
+        isHover={isHover}
+        onClickBookmark={() => handleToggleBookmark(postData.postId)}
       >
         {postData.title}
       </PostTitle>
@@ -55,9 +57,6 @@ const PostCard = ({ postData }: PostCardProps) => {
         updatedAt={dayjs(postData.uploadedAt).format('YYYY.MM.DD')}
       />
       {postData.tagList && <TagNameGroup tagList={postData.tagList} />}{' '}
-      <button onClick={handleToggleBookmark}>
-        {isBookmarked ? '북마크 삭제' : '북마크 추가'}
-      </button>
     </article>
   );
 };

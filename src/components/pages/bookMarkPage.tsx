@@ -56,10 +56,12 @@ const BookMarkPage = () => {
     return <div>오류발생</div>;
   }
 
+  const handleAllItem = () => {};
+
   return (
     <div className="mx-auto flex w-full flex-col items-center justify-center gap-[40px] bg-gray-50">
       <br />
-      <p>모두 삭제</p>
+      <p onClick={handleAllItem}>모두 삭제</p>
       <div className="relative">
         <section className="flex flex-col gap-6">
           {myBookmarkList && myBookmarkList.length > 0 ? (
