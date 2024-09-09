@@ -1,10 +1,12 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { PROFILE_QUERY_KEYS } from './keys.constant';
-import { getMyRole, getTrackPeriodList, getUserInfo } from './profileApi';
-import { GETUSER } from '@/types/profile.types';
-import { useSession } from 'next-auth/react';
+import { PROFILE_QUERY_KEYS } from '@/api/mypage/keys.constant';
+import {
+  getMyRole,
+  getTrackPeriodList,
+  getUserInfo,
+} from '@/api/mypage/profileApi';
 
 export function useUserInfoDataQuery() {
   const {
@@ -26,9 +28,7 @@ export function usePeriodListQuery(trackName: string) {
     enabled: !!trackName,
   });
 
-  const periodList = data?.data?.trackPeriodList;
-
-  return periodList;
+  return data?.data?.trackPeriodList;
 }
 
 export function useGetRoleQuery() {

@@ -1,7 +1,7 @@
 'use client';
 
 import refresh from '@/../public/assets/icons/refresh-button.svg';
-import { useMyPageUpdate } from '@/api/mypage/useMutation';
+import { useMyPageUpdate } from '@/hooks/useMutation';
 
 import ProfileChangeForm from '@/components/organisms/profileChangeForm';
 import {

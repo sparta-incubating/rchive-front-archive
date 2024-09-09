@@ -1,4 +1,4 @@
-import { useMyPageUpdate } from '@/api/mypage/useMutation';
+import { useMyPageUpdate } from '@/hooks/useMutation';
 import ProfileChangeForm from '@/components/organisms/profileChangeForm';
 
 import SelectFormBox from '@/components/organisms/selectFormBox';

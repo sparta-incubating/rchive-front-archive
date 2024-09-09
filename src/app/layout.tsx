@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import CompoundProvider from '@/provider/compoundProvider';
 
 export const metadata: Metadata = {
   title: '르탄이의 아카이브',
@@ -16,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <body>
+        <CompoundProvider>{children}</CompoundProvider>
+      </body>
     </html>
   );
 }

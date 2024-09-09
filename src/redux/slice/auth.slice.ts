@@ -33,17 +33,17 @@ const AuthSlice = createSlice({
   name: 'authSlice',
   initialState,
   reducers: {
-    setAuth: (state, action: PayloadAction<Partial<authInitialType>>) => {
-      state.accessToken = action.payload.accessToken ?? state.accessToken;
-      state.trackName = action.payload.trackName ?? state.trackName;
-      state.trackRole = action.payload.trackRole ?? state.trackRole;
-      state.period = action.payload.period ?? state.period;
-      state.nickname = action.payload.nickname ?? state.nickname;
-      state.username = action.payload.username ?? state.username;
-      state.birth = action.payload.birth ?? state.birth;
-      state.profileImg = action.payload.profileImg ?? state.profileImg;
-      state.myRoles = action.payload.myRoles ?? state.myRoles;
-      state.email = action.payload.email ?? state.email;
+    setAuth: (state, action: PayloadAction<authInitialType>) => {
+      state.accessToken = action.payload.accessToken;
+      state.trackName = action.payload.trackName;
+      state.trackRole = action.payload.trackRole;
+      state.period = action.payload.period;
+      state.nickname = action.payload.nickname;
+      state.username = action.payload.username;
+      state.birth = action.payload.birth;
+      state.profileImg = action.payload.profileImg;
+      state.myRoles = action.payload.myRoles;
+      state.email = action.payload.email;
     },
   },
 });

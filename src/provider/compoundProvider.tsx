@@ -3,10 +3,10 @@ import { ConfirmProvider } from '@/context/ConfirmContext';
 
 import { ModalContextProvider } from '@/context/modal.context';
 import NextAuthProvider from '@/provider/nextAuthProvider/nextAuthProvider';
-import StoreProvider from '@/provider/reduxProvider/storeProvider';
 import TanstackQueryProvider from '@/provider/tanstackQueryProvider/TanstackQueryProvider';
 import SetAuthInfo from '@/utils/setAuthInfo/setAuthInfo';
 import { PropsWithChildren } from 'react';
+import StoreProvider from '@/provider/reduxProvider/storeProvider';
 
 const CompoundProvider = async ({ children }: PropsWithChildren) => {
   const session = await auth();

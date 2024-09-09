@@ -1,7 +1,7 @@
 'use client';
 
-import { useMyPageUpdate } from '@/api/mypage/useMutation';
-import { useUserInfoDataQuery } from '@/api/mypage/useQuery';
+import { useMyPageUpdate } from '@/hooks/useMutation';
+import { useUserInfoDataQuery } from '@/hooks/useQuery';
 
 import AccountInfo from '@/components/pages/accountInfo';
 import NicknameChangeModal from '@/components/pages/profile/nicknameChangeModal';
@@ -10,12 +10,11 @@ import PhoneChangeModal from '@/components/pages/profile/phoneChangeModal';
 import RandomProfileModal from '@/components/pages/profile/randomProfileModal';
 
 import RoleChangeModal from '@/components/pages/profile/roleChangeModal';
-import ProgressModal from '@/components/pages/progressModal';
 import UserInfo from '@/components/pages/userInfo';
 import { useRouter } from 'next/navigation';
 
 import { useState } from 'react';
-import MyPageHeader from '../molecules/myPageHeader';
+import MyPageHeader from '@/components/molecules/mypageHeader';
 
 const MyProfile = () => {
   const { userData, isError, isPending } = useUserInfoDataQuery();

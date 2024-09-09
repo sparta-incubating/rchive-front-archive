@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { useAppSelector } from '@/redux/storeConfig';
 import useSearchTutor from '@/hooks/useSearchTutor';

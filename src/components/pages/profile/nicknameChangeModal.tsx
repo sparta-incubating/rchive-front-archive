@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import ChangeSuccessModal from './changeSuccessModal';
 import ProfileChangeForm from '@/components/organisms/profileChangeForm';
-import { useMyPageUpdate } from '@/api/mypage/useMutation';
+import { useMyPageUpdate } from '@/hooks/useMutation';
 
 const NicknameChangeModal = ({ onClose }: ChangeModalProps) => {
   const [errorMessage, setErrorMessage] = useState<string>('');

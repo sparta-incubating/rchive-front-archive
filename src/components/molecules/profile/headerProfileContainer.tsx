@@ -10,15 +10,11 @@ import { useAppSelector } from '@/redux/storeConfig';
 import { getTrackName } from '@/utils/setAuthInfo/post.util';
 import { TrackType } from '@/types/posts.types';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { patchLastConnectRole } from '@/api/client/authApi';
-import { useQueryClient } from '@tanstack/react-query';
 
 const HeaderProfileContainer = () => {
   const { isOpen, dropdownRef, handleClick } = useDropDownOpen();
-  const router = useRouter();
-  const queryClient = useQueryClient();
   const { period, trackRole, myRoles, profileImg, username } = useAppSelector(
     (state) => state.authSlice,
   );
