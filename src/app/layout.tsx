@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import CompoundProvider from '@/provider/compoundProvider';
+import Toast from '@/components/molecules/toast';
 
 export const metadata: Metadata = {
   title: '르탄이의 아카이브',
@@ -18,7 +19,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <CompoundProvider>{children}</CompoundProvider>
+        <CompoundProvider>
+          {children}
+          <Toast />
+        </CompoundProvider>
       </body>
     </html>
   );
