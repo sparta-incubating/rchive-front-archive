@@ -70,12 +70,12 @@ const BookMarkPage = () => {
     // </div>
 
     <div className="relative">
-      <SearchInput
+      {/* <SearchInput
         keyword={keyword}
         setKeyword={setKeyword}
         onSearch={handleKeywordSearch}
         handleSearchClick={handleSearchClick}
-      />
+      /> */}
       <section className="flex flex-col gap-6">
         {myBookmarkList && myBookmarkList.length > 0 ? (
           <>
