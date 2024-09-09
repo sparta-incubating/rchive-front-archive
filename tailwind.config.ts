@@ -70,6 +70,7 @@ const config = {
         },
         gray: {
           50: '#FAFAFA',
+          55: '#9A9999', //회원탈퇴 글씨color
           100: '#DEE1E3',
           200: '#C3C8CB',
           300: '#A8AFB3',
@@ -158,10 +159,14 @@ const config = {
         '0px 2px 6px 0px rgba(0, 0, 0, 0.05), 0px 1px 10px 0px rgba(0, 0, 0, 0.15)',
       archiveShadow: '0px 4px 100px 0px rgba(185, 210, 225, 0.80)',
       hoverPostCard: '0px 4px 24px 0px rgba(0, 0, 0, 0.15)',
+      myPageShadow: '0px 4px 10px 0px rgba(12, 12, 13, 0.10)',
+      myPageBottomShadow: '0px 6px 6px 0px rgba(12, 12, 13, 0.10)',
     },
     backgroundImage: {
       'custom-gradient':
         ' linear-gradient(180deg, #E2F1FD 16.75%, #C3E2FB 40.96%, #4BA9F4 135.4%, #B9DDFB 135.4%)',
+      'archive-gradient':
+        'linear-gradient(180deg, #E2F0FA 29.54%, #F8BFC7 135.4%)',
     },
   },
   plugins: [require('tailwindcss-animate'), require('tailwind-scrollbar-hide')],

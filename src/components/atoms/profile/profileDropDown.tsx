@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import ProfileDropDownMenu from '@/components/atoms/profile/profileDropDownMenu';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 interface ProfileDropDownProps {
   children: ReactNode;
@@ -9,6 +10,11 @@ interface ProfileDropDownProps {
 
 const ProfileDropDown = React.forwardRef<HTMLDivElement, ProfileDropDownProps>(
   ({ children, clicked }, ref) => {
+    const router = useRouter();
+    const handleProfileClick = () => {
+      router.push('/mypage');
+    };
+
     return (
       <article
         ref={ref}
@@ -22,7 +28,9 @@ const ProfileDropDown = React.forwardRef<HTMLDivElement, ProfileDropDownProps>(
         <div className="flex flex-col items-start border-t border-gray-100 px-3 py-3.5">
           <div className="mb-3 flex w-full flex-col border-b border-gray-100 pb-3">
             <ProfileDropDownMenu>북마크 목록</ProfileDropDownMenu>
-            <ProfileDropDownMenu>프로필 관리</ProfileDropDownMenu>
+            <ProfileDropDownMenu onClick={handleProfileClick}>
+              프로필 관리
+            </ProfileDropDownMenu>
           </div>
           <ProfileDropDownMenu
             onClick={async () =>
@@ -39,5 +47,7 @@ const ProfileDropDown = React.forwardRef<HTMLDivElement, ProfileDropDownProps>(
     );
   },
 );
+
+ProfileDropDown.displayName = 'ProfileDropDown';
 
 export default ProfileDropDown;

@@ -17,6 +17,7 @@ interface SetAuthInfoProps {
   birth: string;
   profileImg: string;
   myRoles: MyRoleDataType[];
+  email: string;
 }
 
 const SetAuthInfo = ({
@@ -29,6 +30,7 @@ const SetAuthInfo = ({
   birth,
   profileImg,
   myRoles,
+  email,
 }: SetAuthInfoProps) => {
   const dispatch = useDispatch();
 
@@ -43,6 +45,7 @@ const SetAuthInfo = ({
       birth,
       profileImg,
       myRoles: myRoles,
+      email,
     }),
   );
 

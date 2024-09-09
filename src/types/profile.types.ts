@@ -8,14 +8,21 @@ export interface USERPROFILE {
   period: string;
 }
 
+export interface GETUSER {
+  trackName: string;
+  period: string;
+}
+
 export interface UserInfoProps {
   username: string;
   trackName: string;
   period: string;
   trackRole: string;
   profileImg: string;
+  nickname: string;
   handleChangeImage: () => void;
   handleChangeRole: () => void;
+  handleChangeNickname: () => void;
 }
 
 export interface AccountInfoProps {
@@ -42,8 +49,8 @@ export interface RoleChangeModalProps {
 
 export interface RandomProfileModalProps {
   onClose: () => void;
-  nickname: string;
   profileImg: string;
+  trackRole: string;
 }
 
 //api
@@ -60,7 +67,6 @@ export interface RoleChange {
 
 export interface ProfileChange {
   profileImg: string;
-  nickname: string;
 }
 
 export interface PhoneInfo {

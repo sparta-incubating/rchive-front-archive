@@ -43,6 +43,7 @@ declare module 'next-auth/jwt' {
     phone?: string;
     profileImg?: string;
     myRoles?: MyRoleDataType[];
+    email: string;
     error?: 'tokenErrors';
   }
 }

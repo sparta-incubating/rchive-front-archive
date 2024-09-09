@@ -53,6 +53,11 @@ export const isTeamSpartaEmail = (email: string): boolean => {
   return teamSpartaEmailPattern.test(email);
 };
 
+export const isAPMEmail = (email: string): boolean => {
+  const apmEmailPattern = /^[a-zA-Z0-9._%+-]*apm@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return apmEmailPattern.test(email);
+};
+
 /**
  * client인지 server인지 체크하는 함수
  * true: client

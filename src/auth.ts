@@ -41,6 +41,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           token.birth = profileResponse?.data.data.birth;
           token.phone = profileResponse?.data.data.phone;
           token.profileImg = profileResponse?.data.data.profileImg;
+          token.email = profileResponse?.data.data.email;
 
           const myRoleResponse = await getAllMyRoles(user.accessToken);
           token.myRole = myRoleResponse?.data.data.roleResList;
@@ -69,6 +70,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           phone: session.user.phone,
           profileImg: session.user.profileImg,
           myRole: [...session.user.myRoles],
+          email: session.user.email,
         };
 
         return token;
@@ -90,6 +92,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       session.user.birth = token.birth as string;
       session.user.profileImg = token.profileImg as string;
       session.user.myRoles = token.myRole as MyRoleDataType[];
+      session.user.email = token.email as string;
 
       return session;
     },

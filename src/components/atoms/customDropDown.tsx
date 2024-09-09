@@ -19,4 +19,6 @@ const CustomDropDown = React.forwardRef<HTMLDivElement, SelectDropDownProps>(
   },
 );
 
+CustomDropDown.displayName = 'CustomDropDown';
+
 export default CustomDropDown;

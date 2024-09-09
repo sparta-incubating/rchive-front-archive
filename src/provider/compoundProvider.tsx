@@ -19,6 +19,7 @@ const CompoundProvider = async ({ children }: PropsWithChildren) => {
   const birth = session?.user.birth || '';
   const profileImg = session?.user.profileImg || '';
   const myRoles = session?.user.myRoles || [];
+  const email = session?.user.email || '';
 
   return (
     <StoreProvider>
@@ -35,6 +36,7 @@ const CompoundProvider = async ({ children }: PropsWithChildren) => {
               birth={birth}
               profileImg={profileImg}
               myRoles={myRoles}
+              email={email}
             />
             <NextAuthProvider>{children}</NextAuthProvider>
           </ConfirmProvider>

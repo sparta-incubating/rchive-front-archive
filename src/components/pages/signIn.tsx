@@ -1,10 +1,10 @@
 'use client';
 
-import bookmark from '@/../public/assets/icons/bookmark.svg';
-import dashboard from '@/../public/assets/icons/dashboard.svg';
-import comment from '@/../public/assets/icons/comment.svg';
-import lecture from '@/../public/assets/icons/lecture.svg';
-import search from '@/../public/assets/icons/search.svg';
+import bookmark from '@/../public/assets/icons/bookmark-rtan.svg';
+import dashboard from '@/../public/assets/icons/signin-dashboard.svg';
+import comment from '@/../public/assets/icons/comment-rtan.svg';
+import lecture from '@/../public/assets/icons/lecture-rtan.svg';
+import search from '@/../public/assets/icons/search-rtan.svg';
 import rtan from '@/../public/assets/icons/signin-rtan.svg';
 
 import { useModalContext } from '@/context/useModalContext';
@@ -63,24 +63,24 @@ const SignIn = () => {
       setSignInError(
         '가입되지 않은 이메일이거나 비밀번호가 일치하지 않습니다.',
       );
-    } else {
-      router.push('/');
     }
   };
 
   useEffect(() => {
-    if (session) {
+    if (session?.user) {
       const {
         trackName,
         trackRole,
         accessToken,
         loginPeriod,
-        myRoles,
+        myRoles = [],
         nickname,
         username,
         profileImg,
         birth,
+        email,
       } = session.user;
+
       dispatch(
         setAuth({
           accessToken,
@@ -92,10 +92,17 @@ const SignIn = () => {
           birth: birth || '',
           profileImg: profileImg || '',
           myRoles: myRoles || [],
+          email: email || '',
         }),
       );
 
-      router.push('/');
+      if (myRoles.length > 1) {
+        router.push('/select');
+      } else {
+        router.push('/');
+      }
+    } else {
+      router.push('/login');
     }
   }, [dispatch, router, session]);
 
@@ -147,13 +154,16 @@ const SignIn = () => {
                     />
                   </InputField>
                 </InputContainer>
-                <span className="h-[20px] text-sm text-primary-400">
-                  {errors.password?.message}
-                </span>
-                {signInError && (
-                  <FormSpan variant="error">{signInError}</FormSpan>
-                )}
-              </div>{' '}
+                <div>
+                  {errors.password?.message ? (
+                    <span className="h-[20px] text-sm text-primary-400">
+                      {errors.password?.message}
+                    </span>
+                  ) : signInError ? (
+                    <FormSpan variant="error">{signInError}</FormSpan>
+                  ) : null}
+                </div>
+              </div>
               {/*이메일*/}
             </div>
             <div className="flex h-[104px] w-full items-center justify-center py-[20px]">
@@ -169,7 +179,7 @@ const SignIn = () => {
           </div>
         </form>
 
-        <div className="flex flex-1 items-center justify-center bg-custom-gradient shadow-signInBox">
+        <div className="flex flex-1 items-center justify-center bg-archive-gradient shadow-signInBox">
           <section>
             <div className="relative">
               <div className="absolute bottom-[380px] right-[0px] z-20 h-[463px] w-[242px]">
