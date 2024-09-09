@@ -1,6 +1,6 @@
 'use client';
 
-import { useProfileUpdate } from '@/api/signup/useMutation';
+import { useProfileUpdate } from '@/hooks/useSignupMutation';
 import AuthTimer from '@/components/atoms/authTimer';
 import Button from '@/components/atoms/button';
 import Input from '@/components/atoms/input';

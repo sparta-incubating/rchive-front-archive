@@ -1,6 +1,5 @@
-import { queryClient } from '@/provider/tanstackQueryProvider/TanstackQueryProvider';
-import { useMutation } from '@tanstack/react-query';
-import { PROFILE_QUERY_KEYS } from './keys.constant';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { PROFILE_QUERY_KEYS } from '../api/mypage/keys.constant';
 import {
   checkPhoneAuth,
   deleteUser,
@@ -10,9 +9,11 @@ import {
   updatePhoneNumber,
   updateProfileInfo,
   updateRole,
-} from './profileApi';
+} from '../api/mypage/profileApi';
 
 export const useMyPageUpdate = () => {
+  const queryClient = useQueryClient();
+
   //휴대폰 인증번호 전송
   const postPhoneAuthNumberMutate = useMutation({
     mutationFn: sendPhoneAuthNumber,

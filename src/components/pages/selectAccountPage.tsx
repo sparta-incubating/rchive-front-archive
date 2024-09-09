@@ -5,7 +5,7 @@ import SelectTrackHeader from '../molecules/selectTrackHeader';
 import SelectTrackAccount from '../molecules/selectTrackAccount';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { useGetRoleQuery } from '@/api/mypage/useQuery';
+import { useGetRoleQuery } from '@/hooks/useQuery';
 
 import PageNation from '../atoms/pageNation';
 

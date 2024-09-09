@@ -1,3 +1,5 @@
+'use client';
+
 import { getSearchTutor } from '@/api/client/postApi';
 import { TrackType } from '@/types/posts.types';
 import { SelectOptionType } from '@/types/signup.types';

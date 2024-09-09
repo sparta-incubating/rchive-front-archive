@@ -3,7 +3,7 @@ import {
   getNicknameCheck,
   postSignup,
 } from '@/api/client/authApi';
-import { useProfileUpdate } from '@/api/signup/useMutation';
+import { useProfileUpdate } from '@/hooks/useSignupMutation';
 
 import { Admin, User } from '@/class/signup';
 import SignUpCompleteModal from '@/components/pages/signUpCompleteModal';

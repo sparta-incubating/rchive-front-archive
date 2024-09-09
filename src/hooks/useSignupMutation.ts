@@ -1,7 +1,6 @@
-import { queryClient } from '@/provider/tanstackQueryProvider/TanstackQueryProvider';
-import { useMutation } from '@tanstack/react-query';
-import axiosAPI from '../../utils/axios/axiosAPI';
-import { SIGNUP_QUERY_KEYS } from './keys.constant';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { SIGNUP_QUERY_KEYS } from '../api/signup/keys.constant';
+import axiosAPI from '@/utils/axios/axiosAPI';
 
 export interface PhoneInfo {
   username: string;
@@ -48,6 +47,8 @@ export const checkPhoneAuth = async (userInfo: PhoneChange) => {
 };
 
 export const useProfileUpdate = () => {
+  const queryClient = useQueryClient();
+
   //휴대폰 인증번호 전송
   const postPhoneAuthNumberMutate = useMutation({
     mutationFn: sendPhoneAuthNumber,
