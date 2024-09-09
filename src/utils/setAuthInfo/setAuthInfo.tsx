@@ -1,0 +1,67 @@
+'use client';
+
+import { setAuth } from '@/redux/slice/auth.slice';
+import { MyRoleDataType, trackRole } from '@/types/auth.types';
+import { TrackType } from '@/types/posts.types';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
+interface SetAuthInfoProps {
+  accessToken: string;
+  trackName: TrackType;
+  trackRole: trackRole;
+  period: string;
+  nickname: string;
+  username: string;
+  birth: string;
+  profileImg: string;
+  myRoles: MyRoleDataType[];
+  email: string;
+}
+
+const SetAuthInfo = ({
+  accessToken,
+  trackName,
+  trackRole,
+  period,
+  nickname,
+  username,
+  birth,
+  profileImg,
+  myRoles,
+  email,
+}: SetAuthInfoProps) => {
+  const dispatch = useDispatch();
+
+  dispatch(
+    setAuth({
+      accessToken,
+      trackName,
+      trackRole,
+      period,
+      nickname,
+      username,
+      birth,
+      profileImg,
+      myRoles: myRoles,
+      email,
+    }),
+  );
+
+  const router = useRouter();
+  useEffect(() => {
+    const handleAuthError = () => {
+      router.push('/login');
+    };
+
+    window.addEventListener('AUTH_ERROR', handleAuthError);
+
+    return () => {
+      window.removeEventListener('AUTH_ERROR', handleAuthError);
+    };
+  }, [router]);
+
+  return null;
+};
+export default SetAuthInfo;
