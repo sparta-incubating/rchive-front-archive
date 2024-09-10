@@ -1,8 +1,5 @@
 'use client';
 
-import { useMyPageUpdate } from '@/hooks/useMutation';
-import { useUserInfoDataQuery } from '@/hooks/useQuery';
-
 import AccountInfo from '@/components/pages/accountInfo';
 import NicknameChangeModal from '@/components/pages/profile/nicknameChangeModal';
 import PasswordChangeModal from '@/components/pages/profile/passwordChangeModal';
@@ -10,11 +7,13 @@ import PhoneChangeModal from '@/components/pages/profile/phoneChangeModal';
 import RandomProfileModal from '@/components/pages/profile/randomProfileModal';
 
 import RoleChangeModal from '@/components/pages/profile/roleChangeModal';
+
 import UserInfo from '@/components/pages/userInfo';
+import { useMyPageUpdate } from '@/hooks/useMutation';
+import { useUserInfoDataQuery } from '@/hooks/useQuery';
 import { useRouter } from 'next/navigation';
 
 import { useState } from 'react';
-import MyPageHeader from '@/components/molecules/mypageHeader';
 
 const MyProfile = () => {
   const { userData, isError, isPending } = useUserInfoDataQuery();
@@ -61,9 +60,9 @@ const MyProfile = () => {
 
   return (
     <>
-      <MyPageHeader />
-      <div className="mx-auto flex h-screen w-full flex-col items-center justify-center gap-[40px] bg-gray-50">
+      <div className="mx-auto flex h-screen w-full flex-col items-center gap-[40px] bg-gray-50 py-[56px]">
         {/*프로필 */}
+        <h1 className="w-[1151px] text-3xl font-semibold">프로필 관리</h1>
         {/*회원 정보 */}
         <UserInfo
           profileImg={profileImg}
