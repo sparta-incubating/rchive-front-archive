@@ -29,7 +29,7 @@ const Post = async ({ params }: { params: { id: string } }) => {
     const postListResponse = await getNoSearchKeywordPostList(
       trackName || '',
       Number(period),
-      `category=${postData.postType}&page=1&size=4`,
+      `category=${postData.postType.key}&page=1&size=4`,
     );
 
     return (
