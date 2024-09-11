@@ -67,7 +67,7 @@ const MyProfile = () => {
         <UserInfo
           profileImg={profileImg}
           username={username}
-          trackName={trackName}
+          trackName={trackName.value}
           period={period}
           trackRole={trackRole}
           nickname={nickname}

@@ -12,6 +12,7 @@ const CompoundProvider = async ({ children }: PropsWithChildren) => {
   const session = await auth();
   const accessToken = session?.user.accessToken || '';
   const trackName = session?.user.trackName || '';
+  const trackLabel = session?.user.trackLabel || '';
   const trackRole = session?.user.trackRole || '';
   const period = String(session?.user.loginPeriod) || '';
   const nickname = session?.user.nickname || '';
@@ -29,6 +30,7 @@ const CompoundProvider = async ({ children }: PropsWithChildren) => {
             <SetAuthInfo
               accessToken={accessToken}
               trackName={trackName}
+              trackLabel={trackLabel}
               trackRole={trackRole}
               period={String(period)}
               nickname={nickname}

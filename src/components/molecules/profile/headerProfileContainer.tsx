@@ -7,11 +7,11 @@ import ProfileDropDownItem from '@/components/atoms/profile/profileDropDownItem'
 import ProfileDropDownItemCard from '@/components/atoms/profile/ProfileDropDownItemCard';
 import useDropDownOpen from '@/hooks/useDropDownOpen';
 import { useAppSelector } from '@/redux/storeConfig';
-import { getTrackName } from '@/utils/setAuthInfo/post.util';
-import { TrackType } from '@/types/posts.types';
+
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import { patchLastConnectRole } from '@/api/client/authApi';
+import { getTrackNames } from '@/api/client/categoryApi';
 
 const HeaderProfileContainer = () => {
   const { isOpen, dropdownRef, handleClick } = useDropDownOpen();
@@ -20,7 +20,7 @@ const HeaderProfileContainer = () => {
   );
 
   const { update, data: session } = useSession();
-  const handleToTrack = async (trackName: TrackType, period: number) => {
+  const handleToTrack = async (trackName: string, period: number) => {
     await update({
       ...session,
       user: {
@@ -76,7 +76,8 @@ const HeaderProfileContainer = () => {
               role={
                 role.trackRoleEnum === 'STUDENT' ? '수강생' : role.trackRoleEnum
               }
-              track={`${getTrackName(role.trackName as TrackType)} ${role.period}기`}
+              // track={`${getTrackNames(role.trackName as string)} ${role.period}기`}
+              track={`${getTrackNames()} ${role.period}기`}
               selected={
                 role.period === Number(period) &&
                 role.trackRoleEnum === trackRole

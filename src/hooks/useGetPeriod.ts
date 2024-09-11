@@ -1,12 +1,11 @@
 'use client';
 
 import { getPeriod } from '@/api/client/postApi';
-import { TrackType } from '@/types/posts.types';
 import { SelectOptionType } from '@/types/signup.types';
 
 import { useQuery } from '@tanstack/react-query';
 
-const useGetPeriod = (track: TrackType, role: string = 'STUDENT') => {
+const useGetPeriod = (track: string, role: string = 'STUDENT') => {
   const { data } = useQuery({
     queryKey: ['period', track],
     // track은 login 정보에서 가져와야함

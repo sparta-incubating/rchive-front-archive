@@ -6,7 +6,6 @@ import {
 } from '@/api/server/authApi';
 import { authConfig } from '@/auth.config';
 import { MyRoleDataType, trackRole } from '@/types/auth.types';
-import { TrackType } from '@/types/posts.types';
 
 import NextAuth from 'next-auth';
 import axiosAPI from './utils/axios/axiosAPI';
@@ -27,7 +26,8 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           const { trackId, trackRole, trackName, period } = response.data.data;
           token.trackId = trackId;
           token.trackRole = trackRole;
-          token.trackName = trackName;
+          token.trackName = trackName.key;
+          token.trackLabel = trackName.value;
           token.loginPeriod = period;
 
           // 프로필 조회
@@ -64,6 +64,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           sub: session.user.accessToken,
           refreshToken: session.user.refreshToken,
           trackName: session.user.trackName,
+          trackLabel: session.user.trackLabel,
           loginPeriod: session.user.loginPeriod,
           username: session.user.username,
           birth: session.user.birth,
@@ -84,7 +85,8 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       session.user.roleError = token.roleError as string | undefined;
       session.user.trackId = token.trackId as number;
       session.user.trackRole = token.trackRole as trackRole;
-      session.user.trackName = token.trackName as TrackType;
+      session.user.trackName = token.trackName as string;
+      session.user.trackLabel = token.trackLabel as string;
       session.user.loginPeriod = token.loginPeriod as number;
       session.user.roleApply = token.roleApply as boolean;
       session.user.nickname = token.nickname as string;

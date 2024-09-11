@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 import Button from '../atoms/button';
 import { useSession } from 'next-auth/react';
-import { TrackType } from '@/types/posts.types';
 import { patchLastConnectRole } from '@/api/client/authApi';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -19,18 +18,17 @@ const SelectTrackAccount = ({ paginatedRoleList }: SelectTrackAccountProps) => {
   const { period, trackName } = useAppSelector((state) => state.authSlice);
 
   const [clickedPeriod, setClickPeriod] = useState<number>(parseInt(period));
-  const [clickedTrackName, setClickedTrackName] =
-    useState<TrackType>(trackName);
+  const [clickedTrackName, setClickedTrackName] = useState<string>(trackName);
 
   const router = useRouter();
 
-  const handleClick = (id: number, name: TrackType) => {
+  const handleClick = (id: number, name: string) => {
     setClickPeriod(id);
     setClickedTrackName(name);
   };
 
   const { update, data: session } = useSession();
-  const handleToTrack = async (trackName: TrackType, period: number) => {
+  const handleToTrack = async (trackName: string, period: number) => {
     await update({
       ...session,
       user: {

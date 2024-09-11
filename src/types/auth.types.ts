@@ -1,11 +1,10 @@
-import { TrackType } from './posts.types';
-
 export type trackRole = 'PM' | 'APM' | 'ADMIN' | 'STUDENT' | 'TUTOR' | '';
 
 export type LastConnectRoleDataType = {
   trackId: number;
   trackRole: trackRole;
-  trackName: TrackType;
+  trackName: string;
+  trackLabel: string;
   period: number;
 };
 export type LastConnectRoleResponseType = {
@@ -25,13 +24,15 @@ export type MyRoleResponse = {
 export type MyRoleDataType = {
   trackId: number;
   trackRoleEnum: trackRole;
-  trackName: TrackType;
+  trackName: string;
+  trackLabel: string;
   period: number;
 };
 
 export type SelectProfileRole = {
   trackId: number;
   trackRoleEnum: string;
-  trackName: TrackType;
+  trackName: string;
+  trackLabel: string;
   period: number;
 };
