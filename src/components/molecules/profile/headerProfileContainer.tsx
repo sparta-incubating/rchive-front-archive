@@ -22,6 +22,13 @@ const HeaderProfileContainer = () => {
     (state) => state.authSlice,
   );
 
+  const defaultProfileImg =
+    profileImg === 'default'
+      ? trackRole === 'STUDENT'
+        ? 'SRT_1'
+        : 'MRT_1'
+      : profileImg;
+
   const { update, data: session } = useSession();
   const handleToTrack = async (trackName: string, period: number) => {
     await update({
@@ -48,7 +55,10 @@ const HeaderProfileContainer = () => {
       className="relative flex cursor-pointer gap-2.5 rounded-[14px] border border-gray-100 bg-gray-50 p-2"
       onClick={handleClick}
     >
-      <ProfileImage imageUrl={`/assets/icons/${profileImg}.svg`} size="sm" />
+      <ProfileImage
+        imageUrl={`/assets/icons/${defaultProfileImg}.svg`}
+        size="sm"
+      />
 
       <div className="flex items-center gap-1">
         <span className="text-sm font-medium text-gray-700">{username}님</span>
@@ -74,7 +84,7 @@ const HeaderProfileContainer = () => {
             onClick={() => handleToTrack(role.trackName.key, role.period)}
           >
             <ProfileDropDownItemCard
-              profileImage={`/assets/icons/${profileImg}.svg`}
+              profileImage={`/assets/icons/${defaultProfileImg}.svg`}
               nickname={username}
               role={
                 role.trackRoleEnum === 'STUDENT' ? '수강생' : role.trackRoleEnum
