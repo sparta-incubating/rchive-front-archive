@@ -24,15 +24,13 @@ export type MyRoleResponse = {
 export type MyRoleDataType = {
   trackId: number;
   trackRoleEnum: trackRole;
-  trackName: string;
-  trackLabel: string;
+  trackName: { key: string; value: string };
   period: number;
 };
 
 export type SelectProfileRole = {
   trackId: number;
   trackRoleEnum: string;
-  trackName: string;
-  trackLabel: string;
+  trackName: { key: string; value: string };
   period: number;
 };

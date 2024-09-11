@@ -29,6 +29,7 @@ const SelectTrackAccount = ({ paginatedRoleList }: SelectTrackAccountProps) => {
 
   const { update, data: session } = useSession();
   const handleToTrack = async (trackName: string, period: number) => {
+    console.log(trackName, 'trackName');
     await update({
       ...session,
       user: {
@@ -57,7 +58,7 @@ const SelectTrackAccount = ({ paginatedRoleList }: SelectTrackAccountProps) => {
             {paginatedRoleList.map((items: SelectProfileRole) => (
               <button
                 key={items.trackId}
-                onClick={() => handleClick(items.period, items.trackName)}
+                onClick={() => handleClick(items.period, items.trackName.key)}
               >
                 <div
                   className={`flex h-[83px] w-[254px] items-center gap-[12px] rounded-[16px] px-[20px] text-xl font-bold ${
@@ -71,7 +72,7 @@ const SelectTrackAccount = ({ paginatedRoleList }: SelectTrackAccountProps) => {
                       ? '수강생'
                       : items.trackRoleEnum}
                   </p>
-                  <p className="w-[130px] text-center">{`${items.trackName === 'SPRING_DEEP' ? '심화' : items.trackName} ${items.period}기`}</p>
+                  <p className="w-[130px] text-center">{`${items.trackName.key === 'SPRING_DEEP' ? '심화' : items.trackName.value} ${items.period}기`}</p>
                 </div>
               </button>
             ))}

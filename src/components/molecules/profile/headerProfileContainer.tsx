@@ -9,12 +9,15 @@ import useDropDownOpen from '@/hooks/useDropDownOpen';
 import { useAppSelector } from '@/redux/storeConfig';
 
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { patchLastConnectRole } from '@/api/client/authApi';
-import { getTrackNames } from '@/api/client/categoryApi';
+import { useQueryClient } from '@tanstack/react-query';
 
 const HeaderProfileContainer = () => {
   const { isOpen, dropdownRef, handleClick } = useDropDownOpen();
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const { period, trackRole, myRoles, profileImg, username } = useAppSelector(
     (state) => state.authSlice,
   );
@@ -67,8 +70,8 @@ const HeaderProfileContainer = () => {
             selected={
               role.period === Number(period) && role.trackRoleEnum === trackRole
             }
-            key={role.trackId + role.trackName}
-            onClick={() => handleToTrack(role.trackName, role.period)}
+            key={role.trackId + role.trackName.key}
+            onClick={() => handleToTrack(role.trackName.key, role.period)}
           >
             <ProfileDropDownItemCard
               profileImage={`/assets/icons/${profileImg}.svg`}
@@ -76,8 +79,7 @@ const HeaderProfileContainer = () => {
               role={
                 role.trackRoleEnum === 'STUDENT' ? '수강생' : role.trackRoleEnum
               }
-              // track={`${getTrackNames(role.trackName as string)} ${role.period}기`}
-              track={`${getTrackNames()} ${role.period}기`}
+              track={`${role.trackName.value} ${role.period}기`}
               selected={
                 role.period === Number(period) &&
                 role.trackRoleEnum === trackRole

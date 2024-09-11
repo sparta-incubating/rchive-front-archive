@@ -81,13 +81,13 @@ export const getAllMyRoles = async (accessToken: string) => {
 
 // 로그인 프로필 정보
 export const getMyProfile = async (
-  tackName: string,
+  trackName: string,
   period: number,
   accessToken: string,
 ) => {
   try {
     return await axiosAPI.get(
-      `/apis/v1/profile?trackName=${tackName}&period=${period}`,
+      `/apis/v1/profile?trackName=${trackName}&period=${period}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
