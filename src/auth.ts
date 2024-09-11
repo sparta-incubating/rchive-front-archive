@@ -32,7 +32,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
 
           // 프로필 조회
           const profileResponse = await getMyProfile(
-            trackName,
+            trackName.key,
             trackRole === 'PM' ? 0 : period,
             user.accessToken,
           );

@@ -29,7 +29,6 @@ const SelectTrackAccount = ({ paginatedRoleList }: SelectTrackAccountProps) => {
 
   const { update, data: session } = useSession();
   const handleToTrack = async (trackName: string, period: number) => {
-    console.log(trackName, 'trackName');
     await update({
       ...session,
       user: {

@@ -10,6 +10,7 @@ import StoreProvider from '@/provider/reduxProvider/storeProvider';
 
 const CompoundProvider = async ({ children }: PropsWithChildren) => {
   const session = await auth();
+
   const accessToken = session?.user.accessToken || '';
   const trackName = session?.user.trackName || '';
   const trackLabel = session?.user.trackLabel || '';
