@@ -7,20 +7,26 @@ import ProfileDropDownItem from '@/components/atoms/profile/profileDropDownItem'
 import ProfileDropDownItemCard from '@/components/atoms/profile/ProfileDropDownItemCard';
 import useDropDownOpen from '@/hooks/useDropDownOpen';
 import { useAppSelector } from '@/redux/storeConfig';
-import { getTrackName } from '@/utils/setAuthInfo/post.util';
-import { TrackType } from '@/types/posts.types';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import { patchLastConnectRole } from '@/api/client/authApi';
 
 const HeaderProfileContainer = () => {
   const { isOpen, dropdownRef, handleClick } = useDropDownOpen();
+
   const { period, trackRole, myRoles, profileImg, username } = useAppSelector(
     (state) => state.authSlice,
   );
 
+  const defaultProfileImg =
+    profileImg === 'default'
+      ? trackRole === 'STUDENT'
+        ? 'SRT_1'
+        : 'MRT_1'
+      : profileImg;
+
   const { update, data: session } = useSession();
-  const handleToTrack = async (trackName: TrackType, period: number) => {
+  const handleToTrack = async (trackName: string, period: number) => {
     await update({
       ...session,
       user: {
@@ -45,7 +51,10 @@ const HeaderProfileContainer = () => {
       className="relative flex cursor-pointer gap-2.5 rounded-[14px] border border-gray-100 bg-gray-50 p-2"
       onClick={handleClick}
     >
-      <ProfileImage imageUrl={`/assets/icons/${profileImg}.svg`} size="sm" />
+      <ProfileImage
+        imageUrl={`/assets/icons/${defaultProfileImg}.svg`}
+        size="sm"
+      />
 
       <div className="flex items-center gap-1">
         <span className="text-sm font-medium text-gray-700">{username}님</span>
@@ -67,16 +76,16 @@ const HeaderProfileContainer = () => {
             selected={
               role.period === Number(period) && role.trackRoleEnum === trackRole
             }
-            key={role.trackId + role.trackName}
-            onClick={() => handleToTrack(role.trackName, role.period)}
+            key={role.trackId + role.trackName.key}
+            onClick={() => handleToTrack(role.trackName.key, role.period)}
           >
             <ProfileDropDownItemCard
-              profileImage={`/assets/icons/${profileImg}.svg`}
+              profileImage={`/assets/icons/${defaultProfileImg}.svg`}
               nickname={username}
               role={
                 role.trackRoleEnum === 'STUDENT' ? '수강생' : role.trackRoleEnum
               }
-              track={`${getTrackName(role.trackName as TrackType)} ${role.period}기`}
+              track={`${role.trackName.value} ${role.period}기`}
               selected={
                 role.period === Number(period) &&
                 role.trackRoleEnum === trackRole

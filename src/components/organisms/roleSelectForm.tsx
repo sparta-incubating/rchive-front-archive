@@ -3,7 +3,6 @@
 import { postRoleApply } from '@/api/server/authApi';
 import Button from '@/components/atoms/button';
 
-import { trackOptions } from '@/types/posts.types';
 import { RoleFormSchema } from '@/types/role.types';
 import { roleSchema } from '@/validators/auth/role.validator';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,6 +10,7 @@ import { ReactNode } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import SelectFormBox from './selectFormBox';
 import useGetPeriod from '@/hooks/useGetPeriod';
+import useTrackName from '@/hooks/useTrackName';
 
 interface RoleSelectFormProps {
   trackRole: string;
@@ -35,6 +35,8 @@ const RoleSelectForm = ({ trackRole, children }: RoleSelectFormProps) => {
     },
   });
 
+  const { trackNameOptions } = useTrackName();
+
   const period = useGetPeriod(watch('trackName'), trackRole);
 
   const onSubmit = async (data: RoleFormSchema) => {
@@ -54,7 +56,7 @@ const RoleSelectForm = ({ trackRole, children }: RoleSelectFormProps) => {
           render={({ field: { onChange, value } }) => (
             <SelectFormBox
               className="w-[360px]"
-              options={trackOptions}
+              options={trackNameOptions}
               label={'트랙'}
               onSelect={onChange}
               value={value}

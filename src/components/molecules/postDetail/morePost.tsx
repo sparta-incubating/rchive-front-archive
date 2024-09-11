@@ -1,10 +1,9 @@
-import { getNameCategory } from '@/utils/setAuthInfo/post.util';
-import { PostListResponse, PostType } from '@/types/posts.types';
+import { PostListResponse } from '@/types/posts.types';
 import PostListContainer from '@/components/organisms/postList/postListContainer';
 import { useRouter } from 'next/navigation';
 
 interface MorePostProps {
-  category: PostType;
+  category: string;
   postListData: PostListResponse;
 }
 
@@ -17,9 +16,7 @@ const MorePost = ({ category, postListData }: MorePostProps) => {
   return (
     <section className="flex flex-col gap-3.5 border-t border-gray-100 pt-[52px]">
       <div className="flex items-center justify-between">
-        <span className="text-center text-2xl font-bold">
-          {getNameCategory(category)}
-        </span>
+        <span className="text-center text-2xl font-bold">{category}</span>
         <button
           onClick={handleClickMore}
           className="text-md text-center font-bold text-gray-500"

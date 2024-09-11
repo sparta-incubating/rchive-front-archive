@@ -6,7 +6,6 @@ import {
 import axiosAPI from '../../utils/axios/axiosAPI';
 import axios from 'axios';
 import { client } from '@/utils/axios/clientAPI';
-import { TrackType } from '@/types/posts.types';
 
 export const postSignup = async (userData: User | Admin) => {
   try {
@@ -52,7 +51,7 @@ export const getLastConnectRole = async () => {
 
 // 마지막 접속 권한 등록 endpoint
 export const patchLastConnectRole = async (
-  trackName: TrackType,
+  trackName: string,
   period: number,
 ) => {
   try {

@@ -70,6 +70,7 @@ const SignIn = () => {
     if (session?.user) {
       const {
         trackName,
+        trackLabel,
         trackRole,
         accessToken,
         loginPeriod,
@@ -85,6 +86,7 @@ const SignIn = () => {
         setAuth({
           accessToken,
           trackName: trackName || '',
+          trackLabel: trackLabel || '',
           trackRole: trackRole || '',
           period: String(loginPeriod) || '',
           nickname: nickname || '',

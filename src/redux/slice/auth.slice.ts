@@ -1,11 +1,11 @@
 import { RootState } from '@/redux/storeConfig';
 import { MyRoleDataType, trackRole } from '@/types/auth.types';
-import { TrackType } from '@/types/posts.types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface authInitialType {
   accessToken: string;
-  trackName: TrackType;
+  trackName: string;
+  trackLabel: string;
   trackRole: trackRole;
   period: string;
   nickname: string;
@@ -18,7 +18,8 @@ interface authInitialType {
 
 const initialState: authInitialType = {
   accessToken: '',
-  trackName: '' as TrackType,
+  trackName: '' as string,
+  trackLabel: '' as string,
   trackRole: '' as trackRole,
   period: '0',
   nickname: '',
@@ -36,6 +37,7 @@ const AuthSlice = createSlice({
     setAuth: (state, action: PayloadAction<authInitialType>) => {
       state.accessToken = action.payload.accessToken;
       state.trackName = action.payload.trackName;
+      state.trackLabel = action.payload.trackLabel;
       state.trackRole = action.payload.trackRole;
       state.period = action.payload.period;
       state.nickname = action.payload.nickname;
