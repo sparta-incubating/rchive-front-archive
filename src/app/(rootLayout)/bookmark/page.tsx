@@ -1,4 +1,4 @@
-import MyPageHeader from '@/components/molecules/myPageHeader';
+import MyPageHeader from '@/components/molecules/mypageHeader';
 import BookMarkPage from '@/components/pages/bookMarkPage';
 import MainPage from '@/components/pages/mainPage';
 import React from 'react';

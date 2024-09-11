@@ -27,7 +27,7 @@ const BookmarkIcon = ({
       <div className="relative h-6 w-6">
         {isBookmarked ? (
           <Image
-            src={'/assets/icons/uis_bookmark.svg'}
+            src={'/assets/icons/select_bookmark.svg'}
             alt={'북마크 아이콘'}
             fill
           />
