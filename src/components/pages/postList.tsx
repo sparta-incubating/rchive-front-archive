@@ -55,20 +55,20 @@ const PostList = ({ searchParams, postListDataResponse }: PostListProps) => {
           activeTab={activeTab}
           setActiveTab={handleTabChange}
         />
+        <SubCategoryGroup>
+          <CategoryCategory
+            label="튜터"
+            filterData={getFetchTutors || []}
+            defaultValue={tutor}
+            setValue={(value) => {
+              setTutor(value);
+              updateQueryParams('tutorId', value, setCurrentPage);
+            }}
+          />
+        </SubCategoryGroup>
         {!!postListData &&
           (postListData.data.totalElements > 0 ? (
             <>
-              <SubCategoryGroup>
-                <CategoryCategory
-                  label="튜터"
-                  filterData={getFetchTutors || []}
-                  defaultValue={tutor}
-                  setValue={(value) => {
-                    setTutor(value);
-                    updateQueryParams('tutorId', value, setCurrentPage);
-                  }}
-                />
-              </SubCategoryGroup>
               <PostListContainer postListData={postListData} />
               <PageNation
                 currentPage={currentPage}
