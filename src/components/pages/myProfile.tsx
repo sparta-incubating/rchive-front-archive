@@ -15,7 +15,6 @@ import UserInfo from '@/components/pages/userInfo';
 import { useRouter } from 'next/navigation';
 
 import { useState } from 'react';
-import MyPageHeader from '../molecules/myPageHeader';
 
 const MyProfile = () => {
   const { userData, isError, isPending } = useUserInfoDataQuery();
