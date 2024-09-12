@@ -227,7 +227,7 @@ export const postRecentSearch = async (
 export const getRecentSearch = async (trackName: string, period: number) => {
   try {
     const response = await client.get(
-      `/apis/v1/posts/search/recent?trackName=${trackName}&loginPeriod=${period}`,
+      `/apis/v1/posts/search/recent?trackName=${trackName}&selectPeriod=${period}`,
     );
     return response.data;
   } catch (error) {
