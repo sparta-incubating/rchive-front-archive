@@ -20,10 +20,7 @@ export default async function middleware(req: NextRequest) {
   const session = await auth();
 
   const accessToken = session?.user.accessToken;
-  const trackId = session?.user.trackId;
   const trackRole = session?.user.trackRole;
-  const trackName = session?.user.trackName;
-  const loginPeriod = session?.user.loginPeriod;
   const roleApply = session?.user.roleApply;
 
   const role = trackRole;

@@ -3,7 +3,6 @@ import { client } from '@/utils/axios/clientAPI';
 import axiosAPI from '@/utils/axios/axiosAPI';
 import axios from 'axios';
 import { MyRoleResponse } from '@/types/auth.types';
-import { TrackType } from '@/types/posts.types'; // 권한 신청 endpoint
 
 // 권한 신청 endpoint
 export const postRoleApply = async (data: RoleFormSchema) => {
@@ -82,13 +81,13 @@ export const getAllMyRoles = async (accessToken: string) => {
 
 // 로그인 프로필 정보
 export const getMyProfile = async (
-  tackName: TrackType,
+  trackName: string,
   period: number,
   accessToken: string,
 ) => {
   try {
     return await axiosAPI.get(
-      `/apis/v1/profile?trackName=${tackName}&period=${period}`,
+      `/apis/v1/profile?trackName=${trackName}&period=${period}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

@@ -3,7 +3,7 @@ import PostTitle from '@/components/atoms/post/postTitle';
 import PostInfoTextGroup from '@/components/molecules/post/postInfoTextGroup';
 import TagNameGroup from '@/components/molecules/post/tagNamegroup';
 import { PostContentType } from '@/types/posts.types';
-import { getNameCategory } from '@/utils/setAuthInfo/post.util';
+
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -52,7 +52,7 @@ const PostCard = ({ postData }: PostCardProps) => {
         {postData.title}
       </PostTitle>
       <PostInfoTextGroup
-        trackName={getNameCategory(postData.postType)}
+        trackName={postData.postType.value}
         tutor={postData.tutor}
         updatedAt={dayjs(postData.uploadedAt).format('YYYY.MM.DD')}
       />

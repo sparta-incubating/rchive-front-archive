@@ -28,3 +28,14 @@ export const deleteBookMark = async (postId: number) => {
     throw new Error('북마크 삭제에 실패했습니다.');
   }
 };
+//북마크 검색
+export const getSearchBookMark = async (keyword: string) => {
+  try {
+    const res = await client.get(
+      `/apis/v1/profile/bookmark/search?keyword=${keyword}`,
+    );
+    return res.data;
+  } catch (error) {
+    throw new Error('북마크 검색에 실패했습니다.');
+  }
+};

@@ -2,7 +2,6 @@
 
 import profile from '@/../public/assets/icons/select-profile.svg';
 import { useAppSelector } from '@/redux/storeConfig';
-import { useSession } from 'next-auth/react';
 
 import Image from 'next/image';
 

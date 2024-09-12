@@ -2,7 +2,7 @@
 
 import SearchResultTitle from '@/components/atoms/searchResultTitle';
 import CategoryTapMenu from '@/components/atoms/category/categoryTabMenu';
-import { postTabArr } from '@/constatns/post.constant';
+import usePostTypeNames from '@/hooks/usePostTypeNames';
 
 type CategoryGroupProps = {
   keyword: string;
@@ -15,17 +15,19 @@ const CategoryGroup = ({
   activeTab,
   setActiveTab,
 }: CategoryGroupProps) => {
-  const activeCategory = postTabArr.find(
+  const { categoryData } = usePostTypeNames();
+
+  const activeCategory = categoryData.find(
     (category) => category.id === activeTab,
   );
 
   return (
     <section className="pt-10">
-      <SearchResultTitle keyword={keyword} category={activeCategory!.title} />
+      <SearchResultTitle keyword={keyword} category={activeCategory?.title} />
 
       {/*  category tab */}
       <CategoryTapMenu
-        data={postTabArr}
+        data={categoryData}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />

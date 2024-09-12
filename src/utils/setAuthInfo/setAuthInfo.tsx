@@ -2,14 +2,15 @@
 
 import { setAuth } from '@/redux/slice/auth.slice';
 import { MyRoleDataType, trackRole } from '@/types/auth.types';
-import { TrackType } from '@/types/posts.types';
+
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 interface SetAuthInfoProps {
   accessToken: string;
-  trackName: TrackType;
+  trackName: string;
+  trackLabel: string;
   trackRole: trackRole;
   period: string;
   nickname: string;
@@ -23,6 +24,7 @@ interface SetAuthInfoProps {
 const SetAuthInfo = ({
   accessToken,
   trackName,
+  trackLabel,
   trackRole,
   period,
   nickname,
@@ -38,6 +40,7 @@ const SetAuthInfo = ({
     setAuth({
       accessToken,
       trackName,
+      trackLabel,
       trackRole,
       period,
       nickname,

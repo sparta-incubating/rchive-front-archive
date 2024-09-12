@@ -2,7 +2,10 @@
 
 import React, { useCallback } from 'react';
 
-import { useBookmarkQuery } from '@/api/bookmark/useQuery';
+import {
+  useBookmarkQuery,
+  useSearchBookmarkQuery,
+} from '@/api/bookmark/useQuery';
 import PostCard from '../molecules/post/postCard';
 import PageNation from '../atoms/pageNation';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -12,6 +15,9 @@ import HelperButton from '../atoms/helperButton';
 
 const BookMarkPage = () => {
   const { bookmarkList, isPending, isError } = useBookmarkQuery();
+  const { searchList } = useSearchBookmarkQuery('');
+  console.log(searchList?.data, '북마크 검색 결과');
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();

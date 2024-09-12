@@ -24,7 +24,7 @@ const PostDetailHeader = ({
         onClick={() => router.back()}
         className="flex cursor-pointer items-center gap-3"
       >
-        <div className="relative h-6 w-6" onClick={() => router.back()}>
+        <div className="relative h-6 w-6">
           <Image src="/assets/icons/prevPageBlack.svg" alt="이전페이지" fill />
         </div>
         <span className="text-center text-lg font-semibold">{title}</span>

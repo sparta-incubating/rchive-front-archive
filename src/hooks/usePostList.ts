@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { useAppSelector } from '@/redux/storeConfig';
 import useSearchTutor from '@/hooks/useSearchTutor';
@@ -10,7 +12,9 @@ import useQueryParams from '@/hooks/useQueryParams';
 export const usePostList = (initialSearchParams: SearchParamsType) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [tutor, setTutor] = useState<string>('0');
-  const [activeTab, setActiveTab] = useState<string>('all');
+  const [activeTab, setActiveTab] = useState<string>(
+    initialSearchParams?.postType || 'all',
+  );
   const [keyword, setKeyword] = useState<string>(
     initialSearchParams?.title || '',
   );

@@ -86,7 +86,10 @@ const PostDetail = ({ postData, postListData }: PostDetailProps) => {
       <div className="h-[62px]"></div>
 
       {/*관련 category content*/}
-      <MorePost category={postData.postType} postListData={postListData} />
+      <MorePost
+        category={postData.postType.value}
+        postListData={postListData}
+      />
 
       {/*spacer*/}
       <div className="h-[64px]"></div>
