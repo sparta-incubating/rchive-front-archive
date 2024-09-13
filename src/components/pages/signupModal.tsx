@@ -14,12 +14,16 @@ import AcceptTermsGroup from '../organisms/acceptTermsGroup';
 import { signupModalType } from '@/types/signup.types';
 import { handleKeyPressOnlyNumber } from '@/utils/utils';
 import useSignupForm from '@/hooks/useSignupForm';
+import { useState } from 'react';
+import AuthTimer from '../atoms/authTimer';
 
 interface SignupModalProps {
   signupModalType: signupModalType;
 }
 
 const SignupModal = ({ signupModalType }: SignupModalProps) => {
+  const [requestAuthNumber, setRequestAuthNumber] = useState<boolean>(false);
+  const [expire, setExpire] = useState<boolean>(false);
   const {
     handleSubmit,
     onSubmit,
@@ -35,9 +39,6 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
     isErrorMsg,
     setIsErrorMsg,
     emailError,
-    nicknameError,
-    checkNickname,
-    isNicknameUnique,
   } = useSignupForm(signupModalType);
 
   const usernameCheck = watch('username');
@@ -132,54 +133,39 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
             <FormSpan variant="error">{errors.username?.message}</FormSpan>
           )}
         </section>
-        {/* nickname */}
+
+        {/* phone */}
         <section>
-          <InputContainer>
-            <InputField>
-              <Label htmlFor="nickname">닉네임</Label>
-              <Input
-                {...register('nickname')}
-                placeholder="닉네임 입력"
-                className="bold h-[20px] w-full bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
-              />
-            </InputField>
-            {watch('nickname').length > 0 && (
-              <Button
-                size="sm"
-                variant={'submit'}
-                type="button"
-                disabled={!!errors.nickname?.message}
-                className="h-[42px] w-[85px] p-2 text-xs"
-                onClick={() => checkNickname(getValues('nickname'))}
-              >
-                중복 확인
-              </Button>
-            )}
-          </InputContainer>
-          {errors.nickname?.message && (
-            <FormSpan variant="error">{errors.nickname?.message}</FormSpan>
+          <PhoneForm
+            register={register}
+            usernameCheck={usernameCheck}
+            authCheck={authCheck}
+            setIsErrorMsg={setIsErrorMsg}
+            setRequestAuthNumber={setRequestAuthNumber}
+            expire={expire}
+          />
+          {errors.phone?.message && (
+            <FormSpan variant="error">휴대폰 인증번호는 필수입니다.</FormSpan>
           )}
-          {isNicknameUnique === false && (
-            <FormSpan variant="success">사용가능한 닉네임입니다.</FormSpan>
-          )}
-          {isNicknameUnique && (
-            <FormSpan variant="error">이미 사용중인 닉네임입니다.</FormSpan>
-          )}
-          {!errors.nickname?.message && !isNicknameUnique && nicknameError && (
-            <FormSpan variant="error">{nicknameError}</FormSpan>
+          {!errors.phone?.message && (
+            <>
+              {isErrorMsg && (
+                <span
+                  className={
+                    isErrorMsg.includes('완료되었습니다.')
+                      ? 'text-sm text-success-green'
+                      : 'text-sm text-primary-400'
+                  }
+                >
+                  {isErrorMsg}
+                </span>
+              )}
+              {requestAuthNumber && !isErrorMsg && (
+                <AuthTimer setExpire={setExpire} />
+              )}
+            </>
           )}
         </section>
-        {/* phone */}
-        <PhoneForm
-          register={register}
-          usernameCheck={usernameCheck}
-          authCheck={authCheck}
-          isErrorMsg={isErrorMsg}
-          setIsErrorMsg={setIsErrorMsg}
-        />
-        {errors.phone?.message && (
-          <FormSpan variant="error">휴대폰 인증번호는 필수입니다.</FormSpan>
-        )}
         {/* birthday */}
         <section>
           <InputContainer>
