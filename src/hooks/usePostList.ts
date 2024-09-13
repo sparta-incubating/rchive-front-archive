@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppSelector } from '@/redux/storeConfig';
 import useSearchTutor from '@/hooks/useSearchTutor';
 import { SearchParamsType } from '@/types/posts.types';
@@ -69,6 +69,10 @@ export const usePostList = (initialSearchParams: SearchParamsType) => {
       updateQueryParams('title', keyword, setCurrentPage);
     }
   };
+
+  useEffect(() => {
+    setKeyword(initialSearchParams.title || '');
+  }, [initialSearchParams?.title]);
 
   return {
     currentPage,

@@ -64,7 +64,6 @@ const page = async ({ searchParams }: PostProps) => {
     if (axios.isAxiosError(error)) {
       const data = error?.response?.data;
       const status = error?.response?.status;
-      console.log(error.response);
 
       return <CustomError errorData={{ status, data }}></CustomError>;
     }
