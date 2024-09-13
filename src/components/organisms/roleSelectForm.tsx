@@ -48,7 +48,7 @@ const RoleSelectForm = ({ trackRole, children }: RoleSelectFormProps) => {
 
   return (
     <form className="m-auto" onSubmit={handleSubmit(onSubmit)}>
-      <section className="flex w-[520px] flex-col items-center gap-5 rounded-[12px] bg-white pb-7 pt-14">
+      <section className="m-auto flex h-[577px] w-[520px] flex-col items-center justify-center gap-5 rounded-[12px] bg-white pb-7 pt-14">
         {children}
         <Controller
           name="trackName"
