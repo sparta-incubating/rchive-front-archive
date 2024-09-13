@@ -6,7 +6,7 @@ export const getPostList = cache(
   async (trackName: string, period: number, queryString: string) => {
     const serverAPI = await createServerAPI();
     return serverAPI.get<PostListResponse>(
-      `/apis/v1/posts/search?trackName=${trackName}&loginPeriod=${period}&${queryString}`,
+      `/apis/v1/posts/search?trackName=${trackName}&selectPeriod=${period}&${queryString}`,
     );
   },
 );
@@ -15,7 +15,7 @@ export const getNoSearchKeywordPostList = cache(
   async (trackName: string, period: number, queryString: string) => {
     const serverAPI = await createServerAPI();
     return serverAPI.get(
-      `/apis/v1/posts/category?trackName=${trackName}&loginPeriod=${period}&${queryString}`,
+      `/apis/v1/posts/category?trackName=${trackName}&selectPeriod=${period}&${queryString}`,
     );
   },
 );
@@ -33,7 +33,7 @@ export const getPostForTag = cache(
   async (trackName: string, period: number, queryString: string) => {
     const serverAPI = await createServerAPI();
     return await serverAPI.get(
-      `/apis/v1/posts/tags/search?trackName=${trackName}&loginPeriod=${period}&${queryString}`,
+      `/apis/v1/posts/tags/search?trackName=${trackName}&selectPeriod=${period}&${queryString}`,
     );
   },
 );
