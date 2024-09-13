@@ -1,8 +1,4 @@
-import {
-  getMailCheck,
-  getNicknameCheck,
-  postSignup,
-} from '@/api/client/authApi';
+import { getMailCheck, postSignup } from '@/api/client/authApi';
 import { useProfileUpdate } from '@/hooks/useSignupMutation';
 
 import { Admin, User } from '@/class/signup';
@@ -24,14 +20,13 @@ import { useForm } from 'react-hook-form';
 
 const DEFAULT_VALUE = {
   email: '',
+  username: '',
   password: '',
   passwordConfirm: '',
-  username: '',
-  birth: '',
   phone: '',
   authCode: '',
   profileImg: 'default',
-  nickname: '',
+  birth: '',
   ad: false,
   age: false,
   privacy: false,
@@ -42,17 +37,12 @@ const useSignupForm = (signupType: signupModalType) => {
   const [isEmailUnique, setIsEmailUnique] = useState<boolean | undefined>(
     undefined,
   );
-  const [isNicknameUnique, setIsNicknameUnique] = useState<boolean | undefined>(
-    undefined,
-  );
 
   /*미확인 시  */
   const [emailChecked, setEmailChecked] = useState<boolean>(false);
-  const [nicknameChecked, setNicknameChecked] = useState<boolean>(false);
   const [phoneVerified, setPhoneVerified] = useState<boolean>(false);
   const [isErrorMsg, setIsErrorMsg] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
-  const [nicknameError, setNicknameError] = useState<string | null>(null);
 
   const { open } = useModalContext();
   const {
@@ -72,9 +62,8 @@ const useSignupForm = (signupType: signupModalType) => {
   });
 
   const onSubmit = async (data: SignupFormSchema) => {
-    if (!emailChecked && !phoneVerified && !nicknameChecked) {
+    if (!emailChecked && !phoneVerified) {
       setEmailError('이메일 중복 확인은 필수입니다.');
-      setNicknameError('닉네임 중복 확인은 필수입니다.');
       setIsErrorMsg('휴대폰 인증번호 확인은 필수입니다.');
       return;
     }
@@ -86,10 +75,7 @@ const useSignupForm = (signupType: signupModalType) => {
       setIsErrorMsg('휴대폰 인증번호 확인은 필수입니다.');
       return;
     }
-    if (!nicknameChecked) {
-      setNicknameError('닉네임 중복 확인은 필수입니다.');
-      return;
-    }
+
     try {
       const signUpFormData = createSignupForm(signupType, data);
       await postSignup(signUpFormData);
@@ -112,28 +98,10 @@ const useSignupForm = (signupType: signupModalType) => {
     }
   };
 
-  const checkNickname = async (nickname: string) => {
-    try {
-      const data = await getNicknameCheck(nickname);
-      setIsNicknameUnique(data.data);
-      setNicknameChecked(true);
-      setNicknameError(null);
-    } catch (error) {
-      console.error('Error checking nickname uniqueness', error);
-      setIsNicknameUnique(false);
-      setNicknameChecked(false);
-    }
-  };
-
   const email = watch('email');
   useEffect(() => {
     setIsEmailUnique(undefined);
   }, [email]);
-
-  const nickname = watch('nickname');
-  useEffect(() => {
-    setIsNicknameUnique(undefined);
-  }, [nickname]);
 
   /**휴대폰 인증로직 추가 */
   const { checkPhoneAuthMutate } = useProfileUpdate();
@@ -167,9 +135,6 @@ const useSignupForm = (signupType: signupModalType) => {
     setIsErrorMsg,
     phoneVerified,
     emailError,
-    nicknameError,
-    checkNickname,
-    isNicknameUnique,
   };
 };
 
@@ -181,13 +146,12 @@ const createSignupForm = (
     return new Admin(
       OAuthEnum.LOCAL,
       data.email,
-      data.password,
       data.username,
+      data.password,
       formatDate(data.birth),
       data.phone,
-      GenderEnum.NONE,
       data.profileImg,
-      data.nickname,
+      GenderEnum.NONE,
       UserRoleEnum.MANAGER,
       data.age,
       data.service,
@@ -198,14 +162,13 @@ const createSignupForm = (
     return new User(
       OAuthEnum.LOCAL,
       data.email,
-      data.password,
       data.username,
+      data.password,
       formatDate(data.birth),
       data.phone,
-      GenderEnum.NONE,
       data.profileImg,
-      data.nickname,
-      UserRoleEnum.MANAGER,
+      GenderEnum.NONE,
+      UserRoleEnum.USER,
       data.age,
       data.service,
       data.privacy,
