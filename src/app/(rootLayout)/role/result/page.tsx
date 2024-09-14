@@ -30,7 +30,7 @@ const RoleResultPage = async () => {
     <>
       {trackRole === 'STUDENT' ? (
         <RoleContainerPage>
-          <section className="m-auto flex w-[520px] flex-col items-center gap-5 rounded-[12px] bg-white pb-7 pt-5">
+          <section className="m-auto flex h-[577px] w-[520px] flex-col items-center justify-center gap-5 rounded-[12px] bg-white pb-7 pt-5">
             {roleApplyResult === RoleResultEnum.WAIT && (
               <>
                 <span className="text-center text-xl font-medium text-gray-900">

@@ -44,9 +44,7 @@ const NotionContainer = ({ notionLink }: { notionLink: string }) => {
         recordMap={recordMap}
         fullPage={false}
         darkMode={false}
-        mapPageUrl={(pageId) =>
-          `https://www.notion.so/${pageId.replace(/-/g, '')}`
-        }
+        rootDomain={'https://dev.rchive.kr'}
         components={{
           Code,
           Collection,

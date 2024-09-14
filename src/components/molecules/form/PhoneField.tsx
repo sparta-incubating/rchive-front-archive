@@ -1,10 +1,9 @@
 'use client';
 
-import { useProfileUpdate } from '@/hooks/useSignupMutation';
-import AuthTimer from '@/components/atoms/authTimer';
 import Button from '@/components/atoms/button';
 import Input from '@/components/atoms/input';
 import InputContainer from '@/components/atoms/InputContainer';
+import { useProfileUpdate } from '@/hooks/useSignupMutation';
 import { authCodeType, SignupFormSchema } from '@/types/signup.types';
 
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
@@ -14,24 +13,24 @@ interface PhoneFieldProps {
   register: UseFormRegister<SignupFormSchema>;
   usernameCheck: string;
   authCheck: (authInfo: authCodeType) => Promise<void>;
-  isErrorMsg: string | null;
   setIsErrorMsg: Dispatch<SetStateAction<string | null>>;
+  setRequestAuthNumber: React.Dispatch<React.SetStateAction<boolean>>;
+  expire: boolean;
 }
 
 const PhoneField = ({
   register,
   usernameCheck,
   authCheck,
-  isErrorMsg,
   setIsErrorMsg,
+  setRequestAuthNumber,
+  expire,
 }: PhoneFieldProps) => {
   const [isInputFilled, setIsInputFilled] = useState<string>('');
-  const [isAuthFilled, setisAuthFilled] = useState<string>('');
+  const [isAuthFilled, setIsAuthFilled] = useState<string>('');
   const [disabled, setDisabled] = useState<boolean>(true);
 
   const { postPhoneAuthNumberMutate } = useProfileUpdate();
-  const [requestAuthNumber, setRequestAuthNumber] = useState<boolean>(false);
-  const [expire, setExpire] = useState<boolean>(false);
 
   useEffect(() => {
     setDisabled(isInputFilled.length <= 10);
@@ -39,10 +38,12 @@ const PhoneField = ({
 
   const handleRequestAuth = () => {
     const userInfo = { username: usernameCheck, phone: isInputFilled };
+
     try {
       postPhoneAuthNumberMutate.mutate(userInfo);
       setRequestAuthNumber(false);
       setIsErrorMsg(null);
+      setIsAuthFilled('');
       setTimeout(() => {
         setRequestAuthNumber(true);
       }, 0);
@@ -57,9 +58,9 @@ const PhoneField = ({
   };
   return (
     <>
-      <InputContainer variant="secondary">
+      <InputContainer variant="secondary" className="relative">
         <Input
-          className="my-5 w-[233px] bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
+          className="mb-5 w-[233px] bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
           placeholder="휴대폰 번호 입력 (-) 제외"
           {...register('phone')}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -71,7 +72,7 @@ const PhoneField = ({
             size="sm"
             variant="submit"
             disabled={disabled}
-            className="h-[44px] w-[87px] px-5 py-3 text-xs"
+            className="absolute -top-[11px] right-1 h-[44px] w-[87px] px-5 py-3 text-xs"
             type="button"
             onClick={handleRequestAuth}
           >
@@ -83,34 +84,23 @@ const PhoneField = ({
       <InputContainer variant="secondary">
         <Input
           {...register('authCode')}
-          className="w-80 bg-blue-50 py-5 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
+          className="mb-[28px] mt-[44px] w-80 bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
           placeholder="인증번호 입력"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setisAuthFilled(e.target.value)
+            setIsAuthFilled(e.target.value)
           }
+          value={isAuthFilled}
         />
         {isAuthFilled.length > 0 && (
           <button
             type="button"
-            className={`h-[36px] w-[100px] ${isAuthFilled.length > 5 ? 'text-gray-900' : 'text-gray-300'} font-semibold`}
+            className={`h-[36px] w-[100px] text-xs ${isAuthFilled.length > 5 ? 'text-gray-900' : 'text-gray-300'} font-semibold`}
             onClick={() => authCheck(authInfo)}
           >
             확인
           </button>
         )}
       </InputContainer>
-      {isErrorMsg && (
-        <p
-          className={
-            isErrorMsg.includes('완료되었습니다.')
-              ? 'text-sm text-success-green'
-              : 'text-sm text-primary-400'
-          }
-        >
-          {isErrorMsg}
-        </p>
-      )}
-      {requestAuthNumber && <AuthTimer setExpire={setExpire} />}
     </>
   );
 };
