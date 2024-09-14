@@ -20,7 +20,6 @@ const RoleResultPage = async () => {
 
       return response.data.data;
     } catch (error) {
-      console.log(error, 'error');
       throw new Error('권한 신청 결과 조회에 실패했습니다.');
     }
   };

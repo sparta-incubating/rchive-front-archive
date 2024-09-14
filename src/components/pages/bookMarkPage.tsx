@@ -16,7 +16,6 @@ import HelperButton from '../atoms/helperButton';
 const BookMarkPage = () => {
   const { bookmarkList, isPending, isError } = useBookmarkQuery();
   const { searchList } = useSearchBookmarkQuery('');
-  console.log(searchList?.data, '북마크 검색 결과');
 
   const router = useRouter();
   const searchParams = useSearchParams();

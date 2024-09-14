@@ -50,7 +50,6 @@ const PhoneChangeModal = ({ onClose, username }: PhoneChangeModalProps) => {
         alert('휴대폰번호 변경에 실패했습니다. 다시 시도해 주세요.');
       }
     } catch (error) {
-      console.error('Error updating phone:', error);
       setpwErrorMsg(true);
     }
   };

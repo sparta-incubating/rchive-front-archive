@@ -12,7 +12,7 @@ export const useBookmarkUpdate = () => {
         queryKey: [BOOKMARK_QUERY_KEYS.BOOKMARK],
       }),
     onError: (error) => {
-      console.log('인증번호 전송 실패:', error);
+      console.log('북마크 생성 실패:', error);
     },
   });
 
@@ -24,7 +24,7 @@ export const useBookmarkUpdate = () => {
         queryKey: [BOOKMARK_QUERY_KEYS.BOOKMARK],
       }),
     onError: (error) => {
-      console.log('인증번호 전송 실패:', error);
+      console.log('북마크 삭제 실패:', error);
     },
   });
 

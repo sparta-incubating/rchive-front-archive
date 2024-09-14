@@ -41,8 +41,6 @@ const PostList = ({ searchParams, postListDataResponse }: PostListProps) => {
     setPostListData(postListDataResponse);
   }, [postListDataResponse]);
 
-  console.log(postListData, 'postListData');
-
   return (
     <div className="relative">
       <SearchInput
