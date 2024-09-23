@@ -78,7 +78,8 @@ const BookMarkPage = () => {
   }
 
   const displayList = keyword ? searchBookmarkList : myBookmarkList;
-
+  console.log(searchBookmarkList, '북마크 검색');
+  console.log(myBookmarkList, '북마크 조회');
   return (
     <div className="relative">
       {/* 북마크 검색 */}

@@ -1,13 +1,18 @@
+'use client';
+
 import MyPageHeader from '@/components/molecules/mypageHeader';
-import BookMarkPage from '@/components/pages/bookMarkPage';
 import MainPage from '@/components/pages/mainPage';
-import React from 'react';
+import BookMarkPage from '@/components/pages/bookMarkPage';
+import React, { useState } from 'react';
+import MyProfile from '@/components/pages/myProfile';
 
 const BookMark = () => {
+  const [isActive, setIsActive] = useState<string>('북마크 관리');
+
   return (
     <MainPage>
-      <MyPageHeader />
-      <BookMarkPage />
+      <MyPageHeader isActive={isActive} setIsActive={setIsActive} />
+      {isActive === '프로필 관리' ? <MyProfile /> : <BookMarkPage />}
     </MainPage>
   );
 };

@@ -10,7 +10,7 @@ const MainPage = ({ children }: PropsWithChildren) => {
 
   return (
     <div className="flex flex-col">
-      {path === '/mypage' || path === ' /bookmark' ? (
+      {path === '/mypage' || path === '/bookmark' ? (
         <main className="relative mx-auto flex w-full flex-col items-center justify-center">
           <section className="w-[1152px]">
             <MainHeader />
