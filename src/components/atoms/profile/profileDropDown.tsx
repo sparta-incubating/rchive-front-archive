@@ -11,6 +11,11 @@ interface ProfileDropDownProps {
 const ProfileDropDown = React.forwardRef<HTMLDivElement, ProfileDropDownProps>(
   ({ children, clicked }, ref) => {
     const router = useRouter();
+
+    const handleBookmarkClick = () => {
+      router.push('/bookmark');
+    };
+
     const handleProfileClick = () => {
       router.push('/mypage');
     };
@@ -27,7 +32,9 @@ const ProfileDropDown = React.forwardRef<HTMLDivElement, ProfileDropDownProps>(
 
         <div className="flex flex-col items-start border-t border-gray-100 px-3 py-3.5">
           <div className="mb-3 flex w-full flex-col border-b border-gray-100 pb-3">
-            <ProfileDropDownMenu>북마크 목록</ProfileDropDownMenu>
+            <ProfileDropDownMenu onClick={handleBookmarkClick}>
+              북마크 목록
+            </ProfileDropDownMenu>
             <ProfileDropDownMenu onClick={handleProfileClick}>
               프로필 관리
             </ProfileDropDownMenu>
