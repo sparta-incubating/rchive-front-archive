@@ -31,6 +31,7 @@ export const deleteBookMark = async (postId: number) => {
 //북마크 검색
 export const getSearchBookMark = async (keyword: string) => {
   try {
+    console.log(keyword, '입력한 키워드');
     const res = await client.get(
       `/apis/v1/profile/bookmark/search?keyword=${keyword}`,
     );
