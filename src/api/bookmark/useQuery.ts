@@ -23,7 +23,7 @@ export function useSearchBookmarkQuery(keyword: string) {
     isPending,
     isError,
   } = useQuery({
-    queryKey: [BOOKMARK_QUERY_KEYS.BOOKMARK],
+    queryKey: [BOOKMARK_QUERY_KEYS.BOOKMARK, keyword],
     queryFn: () => getSearchBookMark(keyword),
   });
 
