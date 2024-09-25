@@ -41,6 +41,8 @@ const Post = async ({ params }: { params: { id: string } }) => {
               title={postData.title}
               tutor={postData.tutor}
               uploadedAt={postData.uploadedAt}
+              bookmark={postData.isBookmarked}
+              postId={postData.postId}
             />
           </div>
         </div>

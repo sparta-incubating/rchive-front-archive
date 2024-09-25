@@ -31,11 +31,11 @@ const BookMarkPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  const List = bookmarkList?.data || [];
-  const myBookmarkList = List.map((item: PostContentType) => ({
-    ...item,
-    isBookmarked: true,
-  }));
+  const myBookmarkList = bookmarkList?.data || [];
+  // const myBookmarkList = List.map((item: PostContentType) => ({
+  //   ...item,
+  //   isBookmarked: true,
+  // }));
 
   const totalElements = myBookmarkList.length;
 

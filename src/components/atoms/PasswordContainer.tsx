@@ -5,7 +5,7 @@ import React, { ComponentProps } from 'react';
 const divVariants = cva('flex flex-col rounded-xl bg-blue-50 p-5', {
   variants: {
     variant: {
-      primary: 'h-[177px] w-[362px] ',
+      primary: 'h-[158px] w-[362px] ',
       secondary: 'h-[246px] w-[362px]',
     },
   },
