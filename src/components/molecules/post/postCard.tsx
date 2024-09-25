@@ -1,3 +1,5 @@
+'use client';
+
 import PostThumbnail from '@/components/atoms/post/postThumbnail';
 import PostTitle from '@/components/atoms/post/postTitle';
 import PostInfoTextGroup from '@/components/molecules/post/postInfoTextGroup';

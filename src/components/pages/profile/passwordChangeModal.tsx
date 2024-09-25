@@ -44,6 +44,12 @@ const PasswordChangeModal = ({ onClose }: ChangeModalProps) => {
     }
   };
 
+  const handleChange = () => {
+    if (pwErrorMsg) {
+      setpwErrorMsg('');
+    }
+  };
+
   const preventEnterKey = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -67,7 +73,9 @@ const PasswordChangeModal = ({ onClose }: ChangeModalProps) => {
                 <InputField>
                   <Label htmlFor="originPassword">현재 비밀번호</Label>
                   <Input
-                    {...register('originPassword')}
+                    {...register('originPassword', {
+                      onChange: handleChange,
+                    })}
                     placeholder="현재 비밀번호 입력"
                     type="password"
                     className="bold h-[20px] w-full bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"

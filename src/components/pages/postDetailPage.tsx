@@ -72,18 +72,6 @@ const PostDetail = ({ postData, postListData }: PostDetailProps) => {
             </div>
           </div>
         </section>
-
-        {/** */}
-        <div
-          className="fixed"
-          style={{
-            top: `${fixedPosition.top}px`,
-            left: `${fixedPosition.left}px`,
-          }}
-        >
-          <SocialButtonGroup />
-        </div>
-        {/** */}
       </div>
       {/*spacer*/}
       <div className="h-[62px]"></div>
