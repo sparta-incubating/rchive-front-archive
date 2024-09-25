@@ -6,7 +6,7 @@ const divVariants = cva('flex items-center bg-blue-50 ', {
   variants: {
     variant: {
       primary: 'h-[84px] w-[360px] p-5 rounded-xl',
-      secondary: 'h-[68px] w-[320px]',
+      secondary: 'h-[42px] w-[320px]',
     },
   },
   defaultVariants: {
