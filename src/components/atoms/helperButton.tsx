@@ -1,10 +1,13 @@
 import { ComponentProps } from 'react';
 import Image from 'next/image';
+import { HELP_LINK } from '@/constatns/helpLink.constant';
 
-const HelperButton = ({ ...props }: ComponentProps<'button'>) => {
+const HelperButton = ({ ...props }: ComponentProps<'a'>) => {
   return (
     <div className="fixed bottom-[225px] right-[60px]">
-      <button
+      <a
+        href={HELP_LINK}
+        target="_blank"
         className="relative flex w-[117px] items-center rounded-[38px] border border-primary-400 bg-white px-6 py-2"
         {...props}
       >
@@ -18,7 +21,7 @@ const HelperButton = ({ ...props }: ComponentProps<'button'>) => {
             />
           </div>
         </div>
-      </button>
+      </a>
     </div>
   );
 };
