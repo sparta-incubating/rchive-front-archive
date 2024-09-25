@@ -31,11 +31,11 @@ const BookMarkPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  const List = bookmarkList?.data || [];
-  const myBookmarkList = List.map((item: PostContentType) => ({
-    ...item,
-    isBookmarked: true,
-  }));
+  const myBookmarkList = bookmarkList?.data || [];
+  // const myBookmarkList = List.map((item: PostContentType) => ({
+  //   ...item,
+  //   isBookmarked: true,
+  // }));
 
   const totalElements = myBookmarkList.length;
 
@@ -79,8 +79,6 @@ const BookMarkPage = () => {
 
   const displayList = keyword ? searchBookmarkList : myBookmarkList;
 
-  console.log(searchBookmarkList, '1');
-  console.log(myBookmarkList, '2');
   return (
     <div className="relative">
       {/* 북마크 검색 */}
