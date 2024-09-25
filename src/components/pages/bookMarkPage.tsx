@@ -18,6 +18,8 @@ import {
   BOOKMARK_DEFAULT_PAGE_SIZE,
 } from '@/constatns/bookmark.constant';
 import { useRouter } from 'next/navigation';
+import { useConfirmContext } from '@/context/useConfirmContext';
+import Confirm from '../atoms/confirm';
 
 const BookMarkPage = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -32,10 +34,8 @@ const BookMarkPage = () => {
   const router = useRouter();
 
   const myBookmarkList = bookmarkList?.data || [];
-  // const myBookmarkList = List.map((item: PostContentType) => ({
-  //   ...item,
-  //   isBookmarked: true,
-  // }));
+
+  const confirm = useConfirmContext();
 
   const totalElements = myBookmarkList.length;
 
@@ -54,14 +54,31 @@ const BookMarkPage = () => {
 
   const searchBookmarkList = searchList?.data;
 
-  const handleAllItem = () => {
-    try {
-      myBookmarkList.forEach((item: PostContentType) => {
-        deleteBookMarkMutate.mutateAsync(item.postId);
-      });
-      router.refresh();
-    } catch (error) {
-      console.error('북마크 삭제 실패');
+  const handleAllItem = async () => {
+    const result = await confirm.handleConfirm(
+      <Confirm text="삭제">
+        <div className="flex flex-col gap-2.5">
+          <span className="text-center text-xl font-bold">
+            모두 삭제하시겠어요?
+          </span>
+          <div className="flex flex-col justify-center">
+            <span className="text-center text-base font-medium text-gray-600">
+              삭제할 경우 다시 복구할 수 없어요.
+            </span>
+          </div>
+        </div>
+      </Confirm>,
+      false,
+    );
+    if (result) {
+      try {
+        myBookmarkList.forEach((item: PostContentType) => {
+          deleteBookMarkMutate.mutateAsync(item.postId);
+        });
+        router.refresh();
+      } catch (error) {
+        console.error('북마크 삭제 실패');
+      }
     }
   };
 
