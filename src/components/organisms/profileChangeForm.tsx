@@ -33,7 +33,7 @@ const ProfileChangeForm = ({
             </IconButton>
           </div>
           {/* 나가기버튼 */}
-          <div className="flex flex-col">
+          <div className="flex h-[calc(100%-72px)] flex-col items-center justify-center">
             <div className="flex flex-col gap-[8px]">
               <p className="h-[30px] text-center text-xl font-semibold text-gray-900">
                 {labels.main}

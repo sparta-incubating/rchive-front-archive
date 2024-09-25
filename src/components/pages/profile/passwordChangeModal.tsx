@@ -89,22 +89,22 @@ const PasswordChangeModal = ({ onClose }: ChangeModalProps) => {
             </section>
             <section>
               <PasswordContainer>
-                <InputField variant="secondary">
+                <InputField>
                   <Label htmlFor="newPassword">새 비밀번호</Label>
                   <Input
                     {...register('newPassword')}
                     type="password"
                     placeholder="6자 이상, 숫자와 영문자 조합"
-                    className="bold h-[20px] w-full bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
+                    className="mb-[22px] w-full bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
                     onKeyDown={preventEnterKey}
                   />
                 </InputField>
-                <div className="border" />
+                <div className="mt-[17px] border" />
                 <Input
                   {...register('passwordConfirm')}
                   type="password"
                   placeholder="비밀번호 재입력"
-                  className="my-[28px] h-[20px] w-[320px] bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
+                  className="mt-[27px] h-[20px] w-[320px] bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
                   onKeyDown={preventEnterKey}
                 />
               </PasswordContainer>
