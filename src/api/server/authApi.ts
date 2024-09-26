@@ -14,28 +14,37 @@ export const postRoleApply = async (data: RoleFormSchema) => {
   }
 };
 
-// 마지막 접속 정보 endpoint
-// export const getLastConnectRole = async (accessToken: string) => {
-//   return await axiosAPI.get('/apis/v1/role/select/last', {
-//     headers: {
-//       Authorization: `Bearer ${accessToken}`,
-//     },
-//   });
-// };
-
-export const getLastConnectRole = async (accessToken: string) => {
-  try {
-    const response = await axiosAPI.get('/apis/v1/role/select/last', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response;
-  } catch (error) {
-    console.error('API 호출 중 오류 발생');
-    throw error; // 에러를 상위 호출 스코프로 전달
-  }
+//권한 조회 endpoint
+export const getRoleInfo = async (accessToken: string) => {
+  return await axiosAPI.get('/apis/v1/role', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 };
+
+//마지막 접속 정보 endpoint
+export const getLastConnectRole = async (accessToken: string) => {
+  return await axiosAPI.get('/apis/v1/role/select/last', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+// export const getLastConnectRole = async (accessToken: string) => {
+//   try {
+//     const response = await axiosAPI.get('/apis/v1/role/select/last', {
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     });
+//     return response;
+//   } catch (error) {
+//     console.error('API 호출 중 오류 발생');
+//     throw error; // 에러를 상위 호출 스코프로 전달
+//   }
+// };
 
 // 권한 신청 여부 조회 endpoint
 export const getRoleApplyStatus = async (accessToken: string) => {

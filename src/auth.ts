@@ -3,6 +3,7 @@ import {
   getLastConnectRole,
   getMyProfile,
   getRoleApplyStatus,
+  getRoleInfo,
 } from '@/api/server/authApi';
 import { authConfig } from '@/auth.config';
 import { MyRoleDataType, trackRole } from '@/types/auth.types';
@@ -51,8 +52,14 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           // 여기도 마찬가지로 session이 없음.
           const roleResponse = await getRoleApplyStatus(user.accessToken);
           const { data } = roleResponse.data;
-          console.log('dddddddddddddddd');
           token.roleApply = data;
+
+          const roleInfo = await getRoleInfo(user.accessToken);
+
+          const { data: roleData } = roleInfo.data;
+          const trackRoleEnumm = roleData.roleResList[0].trackRoleEnum;
+          token.trackRole = trackRoleEnumm;
+          token.roleData = true;
         }
       }
 
@@ -95,6 +102,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       session.user.profileImg = token.profileImg as string;
       session.user.myRoles = token.myRole as MyRoleDataType[];
       session.user.email = token.email as string;
+      session.user.roleData = token.roleData as boolean;
 
       return session;
     },
