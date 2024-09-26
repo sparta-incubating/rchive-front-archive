@@ -18,18 +18,19 @@ const BookmarkIcon = ({
   const [isInnerHovered, setIsInnerHovered] = useState<boolean>(false);
   return (
     <button
-      className="flex h-10 w-10 items-center justify-center"
+      className="flex h-8 w-10 items-center justify-center"
       {...props}
       onMouseEnter={() => setIsInnerHovered(true)}
       onMouseLeave={() => setIsInnerHovered(false)}
       onClick={onClickBookmark}
     >
-      <div className="relative h-6 w-6">
+      <div className="relative">
         {isBookmarked ? (
           <Image
             src={'/assets/icons/select_bookmark.svg'}
             alt={'북마크 아이콘'}
-            fill
+            width={17}
+            height={20}
           />
         ) : (
           isHover && (
@@ -39,11 +40,12 @@ const BookmarkIcon = ({
               // }`}
               src={
                 isInnerHovered
-                  ? '/assets/icons/hover_bookmark.svg'
+                  ? '/assets/icons/gray_bookmark.svg'
                   : '/assets/icons/un_bookmark.svg'
               }
               alt={'북마크 아이콘'}
-              fill
+              width={17}
+              height={20}
             />
           )
         )}

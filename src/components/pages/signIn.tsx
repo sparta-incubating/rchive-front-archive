@@ -33,7 +33,6 @@ import { getLastConnectRole } from '@/api/server/authApi';
 const SignIn = () => {
   const [signInError, setSignInError] = useState<string>('');
   const { data: session } = useSession();
-  const accessToken = session?.user?.accessToken;
 
   const { open } = useModalContext();
   const dispatch = useAppDispatch();
@@ -69,52 +68,67 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    if (session?.user) {
-      const {
-        trackName,
-        trackLabel,
-        trackRole,
-        accessToken,
-        loginPeriod,
-        myRoles = [],
-        nickname,
-        username,
-        profileImg,
-        birth,
-        email,
-      } = session.user;
-
-      dispatch(
-        setAuth({
+    const processSession = async () => {
+      if (session?.user) {
+        const {
+          trackName,
+          trackLabel,
+          trackRole,
           accessToken,
-          trackName: trackName || '',
-          trackLabel: trackLabel || '',
-          trackRole: trackRole || '',
-          period: String(loginPeriod) || '',
-          nickname: nickname || '',
-          username: username || '',
-          birth: birth || '',
-          profileImg: profileImg || '',
-          myRoles: myRoles || [],
-          email: email || '',
-        }),
-      );
+          loginPeriod,
+          myRoles = [],
+          nickname,
+          username,
+          profileImg,
+          birth,
+          email,
+        } = session.user;
 
-      try {
-        const lastRole = getLastConnectRole(accessToken as string);
-        console.log(lastRole, 'lastRole');
+        dispatch(
+          setAuth({
+            accessToken,
+            trackName: trackName || '',
+            trackLabel: trackLabel || '',
+            trackRole: trackRole || '',
+            period: String(loginPeriod) || '',
+            nickname: nickname || '',
+            username: username || '',
+            birth: birth || '',
+            profileImg: profileImg || '',
+            myRoles: myRoles || [],
+            email: email || '',
+          }),
+        );
 
-        router.push('/');
-      } catch (error) {
-        if (myRoles.length > 1) {
-          router.push('/select');
-        } else {
-          router.push('/');
+        try {
+          const data = await getLastConnectRole(accessToken);
+
+          if (data.status === 200) {
+            router.push('/');
+          } else if (data.status === 404) {
+            console.log('myRoles:', myRoles);
+            if (myRoles.length > 1) {
+              router.push('/select');
+            } else {
+              router.push('/');
+            }
+          } else {
+            if (myRoles.length > 1) {
+              router.push('/select');
+            } else {
+              router.push('/');
+            }
+          }
+        } catch (error) {
+          console.error('API 호출 중 오류 발생:', error);
+          router.push('/error');
         }
+      } else {
+        router.push('/login');
       }
-    } else {
-      router.push('/login');
-    }
+    };
+
+    processSession();
   }, [dispatch, router, session]);
 
   return (

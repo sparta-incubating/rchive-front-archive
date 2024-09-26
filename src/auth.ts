@@ -51,7 +51,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           // 여기도 마찬가지로 session이 없음.
           const roleResponse = await getRoleApplyStatus(user.accessToken);
           const { data } = roleResponse.data;
-
+          console.log('dddddddddddddddd');
           token.roleApply = data;
         }
       }

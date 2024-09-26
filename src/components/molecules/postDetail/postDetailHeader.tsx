@@ -36,7 +36,7 @@ const PostDetailHeader = ({
       await postBookmarkMutate.mutateAsync(postId);
     }
     setIsBookmarked(!isBookmarked);
-    router.refresh();
+    // router.refresh();
   };
 
   return (
