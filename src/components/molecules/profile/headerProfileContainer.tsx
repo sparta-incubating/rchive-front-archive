@@ -14,9 +14,8 @@ import { patchLastConnectRole } from '@/api/client/authApi';
 const HeaderProfileContainer = () => {
   const { isOpen, dropdownRef, handleClick } = useDropDownOpen();
 
-  const { period, trackRole, myRoles, profileImg, username } = useAppSelector(
-    (state) => state.authSlice,
-  );
+  const { period, trackRole, myRoles, profileImg, username, trackName } =
+    useAppSelector((state) => state.authSlice);
 
   const defaultProfileImg =
     profileImg === 'default'
@@ -57,7 +56,9 @@ const HeaderProfileContainer = () => {
       />
 
       <div className="flex items-center gap-1">
-        <span className="text-sm font-medium text-gray-700">{username}님</span>
+        <span className="text-sm font-medium text-gray-700">
+          {trackName} {period}기 {username}님
+        </span>
         <div
           data-clicked={true}
           className="flex h-3.5 w-3.5 rotate-0 items-center justify-center transition-transform duration-500 ease-in-out data-[clicked=false]:rotate-0"
