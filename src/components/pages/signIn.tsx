@@ -96,6 +96,7 @@ const SignIn = () => {
           birth: birth || '',
           profileImg: profileImg || '',
           myRoles: myRoles || [],
+          roleData: roleData || false,
           email: email || '',
         }),
       );
