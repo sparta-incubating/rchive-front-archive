@@ -37,7 +37,7 @@ const BookmarkIcon = ({
             <Image
               src={
                 isInnerHovered
-                  ? '/assets/icons/hover_bookmark.svg'
+                  ? '/assets/icons/gray_bookmark.svg'
                   : '/assets/icons/un_bookmark.svg'
               }
               alt={'북마크 아이콘'}
