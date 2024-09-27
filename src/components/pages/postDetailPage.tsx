@@ -8,7 +8,6 @@ import { useMemo, useState } from 'react';
 import { postFetchData, PostListResponse } from '@/types/posts.types';
 import PostDetailTag from '@/components/molecules/postDetail/postDetailTag';
 import MorePost from '@/components/molecules/postDetail/morePost';
-import SocialButtonGroup from '../molecules/postDetail/socialButtonGroup';
 
 interface PostDetailProps {
   postData: postFetchData;
@@ -79,6 +78,7 @@ const PostDetail = ({ postData, postListData }: PostDetailProps) => {
       {/*관련 category content*/}
       <MorePost
         category={postData.postType.value}
+        categoryId={postData.postType.key}
         postListData={postListData}
       />
 
