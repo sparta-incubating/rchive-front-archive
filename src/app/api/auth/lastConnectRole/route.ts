@@ -1,10 +1,6 @@
 import { LastConnectRoleResponseType } from '@/types/auth.types';
 import { setServerCookieRole } from '@/utils/auth.server.util';
 import { createServerAPI } from '@/utils/axios/serverAPI';
-<<<<<<< HEAD
-
-=======
->>>>>>> ec62293cf14977742e896cb9a1f2d7f1b6137d31
 import { NextRequest, NextResponse } from 'next/server';
 
 export const GET = async (req: NextRequest) => {
