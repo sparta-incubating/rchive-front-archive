@@ -20,8 +20,13 @@ const PostTitle = ({
   return (
     <div className="flex cursor-pointer justify-between" {...props}>
       <div className="flex-1">
-        <h2 className="font-pretendard line-clamp-1 text-lg font-bold text-gray-900">
-          <button onClick={onClickPost}>{children}</button>
+        <h2 className="font-pretendard line-clamp-2 text-lg font-bold text-gray-900">
+          <button
+            onClick={onClickPost}
+            className="line-clamp-1 overflow-hidden overflow-ellipsis"
+          >
+            {children}
+          </button>
         </h2>
       </div>
 
