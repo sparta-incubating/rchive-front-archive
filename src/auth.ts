@@ -1,7 +1,11 @@
-import { getLastConnectRole, getRoleApplyStatus } from '@/api/server/authApi';
+import {
+  getAllMyRoles,
+  getLastConnectRole,
+  getMyProfile,
+  getRoleApplyStatus,
+} from '@/api/server/authApi';
 import { authConfig } from '@/auth.config';
-import { trackRole } from '@/types/auth.types';
-import { TrackType } from '@/types/auth.types';
+import { MyRoleDataType, trackRole } from '@/types/auth.types';
 
 import NextAuth from 'next-auth';
 import axiosAPI from './utils/axios/axiosAPI';
@@ -22,14 +26,32 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           const { trackId, trackRole, trackName, period } = response.data.data;
           token.trackId = trackId;
           token.trackRole = trackRole;
-          token.trackName = trackName;
+          token.trackName = trackName.key;
+          token.trackLabel = trackName.value;
           token.loginPeriod = period;
+
+          // 프로필 조회
+          const profileResponse = await getMyProfile(
+            trackName.key,
+            trackRole === 'PM' ? 0 : period,
+            user.accessToken,
+          );
+
+          token.username = profileResponse?.data.data.username;
+          token.birth = profileResponse?.data.data.birth;
+          token.phone = profileResponse?.data.data.phone;
+          token.profileImg = profileResponse?.data.data.profileImg;
+          token.email = profileResponse?.data.data.email;
+
+          const myRoleResponse = await getAllMyRoles(user.accessToken);
+          token.myRole = myRoleResponse?.data.data.roleResList;
         } catch (error) {
           // 권한이 없을때
           // 권한 신청이 있는지 조회
           // 여기도 마찬가지로 session이 없음.
           const roleResponse = await getRoleApplyStatus(user.accessToken);
           const { data } = roleResponse.data;
+
           token.roleApply = data;
         }
       }
@@ -41,6 +63,15 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           accessToken: session.user.accessToken,
           sub: session.user.accessToken,
           refreshToken: session.user.refreshToken,
+          trackName: session.user.trackName,
+          trackLabel: session.user.trackLabel,
+          loginPeriod: session.user.loginPeriod,
+          username: session.user.username,
+          birth: session.user.birth,
+          phone: session.user.phone,
+          profileImg: session.user.profileImg,
+          myRole: [...session.user.myRoles],
+          email: session.user.email,
         };
 
         return token;
@@ -54,8 +85,16 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       session.user.roleError = token.roleError as string | undefined;
       session.user.trackId = token.trackId as number;
       session.user.trackRole = token.trackRole as trackRole;
-      session.user.trackName = token.trackName as TrackType;
+      session.user.trackName = token.trackName as string;
+      session.user.trackLabel = token.trackLabel as string;
       session.user.loginPeriod = token.loginPeriod as number;
+      session.user.roleApply = token.roleApply as boolean;
+      session.user.nickname = token.nickname as string;
+      session.user.username = token.username as string;
+      session.user.birth = token.birth as string;
+      session.user.profileImg = token.profileImg as string;
+      session.user.myRoles = token.myRole as MyRoleDataType[];
+      session.user.email = token.email as string;
 
       return session;
     },
@@ -98,6 +137,22 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           Authorization: `Bearer ${accessToken}`,
         },
       });
+    },
+  },
+  session: {
+    strategy: 'jwt',
+  },
+  cookies: {
+    sessionToken: {
+      name:
+        process.env.NEXT_PUBLIC_RUN_MODE === 'production'
+          ? `__Secure-next-auth.session-token.archive`
+          : `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+      },
     },
   },
 });

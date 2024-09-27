@@ -1,5 +1,5 @@
 import { PostForm } from '@/class/postForm';
-import { TrackType, tutorApiType } from '@/types/posts.types';
+import { tutorApiType } from '@/types/posts.types';
 import { client } from '@/utils/axios/clientAPI';
 
 import { createToast } from '@/utils/toast';
@@ -81,7 +81,7 @@ export const getThumbnailDelete = async (thumbnailUrl: string) => {
 
 // 튜터 검색
 export const getSearchTutor = async (
-  track: TrackType,
+  track: string,
   loginPeriod: number,
   inputPeriod: number,
   keyword: string,
@@ -185,7 +185,7 @@ export const patchPostClose = async (
 
 // 게시물 삭제 endpoiont
 export const deletePost = async (
-  trackName: TrackType,
+  trackName: string,
   loginPeriod: number,
   postId: string,
 ) => {
@@ -227,7 +227,7 @@ export const postRecentSearch = async (
 export const getRecentSearch = async (trackName: string, period: number) => {
   try {
     const response = await client.get(
-      `/apis/v1/posts/search/recent?trackName=${trackName}&loginPeriod=${period}`,
+      `/apis/v1/posts/search/recent?trackName=${trackName}&selectPeriod=${period}`,
     );
     return response.data;
   } catch (error) {

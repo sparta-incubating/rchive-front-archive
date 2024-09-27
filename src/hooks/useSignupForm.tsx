@@ -1,5 +1,6 @@
 import { getMailCheck, postSignup } from '@/api/client/authApi';
-import { useProfileUpdate } from '@/api/signup/useMutation';
+import { useProfileUpdate } from '@/hooks/useSignupMutation';
+
 import { Admin, User } from '@/class/signup';
 import SignUpCompleteModal from '@/components/pages/signUpCompleteModal';
 import { useModalContext } from '@/context/useModalContext';
@@ -24,8 +25,8 @@ const DEFAULT_VALUE = {
   passwordConfirm: '',
   phone: '',
   authCode: '',
+  profileImg: 'default',
   birth: '',
-  // phoneConfirm: false,
   ad: false,
   age: false,
   privacy: false,
@@ -41,7 +42,8 @@ const useSignupForm = (signupType: signupModalType) => {
   const [emailChecked, setEmailChecked] = useState<boolean>(false);
   const [phoneVerified, setPhoneVerified] = useState<boolean>(false);
   const [isErrorMsg, setIsErrorMsg] = useState<string | null>(null);
-  /*회원가입 실패  */
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [originalPhone, setOriginalPhone] = useState<string>('');
 
   const { open } = useModalContext();
   const {
@@ -61,15 +63,31 @@ const useSignupForm = (signupType: signupModalType) => {
   });
 
   const onSubmit = async (data: SignupFormSchema) => {
-    // if (!emailChecked || !phoneVerified) {
-    //   alert('이메일 중복 및 휴대폰 인증을 마무리 하세요');
-    //   console.log(emailChecked, '이메일 중복');
-    //   console.log(phoneVerified, '휴대폰 인증');
-    //   return null;
-    // }
-    const signUpFormData = createSignupForm(signupType, data);
-    await postSignup(signUpFormData);
-    open(<SignUpCompleteModal />);
+    if (!emailChecked && !phoneVerified) {
+      setEmailError('이메일 중복 확인은 필수입니다.');
+      setIsErrorMsg('휴대폰 인증번호 확인은 필수입니다.');
+      return;
+    }
+    if (!emailChecked) {
+      setEmailError('이메일 중복 확인은 필수입니다.');
+      return;
+    }
+    if (!phoneVerified) {
+      setIsErrorMsg('휴대폰 인증번호 확인은 필수입니다.');
+      return;
+    }
+    if (originalPhone !== data.phone) {
+      setIsErrorMsg('휴대폰 인증은 필수입니다.');
+      return;
+    }
+
+    try {
+      const signUpFormData = createSignupForm(signupType, data);
+      await postSignup(signUpFormData);
+      open(<SignUpCompleteModal />);
+    } catch (error) {
+      throw new Error('회원가입 오류 발생');
+    }
   };
 
   const checkEmail = async (email: string) => {
@@ -77,6 +95,7 @@ const useSignupForm = (signupType: signupModalType) => {
       const data = await getMailCheck(email);
       setIsEmailUnique(data.data);
       setEmailChecked(true);
+      setEmailError(null);
     } catch (error) {
       console.error('Error checking email uniqueness', error);
       setIsEmailUnique(false);
@@ -93,13 +112,15 @@ const useSignupForm = (signupType: signupModalType) => {
   const { checkPhoneAuthMutate } = useProfileUpdate();
 
   const authCheck = async (authInfo: authCodeType) => {
+    const { phone } = authInfo;
+    setOriginalPhone(phone);
     try {
       await checkPhoneAuthMutate.mutateAsync(authInfo);
-      setIsErrorMsg('인증이 완료됐습니다.');
+      setIsErrorMsg('인증이 완료되었습니다.');
       setPhoneVerified(true);
     } catch (error) {
-      setPhoneVerified(false);
       setIsErrorMsg('인증 번호가 일치하지 않습니다.');
+      setPhoneVerified(false);
     }
   };
 
@@ -119,6 +140,9 @@ const useSignupForm = (signupType: signupModalType) => {
     authCheck,
     isErrorMsg,
     setIsErrorMsg,
+    phoneVerified,
+    emailError,
+    originalPhone,
   };
 };
 
@@ -134,13 +158,13 @@ const createSignupForm = (
       data.password,
       formatDate(data.birth),
       data.phone,
+      data.profileImg,
       GenderEnum.NONE,
       UserRoleEnum.MANAGER,
       data.age,
       data.service,
       data.privacy,
       data.ad,
-      '',
     );
   } else {
     return new User(
@@ -150,14 +174,13 @@ const createSignupForm = (
       data.password,
       formatDate(data.birth),
       data.phone,
+      data.profileImg,
       GenderEnum.NONE,
       UserRoleEnum.USER,
       data.age,
       data.service,
       data.privacy,
       data.ad,
-      '',
-      '',
     );
   }
 };

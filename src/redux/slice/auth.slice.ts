@@ -1,20 +1,33 @@
 import { RootState } from '@/redux/storeConfig';
-import { trackRole, TrackType } from '@/types/auth.types';
-
+import { MyRoleDataType, trackRole } from '@/types/auth.types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface authInitialType {
   accessToken: string;
-  trackName: TrackType;
+  trackName: string;
+  trackLabel: string;
   trackRole: trackRole;
   period: string;
+  nickname: string;
+  username: string;
+  birth: string;
+  profileImg: string;
+  myRoles: MyRoleDataType[];
+  email: string;
 }
 
 const initialState: authInitialType = {
   accessToken: '',
-  trackName: '' as TrackType,
-  trackRole: 'USER' as trackRole,
+  trackName: '' as string,
+  trackLabel: '' as string,
+  trackRole: '' as trackRole,
   period: '0',
+  nickname: '',
+  username: '',
+  birth: '',
+  profileImg: '',
+  myRoles: [],
+  email: '',
 };
 
 const AuthSlice = createSlice({
@@ -24,8 +37,15 @@ const AuthSlice = createSlice({
     setAuth: (state, action: PayloadAction<authInitialType>) => {
       state.accessToken = action.payload.accessToken;
       state.trackName = action.payload.trackName;
+      state.trackLabel = action.payload.trackLabel;
       state.trackRole = action.payload.trackRole;
       state.period = action.payload.period;
+      state.nickname = action.payload.nickname;
+      state.username = action.payload.username;
+      state.birth = action.payload.birth;
+      state.profileImg = action.payload.profileImg;
+      state.myRoles = action.payload.myRoles;
+      state.email = action.payload.email;
     },
   },
 });

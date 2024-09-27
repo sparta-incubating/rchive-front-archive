@@ -60,4 +60,6 @@ const CustomCheckBox = forwardRef<HTMLInputElement, CustomCheckBoxProps>(
   },
 );
 
+CustomCheckBox.displayName = 'CustomCheckBox';
+
 export default CustomCheckBox;

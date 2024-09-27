@@ -1,9 +1,10 @@
-export type trackRole = 'PM' | 'APM' | 'USER';
+export type trackRole = 'PM' | 'APM' | 'ADMIN' | 'STUDENT' | 'TUTOR' | '';
 
 export type LastConnectRoleDataType = {
   trackId: number;
   trackRole: trackRole;
-  trackName: TrackType;
+  trackName: string;
+  trackLabel: string;
   period: number;
 };
 export type LastConnectRoleResponseType = {
@@ -11,17 +12,25 @@ export type LastConnectRoleResponseType = {
   message: string;
   data: LastConnectRoleDataType;
 };
+export type MyRoleResponse = {
+  status: number;
+  data: {
+    roleResList: MyRoleDataType;
+    nickname?: string;
+    profileImg: string;
+  };
+};
 
-export type TrackType =
-  | ''
-  | 'UNITY'
-  | 'NODEJS'
-  | 'SPRING_JAVA'
-  | 'SPRING_KOTLIN'
-  | 'REACT'
-  | 'AI'
-  | 'ANDROID'
-  | 'IOS'
-  | 'DATA'
-  | 'UXUI'
-  | 'SPRING_DEEP';
+export type MyRoleDataType = {
+  trackId: number;
+  trackRoleEnum: trackRole;
+  trackName: { key: string; value: string };
+  period: number;
+};
+
+export type SelectProfileRole = {
+  trackId: number;
+  trackRoleEnum: string;
+  trackName: { key: string; value: string };
+  period: number;
+};

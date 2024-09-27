@@ -7,13 +7,13 @@ class SignupUserForm {
   password: string;
   birth: string;
   phone: string;
+  profileImg: string;
   gender: GenderEnum;
   userRole: UserRoleEnum;
   termUserAge: boolean;
   termUseService: boolean;
   termPersonalInfo: boolean;
   termAdvertisement: boolean;
-  profileImg: string;
 
   constructor(
     oAuthType: OAuthEnum,
@@ -22,13 +22,13 @@ class SignupUserForm {
     password: string,
     birth: string,
     phone: string,
+    profileImg: string,
     gender: GenderEnum,
     userRole: UserRoleEnum,
     termUserAge: boolean,
     termUseService: boolean,
     termPersonalInfo: boolean,
     termAdvertisement: boolean,
-    profileImg: string,
   ) {
     this.oAuthType = oAuthType;
     this.email = email;
@@ -36,13 +36,13 @@ class SignupUserForm {
     this.password = password;
     this.birth = birth;
     this.phone = phone;
+    this.profileImg = profileImg;
     this.gender = gender;
     this.userRole = userRole;
     this.termUserAge = termUserAge;
     this.termUseService = termUseService;
     this.termPersonalInfo = termPersonalInfo;
     this.termAdvertisement = termAdvertisement;
-    this.profileImg = profileImg;
   }
 }
 
@@ -54,13 +54,13 @@ export class Admin extends SignupUserForm {
     password: string,
     birth: string,
     phone: string,
+    profileImg: string,
     gender: GenderEnum,
     userRole: UserRoleEnum,
     termUserAge: boolean,
     termUseService: boolean,
     termPersonalInfo: boolean,
     termAdvertisement: boolean,
-    profileImg: string,
   ) {
     super(
       oAuthType,
@@ -69,20 +69,18 @@ export class Admin extends SignupUserForm {
       password,
       birth,
       phone,
+      profileImg,
       gender,
       userRole,
       termUserAge,
       termUseService,
       termPersonalInfo,
       termAdvertisement,
-      profileImg,
     );
   }
 }
 
 export class User extends SignupUserForm {
-  nickname: string;
-
   constructor(
     oAuthType: OAuthEnum,
     email: string,
@@ -90,14 +88,13 @@ export class User extends SignupUserForm {
     password: string,
     birth: string,
     phone: string,
+    profileImg: string,
     gender: GenderEnum,
     userRole: UserRoleEnum,
     termUserAge: boolean,
     termUseService: boolean,
     termPersonalInfo: boolean,
     termAdvertisement: boolean,
-    nickname: string,
-    profileImg: string,
   ) {
     super(
       oAuthType,
@@ -106,14 +103,13 @@ export class User extends SignupUserForm {
       password,
       birth,
       phone,
+      profileImg,
       gender,
       userRole,
       termUserAge,
       termUseService,
       termPersonalInfo,
       termAdvertisement,
-      profileImg,
     );
-    this.nickname = nickname;
   }
 }

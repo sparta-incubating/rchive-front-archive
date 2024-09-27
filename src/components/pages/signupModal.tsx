@@ -14,12 +14,16 @@ import AcceptTermsGroup from '../organisms/acceptTermsGroup';
 import { signupModalType } from '@/types/signup.types';
 import { handleKeyPressOnlyNumber } from '@/utils/utils';
 import useSignupForm from '@/hooks/useSignupForm';
+import { useState } from 'react';
+import AuthTimer from '../atoms/authTimer';
 
 interface SignupModalProps {
   signupModalType: signupModalType;
 }
 
 const SignupModal = ({ signupModalType }: SignupModalProps) => {
+  const [requestAuthNumber, setRequestAuthNumber] = useState<boolean>(false);
+  const [expire, setExpire] = useState<boolean>(false);
   const {
     handleSubmit,
     onSubmit,
@@ -34,6 +38,7 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
     authCheck,
     isErrorMsg,
     setIsErrorMsg,
+    emailError,
   } = useSignupForm(signupModalType);
 
   const usernameCheck = watch('username');
@@ -77,8 +82,10 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
           {isEmailUnique && (
             <FormSpan variant="error">이미 사용중인 이메일입니다.</FormSpan>
           )}
+          {!errors.email?.message && !isEmailUnique && emailError && (
+            <FormSpan variant="error">{emailError}</FormSpan>
+          )}
         </section>
-
         {/* password */}
         <section>
           <PasswordContainer>
@@ -103,14 +110,13 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
             {errors.password?.message && (
               <FormSpan variant="error">{errors.password?.message}</FormSpan>
             )}
-            {errors.passwordConfirm?.message && (
+            {!errors.password?.message && errors.passwordConfirm?.message && (
               <FormSpan variant="error">
                 {errors.passwordConfirm.message}
               </FormSpan>
             )}
           </div>
         </section>
-
         {/* name */}
         <section>
           <InputContainer>
@@ -129,14 +135,37 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
         </section>
 
         {/* phone */}
-        <PhoneForm
-          register={register}
-          usernameCheck={usernameCheck}
-          authCheck={authCheck}
-          isErrorMsg={isErrorMsg}
-          setIsErrorMsg={setIsErrorMsg}
-        />
-
+        <section>
+          <PhoneForm
+            register={register}
+            usernameCheck={usernameCheck}
+            authCheck={authCheck}
+            setIsErrorMsg={setIsErrorMsg}
+            setRequestAuthNumber={setRequestAuthNumber}
+            expire={expire}
+          />
+          {errors.phone?.message && (
+            <FormSpan variant="error">휴대폰 인증번호는 필수입니다.</FormSpan>
+          )}
+          {!errors.phone?.message && (
+            <>
+              {isErrorMsg && (
+                <span
+                  className={
+                    isErrorMsg.includes('완료되었습니다.')
+                      ? 'text-sm text-success-green'
+                      : 'text-sm text-primary-400'
+                  }
+                >
+                  {isErrorMsg}
+                </span>
+              )}
+              {requestAuthNumber && !isErrorMsg && (
+                <AuthTimer setExpire={setExpire} />
+              )}
+            </>
+          )}
+        </section>
         {/* birthday */}
         <section>
           <InputContainer>
@@ -154,7 +183,6 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
             <FormSpan variant="error">{errors.birth?.message}</FormSpan>
           )}
         </section>
-
         {/*약관*/}
         <AcceptTermsGroup
           register={register}
@@ -162,7 +190,6 @@ const SignupModal = ({ signupModalType }: SignupModalProps) => {
           errors={errors}
           getValues={getValues}
         />
-
         {/*submit button*/}
         <div className="mt-5 flex w-full items-center justify-center">
           <Button

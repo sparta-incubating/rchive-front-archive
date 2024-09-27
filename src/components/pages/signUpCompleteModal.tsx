@@ -8,10 +8,10 @@ import { useModalContext } from '@/context/useModalContext';
 const SignUpCompleteModal = () => {
   const { close } = useModalContext();
   return (
-    <Modal inboardClassName="w-[520px]">
-      <div className="my-7 w-full px-7">
+    <Modal inboardClassName="w-[520px] h-[577px]">
+      <div className="my-7 h-full w-full px-7">
         <SignupHeader />
-        <div className="flex w-full flex-col items-center justify-center gap-8">
+        <div className="flex h-full w-full flex-col items-center justify-center gap-8">
           <span className="text-xl font-medium">
             회원가입이 완료되었습니다.
           </span>

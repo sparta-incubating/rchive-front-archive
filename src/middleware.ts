@@ -1,5 +1,6 @@
 // middleware.ts
 import { auth } from '@/auth';
+import { cookies } from 'next/headers';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
@@ -19,16 +20,15 @@ export default async function middleware(req: NextRequest) {
   const session = await auth();
 
   const accessToken = session?.user.accessToken;
-  const trackId = session?.user.trackId;
   const trackRole = session?.user.trackRole;
-  const trackName = session?.user.trackName;
-  const loginPeriod = session?.user.loginPeriod;
   const roleApply = session?.user.roleApply;
-
-  console.log('this is middle ware');
 
   const role = trackRole;
   const { pathname } = req.nextUrl;
+
+  if (pathname === '/' && !accessToken) {
+    return NextResponse.redirect(new URL('/login', req.url));
+  }
 
   // /login 페이지는 아무 조건 없이 접근 가능
   if (pathname === '/login') {

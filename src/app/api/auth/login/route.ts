@@ -1,5 +1,5 @@
 import { setServerAccessTokenCookie } from '@/utils/auth.server.util';
-import axiosInstance from '@/utils/axios/axiosAPI';
+import axiosAPI from '@/utils/axios/axiosAPI';
 
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   const cookieStore = cookies();
 
   try {
-    const response = await axiosInstance.post('/apis/v1/users/login', {
+    const response = await axiosAPI.post('/apis/v1/users/login', {
       username: data.username,
       password: data.password,
     });
