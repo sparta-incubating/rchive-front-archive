@@ -35,6 +35,7 @@ const SelectTrackAccount = ({ paginatedRoleList }: SelectTrackAccountProps) => {
         ...session?.user,
         trackName,
         loginPeriod: period,
+        roleData: false,
       },
     });
 

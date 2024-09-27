@@ -15,8 +15,8 @@ export const postRoleApply = async (data: RoleFormSchema) => {
 };
 
 //권한 조회 endpoint
-export const getRoleInfo = async (accessToken: string) => {
-  return await axiosAPI.get('/apis/v1/role', {
+export const getRoleInfo = async <T>(accessToken: string) => {
+  return await axiosAPI.get<T>('/apis/v1/role', {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

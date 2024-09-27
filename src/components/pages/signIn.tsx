@@ -28,7 +28,6 @@ import InputContainer from '../atoms/InputContainer';
 import Label from '../atoms/label';
 import InputField from '../molecules/InputField';
 import SignupModal from './signupModal';
-import { getLastConnectRole } from '@/api/server/authApi';
 
 const SignIn = () => {
   const [signInError, setSignInError] = useState<string>('');
@@ -100,13 +99,7 @@ const SignIn = () => {
           email: email || '',
         }),
       );
-      console.log(roleData, ' roleData');
-
-      if (myRoles.length > 1) {
-        router.push('/select');
-      } else {
-        router.push('/');
-      }
+      router.push('/');
     } else {
       router.push('/login');
     }
