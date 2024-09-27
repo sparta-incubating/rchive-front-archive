@@ -31,6 +31,7 @@ const usePostTypeNames = () => {
   }, [postTypeNames]);
 
   useEffect(() => {
+    console.log({ postTypeNames });
     if (postTypeNames?.data) {
       if (postTypeNames?.data) {
         setCategoryData([
@@ -38,9 +39,10 @@ const usePostTypeNames = () => {
           ...postTypeNames.data
             .filter(
               (postType) =>
-                postType.key !== 'Level_Challenge' &&
+                /*postType.key !== 'Level_Challenge' &&
                 postType.key !== 'Level_Standard' &&
-                postType.key !== 'Level_Basic',
+                postType.key !== 'Level_Basic',*/
+                postType.key !== 'Level_All',
             )
             .map(
               (item) =>
