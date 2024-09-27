@@ -60,6 +60,14 @@ const SearchInput: React.FC<SearchInputProps> = ({
     );
   };
 
+  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+
+    if (/^.{0,255}$/.test(inputValue)) {
+      setKeyword(inputValue);
+    }
+  };
+
   return (
     <SearchInputContainer onClick={handleClickSearchDropdown}>
       <input
@@ -67,7 +75,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
         className="w-full text-lg"
         ref={searchInputRef}
         value={keyword}
-        onChange={(e) => setKeyword(e.target.value)}
+        onChange={handleKeywordChange}
         onKeyDown={(e) => {
           handleSearchKeyDown(e);
           if (e.key === 'Enter') onSearch();
