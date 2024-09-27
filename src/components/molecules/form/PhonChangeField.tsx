@@ -83,9 +83,9 @@ const PhoneChangeField = ({
   };
   return (
     <form onSubmit={onClickEnter}>
-      <InputContainer variant="secondary" className="relative">
+      <InputContainer variant="secondary" className="relative flex flex-col">
         <Input
-          className="mb-5 w-[233px] bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
+          className="mb-[22px] w-full bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
           placeholder="휴대폰 번호 입력 (-) 제외"
           {...register('phone')}
           onChange={handleTest}
@@ -97,19 +97,19 @@ const PhoneChangeField = ({
             size="sm"
             variant="submit"
             disabled={disabled}
-            className="absolute -top-[20px] right-0 h-[42px] w-[85px] px-5 py-3 text-xs"
+            className="absolute -top-[25px] right-0 h-[42px] w-[85px] px-5 py-3 text-xs"
             type="button"
             onClick={handleRequestAuth}
           >
             {expire ? '재요청' : '인증요청'}
           </Button>
         )}
-      </InputContainer>
-      <div className="w-[320px] border" />
-      <InputContainer variant="secondary">
+
+        <div className="w-[320px] border" />
+
         <Input
           {...register('authCode')}
-          className="mb-[28px] mt-[44px] w-80 bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
+          className="mt-[27px] w-80 bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
           placeholder="인증번호 입력"
           onChange={handleAuth}
           value={isAuthFilled}
@@ -118,7 +118,7 @@ const PhoneChangeField = ({
         {isAuthFilled.length > 0 && (
           <button
             type="button"
-            className={`h-[48px] w-[103px] text-sm font-semibold${isAuthFilled.length > 5 ? 'text-gray-900' : 'text-gray-300'} font-semibold`}
+            className={`absolute -bottom-[63px] -right-2 h-[48px] w-[103px] text-sm font-semibold ${isAuthFilled.length > 5 ? 'text-gray-900' : 'text-gray-300'}`}
             onClick={() => authCheck(authInfo)}
           >
             확인
