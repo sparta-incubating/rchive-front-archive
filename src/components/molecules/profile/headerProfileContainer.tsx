@@ -76,7 +76,6 @@ const HeaderProfileContainer = () => {
       </div>
       <ProfileDropDown clicked={isOpen} ref={dropdownRef}>
         {myRoles.map((role) => {
-          console.log({ role });
           return (
             <ProfileDropDownItem
               variant="primary"

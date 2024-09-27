@@ -25,7 +25,6 @@ export default async function middleware(req: NextRequest) {
 
   const role = trackRole;
 
-  console.log({ accessToken, role, roleApply, roleData });
   const { pathname } = req.nextUrl;
 
   if (pathname === '/' && !accessToken) {
