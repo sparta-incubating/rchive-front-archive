@@ -75,50 +75,48 @@ const PhoneField = ({
     authCode: isAuthFilled,
   };
   return (
-    <>
-      <InputContainer variant="secondary" className="relative">
-        <Input
-          className="mb-5 w-[233px] bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
-          placeholder="휴대폰 번호 입력 (-) 제외"
-          {...register('phone')}
-          onChange={handleTest}
-          type="text"
-          value={isInputFilled}
-        />
-        {isInputFilled.length > 0 && (
-          <Button
-            size="sm"
-            variant="submit"
-            disabled={disabled}
-            className="absolute -top-[11px] right-1 h-[44px] w-[87px] px-5 py-3 text-xs"
-            type="button"
-            onClick={handleRequestAuth}
-          >
-            {expire ? '재요청' : '인증요청'}
-          </Button>
-        )}
-      </InputContainer>
+    <InputContainer variant="secondary" className="relative flex flex-col">
+      <Input
+        className="mb-[22px] w-full bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
+        placeholder="휴대폰 번호 입력 (-) 제외"
+        {...register('phone')}
+        onChange={handleTest}
+        type="text"
+        value={isInputFilled}
+      />
+      {isInputFilled.length > 0 && (
+        <Button
+          size="sm"
+          variant="submit"
+          disabled={disabled}
+          className="absolute -top-[25px] right-0 h-[42px] w-[85px] px-5 py-3 text-xs"
+          type="button"
+          onClick={handleRequestAuth}
+        >
+          {expire ? '재요청' : '인증요청'}
+        </Button>
+      )}
+
       <div className="w-[320px] border" />
-      <InputContainer variant="secondary">
-        <Input
-          {...register('authCode')}
-          className="mb-[28px] mt-[44px] w-80 bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
-          placeholder="인증번호 입력"
-          onChange={handleAuth}
-          value={isAuthFilled}
-          type="text"
-        />
-        {isAuthFilled.length > 0 && (
-          <button
-            type="button"
-            className={`h-[36px] w-[100px] text-xs ${isAuthFilled.length > 5 ? 'text-gray-900' : 'text-gray-300'} font-semibold`}
-            onClick={() => authCheck(authInfo)}
-          >
-            확인
-          </button>
-        )}
-      </InputContainer>
-    </>
+
+      <Input
+        {...register('authCode')}
+        className="mt-[27px] w-80 bg-blue-50 text-sm font-medium placeholder:text-gray-300 focus:outline-none"
+        placeholder="인증번호 입력"
+        onChange={handleAuth}
+        value={isAuthFilled}
+        type="text"
+      />
+      {isAuthFilled.length > 0 && (
+        <button
+          type="button"
+          className={`absolute -bottom-[63px] -right-2 h-[48px] w-[103px] text-sm font-semibold ${isAuthFilled.length > 5 ? 'text-gray-900' : 'text-gray-300'}`}
+          onClick={() => authCheck(authInfo)}
+        >
+          확인
+        </button>
+      )}
+    </InputContainer>
   );
 };
 

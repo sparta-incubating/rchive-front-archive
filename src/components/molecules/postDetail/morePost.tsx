@@ -4,13 +4,14 @@ import { useRouter } from 'next/navigation';
 
 interface MorePostProps {
   category: string;
+  categoryId: string;
   postListData: PostListResponse;
 }
 
-const MorePost = ({ category, postListData }: MorePostProps) => {
+const MorePost = ({ category, categoryId, postListData }: MorePostProps) => {
   const router = useRouter();
   const handleClickMore = () => {
-    router.push(`/?postType=${category}&page=1`);
+    router.push(`/?postType=${categoryId}&page=1`);
   };
 
   return (

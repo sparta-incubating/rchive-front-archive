@@ -4,7 +4,7 @@ import MainPage from '@/components/pages/mainPage';
 import BookMarkPage from '@/components/pages/bookMarkPage';
 import React, { useState } from 'react';
 import MyProfile from '@/components/pages/myProfile';
-import ProfileTabMenu from '../test/profileTabMenu';
+import ProfileTabMenu from '@/components/atoms/profileTabMenu';
 
 const BookMark = () => {
   const [isActive, setIsActive] = useState<string>('북마크 목록');

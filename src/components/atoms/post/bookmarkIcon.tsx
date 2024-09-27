@@ -35,9 +35,6 @@ const BookmarkIcon = ({
         ) : (
           isHover && (
             <Image
-              // className={`transition-opacity duration-500 ${
-              //   isInnerHovered ? 'opacity-100' : 'opacity-0'
-              // }`}
               src={
                 isInnerHovered
                   ? '/assets/icons/gray_bookmark.svg'

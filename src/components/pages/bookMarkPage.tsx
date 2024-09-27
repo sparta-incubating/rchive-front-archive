@@ -17,38 +17,42 @@ import {
   BOOKMARK_DEFAULT_PAGE,
   BOOKMARK_DEFAULT_PAGE_SIZE,
 } from '@/constatns/bookmark.constant';
-import { useRouter } from 'next/navigation';
 import { useConfirmContext } from '@/context/useConfirmContext';
 import Confirm from '../atoms/confirm';
+import { useRouter } from 'next/navigation';
 
 const BookMarkPage = () => {
   const [keyword, setKeyword] = useState<string>('');
+  const [titleKeyword, setTitleKeyword] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(
     Number(BOOKMARK_DEFAULT_PAGE),
   );
 
   const { bookmarkList, isPending, isError } = useBookmarkQuery();
   const { deleteBookMarkMutate } = useBookmarkUpdate();
-  const { searchList } = useSearchBookmarkQuery(keyword);
+  const { searchList } = useSearchBookmarkQuery(titleKeyword);
   const inputRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
 
   const myBookmarkList = bookmarkList?.data || [];
 
   const confirm = useConfirmContext();
+  const router = useRouter();
 
   const totalElements = myBookmarkList.length;
 
-  const handleSearchChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const value = inputRef.current?.value ?? '';
-    if (event.key === 'Enter') {
-      setCurrentPage(1);
-      setKeyword(value);
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    if (/^.{0,255}$/.test(inputValue)) {
+      setKeyword(inputValue);
     }
+  };
 
-    if (value === '') {
-      setCurrentPage(1);
-      setKeyword('');
+  const handleOnKeyDownSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      if (/^.{0,255}$/.test(keyword)) {
+        setCurrentPage(1);
+        setTitleKeyword(keyword);
+      }
     }
   };
 
@@ -77,7 +81,8 @@ const BookMarkPage = () => {
       myBookmarkList.forEach((item: PostContentType) => {
         deleteBookMarkMutate.mutateAsync(item.postId);
       });
-      // router.refresh();
+      //여기는 전체 삭제 했을 때 메인에 refresh
+      router.refresh();
     } catch (error) {
       console.error('북마크 삭제 실패');
     }
@@ -95,16 +100,21 @@ const BookMarkPage = () => {
     return <div>오류발생</div>;
   }
 
-  const displayList = keyword ? searchBookmarkList : myBookmarkList;
+  const displayList = titleKeyword ? searchBookmarkList : myBookmarkList;
 
   return (
     <div className="relative">
       {/* 북마크 검색 */}
-      <BookmarkInput ref={inputRef} onKeyDown={handleSearchChange} />
+      <BookmarkInput
+        ref={inputRef}
+        value={keyword}
+        onChange={handleSearchChange}
+        onKeyDown={handleOnKeyDownSearch}
+      />
 
       {/* 북마크 헤더 */}
       <div className="mb-[40px] mt-[84px] flex h-[41px] w-[1152px] flex-row justify-between">
-        <SearchResultTitle keyword={keyword} category={'북마크 목록'} />
+        <SearchResultTitle keyword={titleKeyword} category={'북마크 목록'} />
         <button onClick={handleAllItem}>
           <p className="text-[18px] font-bold">모두 지우기</p>
         </button>

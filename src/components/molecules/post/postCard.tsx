@@ -34,6 +34,7 @@ const PostCard = ({ postData }: PostCardProps) => {
     setIsBookmarked(!isBookmarked);
     router.refresh();
   };
+
   return (
     <article
       className="group flex flex-col gap-3 pb-[22.5px] pt-2"
@@ -47,7 +48,7 @@ const PostCard = ({ postData }: PostCardProps) => {
       />
       <PostTitle
         onClickPost={() => handleClickPost(postData.postId)}
-        bookmark={postData.isBookmarked}
+        bookmark={isBookmarked}
         isHover={isHover}
         onClickBookmark={() => handleToggleBookmark(postData.postId)}
       >
