@@ -146,7 +146,7 @@ const config = {
       '6xl': '3.125rem', // 50px
     },
     boxShadow: {
-      subBox: ' 0px 4px 30px 0px rgba(65, 101, 112, 0.25)',
+      subBox: '0px 4px 30px 0px rgba(65, 101, 112, 0.25)',
       selectBox:
         '0px 2px 6px 0px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30)',
       signInBox: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
