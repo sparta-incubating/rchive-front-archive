@@ -38,7 +38,7 @@ const SelectTrackAccount = ({ paginatedRoleList }: SelectTrackAccountProps) => {
         roleData: false,
       },
     });
-
+    console.log('1');
     try {
       await patchLastConnectRole(trackName, period);
     } catch (error) {
@@ -46,7 +46,9 @@ const SelectTrackAccount = ({ paginatedRoleList }: SelectTrackAccountProps) => {
         console.log(error);
       }
     }
+    console.log('2');
     router.push('/');
+    console.log('3');
     router.refresh();
   };
 
