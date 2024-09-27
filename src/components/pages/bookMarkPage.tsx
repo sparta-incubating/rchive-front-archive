@@ -73,13 +73,11 @@ const BookMarkPage = () => {
       </Confirm>,
       false,
     );
-    try {
+    if (result) {
       myBookmarkList.forEach((item: PostContentType) => {
         deleteBookMarkMutate.mutateAsync(item.postId);
       });
-      // router.refresh();
-    } catch (error) {
-      console.error('북마크 삭제 실패');
+      router.refresh();
     }
   };
 

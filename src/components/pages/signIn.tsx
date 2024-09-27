@@ -192,7 +192,7 @@ const SignIn = () => {
         <div className="flex flex-1 items-center justify-center bg-archive-gradient shadow-signInBox">
           <section>
             <div className="relative">
-              <div className="absolute bottom-[380px] right-[0px] z-20 h-[463px] w-[242px]">
+              <div className="absolute bottom-[285px] right-[0px] z-20 h-[463px] w-[242px]">
                 <Image
                   src={search}
                   height={243}
@@ -207,13 +207,7 @@ const SignIn = () => {
                   alt="test"
                   className="h-[107px] w-[243px] pt-[13.8px]"
                 />
-                <Image
-                  src={comment}
-                  height={243}
-                  width={107}
-                  alt="test"
-                  className="h-[107px] w-[243px] pt-[13.8px]"
-                />
+
                 <Image
                   src={bookmark}
                   height={243}
