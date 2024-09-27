@@ -18,6 +18,8 @@ import {
   BOOKMARK_DEFAULT_PAGE_SIZE,
 } from '@/constatns/bookmark.constant';
 import { useRouter } from 'next/navigation';
+import { useConfirmContext } from '@/context/useConfirmContext';
+import Confirm from '../atoms/confirm';
 
 const BookMarkPage = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -32,10 +34,8 @@ const BookMarkPage = () => {
   const router = useRouter();
 
   const myBookmarkList = bookmarkList?.data || [];
-  // const myBookmarkList = List.map((item: PostContentType) => ({
-  //   ...item,
-  //   isBookmarked: true,
-  // }));
+
+  const confirm = useConfirmContext();
 
   const totalElements = myBookmarkList.length;
 
@@ -54,12 +54,30 @@ const BookMarkPage = () => {
 
   const searchBookmarkList = searchList?.data;
 
-  const handleAllItem = () => {
+  const handleAllItem = async () => {
+    const result = await confirm.handleConfirm(
+      <Confirm text="거절">
+        <div className="flex flex-col gap-2.5">
+          <span className="text-center text-xl font-bold">
+            요청을 거절하시겠어요?
+          </span>
+          <div className="flex flex-col justify-center">
+            <span className="text-center text-base font-medium text-gray-600">
+              거절할 경우 권한 설정 목록에서 사라지고,
+            </span>
+            <span className="text-center text-base font-medium text-gray-600">
+              다시 트랙 및 기수를 요청하게 돼요.
+            </span>
+          </div>
+        </div>
+      </Confirm>,
+      false,
+    );
     try {
       myBookmarkList.forEach((item: PostContentType) => {
         deleteBookMarkMutate.mutateAsync(item.postId);
       });
-      router.refresh();
+      // router.refresh();
     } catch (error) {
       console.error('북마크 삭제 실패');
     }
