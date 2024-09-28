@@ -135,7 +135,7 @@ const BookMarkPage = () => {
             <EmptyBookmark />
           )}
 
-          {!keyword && myBookmarkList.length > 0 && (
+          {myBookmarkList.length > 0 && (
             <PageNation
               currentPage={currentPage}
               totalElements={totalElements}
