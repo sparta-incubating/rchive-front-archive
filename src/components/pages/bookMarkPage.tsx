@@ -81,7 +81,6 @@ const BookMarkPage = () => {
       myBookmarkList.forEach((item: PostContentType) => {
         deleteBookMarkMutate.mutateAsync(item.postId);
       });
-      //여기는 전체 삭제 했을 때 메인에 refresh
       router.refresh();
     } catch (error) {
       console.error('북마크 삭제 실패');
