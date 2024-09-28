@@ -2,7 +2,6 @@
 
 import bookmark from '@/../public/assets/icons/bookmark-rtan.svg';
 import dashboard from '@/../public/assets/icons/signin-dashboard.svg';
-import comment from '@/../public/assets/icons/comment-rtan.svg';
 import lecture from '@/../public/assets/icons/lecture-rtan.svg';
 import search from '@/../public/assets/icons/search-rtan.svg';
 import rtan from '@/../public/assets/icons/signin-rtan.svg';
@@ -192,34 +191,28 @@ const SignIn = () => {
         <div className="flex flex-1 items-center justify-center bg-archive-gradient shadow-signInBox">
           <section>
             <div className="relative">
-              <div className="absolute bottom-[380px] right-[0px] z-20 h-[463px] w-[242px]">
+              <div className="absolute bottom-[430px] right-[0px] z-20 h-[345px] w-[242px]">
                 <Image
                   src={search}
-                  height={243}
-                  width={107}
-                  alt="test"
-                  className="h-[107px] w-[243px] pt-[13.8px]"
+                  height={106}
+                  width={242}
+                  alt="서브보드"
+                  className="mb-[13.8px] rounded-[14px] shadow-subBox"
                 />
                 <Image
                   src={lecture}
-                  height={243}
-                  width={107}
-                  alt="test"
-                  className="h-[107px] w-[243px] pt-[13.8px]"
+                  height={106}
+                  width={242}
+                  alt="서브보드"
+                  className="mb-[13.8px] rounded-[14px] shadow-subBox"
                 />
-                <Image
-                  src={comment}
-                  height={243}
-                  width={107}
-                  alt="test"
-                  className="h-[107px] w-[243px] pt-[13.8px]"
-                />
+
                 <Image
                   src={bookmark}
-                  height={243}
-                  width={107}
-                  alt="test"
-                  className="h-[107px] w-[243px] pt-[13.8px]"
+                  height={106}
+                  width={242}
+                  alt="서브보드"
+                  className="mb-[13.8px] rounded-[14px] shadow-subBox"
                 />
               </div>
               {/*문구 */}

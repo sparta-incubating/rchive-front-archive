@@ -19,6 +19,7 @@ import {
 } from '@/constatns/bookmark.constant';
 import { useConfirmContext } from '@/context/useConfirmContext';
 import Confirm from '../atoms/confirm';
+import { useRouter } from 'next/navigation';
 
 const BookMarkPage = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -31,6 +32,7 @@ const BookMarkPage = () => {
   const { deleteBookMarkMutate } = useBookmarkUpdate();
   const { searchList } = useSearchBookmarkQuery(titleKeyword);
   const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const myBookmarkList = bookmarkList?.data || [];
 
@@ -75,13 +77,11 @@ const BookMarkPage = () => {
       </Confirm>,
       false,
     );
-    try {
+    if (result) {
       myBookmarkList.forEach((item: PostContentType) => {
         deleteBookMarkMutate.mutateAsync(item.postId);
       });
-      // router.refresh();
-    } catch (error) {
-      console.error('북마크 삭제 실패');
+      router.refresh();
     }
   };
 
