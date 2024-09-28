@@ -82,7 +82,8 @@ const HeaderProfileContainer = () => {
               variant="primary"
               selected={
                 role.period === Number(period) &&
-                role.trackRoleEnum === trackRole
+                role.trackRoleEnum === trackRole &&
+                trackName === role.trackName.key
               }
               key={role.trackId + role.trackName.key}
               onClick={() =>
@@ -104,7 +105,8 @@ const HeaderProfileContainer = () => {
                 track={`${role.trackName.value} ${role.period}기`}
                 selected={
                   role.period === Number(period) &&
-                  role.trackRoleEnum === trackRole
+                  role.trackRoleEnum === trackRole &&
+                  trackName === role.trackName.key
                 }
               />
             </ProfileDropDownItem>

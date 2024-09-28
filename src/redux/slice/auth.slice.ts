@@ -13,6 +13,7 @@ interface authInitialType {
   birth: string;
   profileImg: string;
   myRoles: MyRoleDataType[];
+  roleData: boolean;
   email: string;
 }
 
@@ -27,6 +28,7 @@ const initialState: authInitialType = {
   birth: '',
   profileImg: '',
   myRoles: [],
+  roleData: false,
   email: '',
 };
 
@@ -45,6 +47,7 @@ const AuthSlice = createSlice({
       state.birth = action.payload.birth;
       state.profileImg = action.payload.profileImg;
       state.myRoles = action.payload.myRoles;
+      state.roleData = action.payload.roleData;
       state.email = action.payload.email;
     },
   },

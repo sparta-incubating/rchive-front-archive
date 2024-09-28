@@ -64,6 +64,8 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
             const { data: roleData } = roleInfo.data;
             token.trackRole = roleData.roleResList[0].trackRoleEnum;
             token.roleData = true;
+            const myRoleResponse = await getAllMyRoles(user.accessToken);
+            token.myRole = myRoleResponse?.data.data.roleResList;
           } else {
             //권한이없다.
             const roleResponse = await getRoleApplyStatus(user.accessToken);
