@@ -20,6 +20,7 @@ import {
 import { useConfirmContext } from '@/context/useConfirmContext';
 import Confirm from '../atoms/confirm';
 import { useRouter } from 'next/navigation';
+import ProgressModal from './progressModal';
 
 const BookMarkPage = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -91,58 +92,60 @@ const BookMarkPage = () => {
     setCurrentPage(page);
   };
 
+  const displayList = titleKeyword ? searchBookmarkList : myBookmarkList;
+
   if (isPending) {
-    return <div>대기중</div>;
+    return <div>대기중입니다.</div>;
   }
 
   if (isError) {
     return <div>오류발생</div>;
   }
 
-  const displayList = titleKeyword ? searchBookmarkList : myBookmarkList;
-
   return (
-    <div className="relative">
-      {/* 북마크 검색 */}
-      <BookmarkInput
-        ref={inputRef}
-        value={keyword}
-        onChange={handleSearchChange}
-        onKeyDown={handleOnKeyDownSearch}
-      />
+    <div className="mx-auto flex h-full w-full flex-col items-center bg-gray-50">
+      <div className="relative">
+        {/* 북마크 검색 */}
+        <BookmarkInput
+          ref={inputRef}
+          value={keyword}
+          onChange={handleSearchChange}
+          onKeyDown={handleOnKeyDownSearch}
+        />
 
-      {/* 북마크 헤더 */}
-      <div className="mb-[40px] mt-[84px] flex h-[41px] w-[1152px] flex-row justify-between">
-        <SearchResultTitle keyword={titleKeyword} category={'북마크 목록'} />
-        <button onClick={handleAllItem}>
-          <p className="text-[18px] font-bold">모두 지우기</p>
-        </button>
+        {/* 북마크 헤더 */}
+        <div className="mb-[40px] mt-[84px] flex h-[41px] w-[1152px] flex-row justify-between">
+          <SearchResultTitle keyword={titleKeyword} category={'북마크 목록'} />
+          <button onClick={handleAllItem}>
+            <p className="text-[18px] font-bold">모두 지우기</p>
+          </button>
+        </div>
+
+        {/* 북마크 리스트 */}
+        <section className="flex w-[1152px] flex-col gap-6">
+          {displayList && displayList.length > 0 ? (
+            <section className="mx-auto mb-14">
+              <div className="grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                {displayList.map((item: PostContentType) => (
+                  <PostCard postData={item} key={item.postId} />
+                ))}
+              </div>
+            </section>
+          ) : (
+            <EmptyBookmark />
+          )}
+
+          {!keyword && myBookmarkList.length > 0 && (
+            <PageNation
+              currentPage={currentPage}
+              totalElements={totalElements}
+              size={Number(BOOKMARK_DEFAULT_PAGE_SIZE)}
+              onPageChange={handlePageChange}
+            />
+          )}
+        </section>
+        <HelperButton />
       </div>
-
-      {/* 북마크 리스트 */}
-      <section className="flex flex-col gap-6">
-        {displayList && displayList.length > 0 ? (
-          <section className="mx-auto mb-14">
-            <div className="grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              {displayList.map((item: PostContentType) => (
-                <PostCard postData={item} key={item.postId} />
-              ))}
-            </div>
-          </section>
-        ) : (
-          <EmptyBookmark />
-        )}
-
-        {!keyword && myBookmarkList.length > 0 && (
-          <PageNation
-            currentPage={currentPage}
-            totalElements={totalElements}
-            size={Number(BOOKMARK_DEFAULT_PAGE_SIZE)}
-            onPageChange={handlePageChange}
-          />
-        )}
-      </section>
-      <HelperButton />
     </div>
   );
 };
