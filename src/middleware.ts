@@ -1,6 +1,5 @@
 // middleware.ts
 import { auth } from '@/auth';
-import { cookies } from 'next/headers';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
@@ -22,8 +21,10 @@ export default async function middleware(req: NextRequest) {
   const accessToken = session?.user.accessToken;
   const trackRole = session?.user.trackRole;
   const roleApply = session?.user.roleApply;
+  const roleData = session?.user.roleData;
 
   const role = trackRole;
+
   const { pathname } = req.nextUrl;
 
   if (pathname === '/' && !accessToken) {
@@ -41,8 +42,18 @@ export default async function middleware(req: NextRequest) {
   }
 
   // 1. AccessToken과 Role이 모두 있는 경우, 모든 페이지 접근 허용
+
   if (accessToken && role) {
-    return NextResponse.next();
+    console.log('roleData', roleData);
+    if (roleData) {
+      if (pathname !== '/select') {
+        return NextResponse.redirect(new URL('/select', req.url));
+      } else {
+        return NextResponse.next();
+      }
+    } else {
+      return NextResponse.next();
+    }
   }
 
   // 2. AccessToken은 있지만 Role이 없는 경우, /role로 리다이렉션
@@ -60,5 +71,8 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|assets/icons).*)'],
+  matcher: [
+    '/',
+    '/((?!api|_next/static|_next/image|favicon.ico|assets/icons).*)',
+  ],
 };

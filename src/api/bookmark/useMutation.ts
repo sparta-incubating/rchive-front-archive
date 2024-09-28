@@ -7,10 +7,10 @@ export const useBookmarkUpdate = () => {
   //북마크 생성
   const postBookmarkMutate = useMutation({
     mutationFn: addBookMark,
-    onSuccess: () =>
-      queryClient.invalidateQueries({
-        queryKey: [BOOKMARK_QUERY_KEYS.BOOKMARK],
-      }),
+    // onSuccess: () =>
+    //   queryClient.invalidateQueries({
+    //     queryKey: [BOOKMARK_QUERY_KEYS.BOOKMARK],
+    //   }),
     onError: (error) => {
       console.log('북마크 생성 실패:', error);
     },
@@ -19,10 +19,10 @@ export const useBookmarkUpdate = () => {
   //북마크 삭제
   const deleteBookMarkMutate = useMutation({
     mutationFn: deleteBookMark,
-    onSuccess: () =>
-      queryClient.invalidateQueries({
-        queryKey: [BOOKMARK_QUERY_KEYS.BOOKMARK],
-      }),
+    // onSuccess: () =>
+    //   queryClient.invalidateQueries({
+    //     queryKey: [BOOKMARK_QUERY_KEYS.BOOKMARK],
+    //   }),
     onError: (error) => {
       console.log('북마크 삭제 실패:', error);
     },

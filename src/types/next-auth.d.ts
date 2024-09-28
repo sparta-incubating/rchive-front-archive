@@ -18,6 +18,7 @@ declare module 'next-auth' {
     phone?: string;
     profileImg?: string;
     myRoles?: MyRoleDataType[];
+    roleData?: boolean;
   }
 
   // session 타입확장

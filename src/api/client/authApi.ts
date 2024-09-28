@@ -43,7 +43,7 @@ export const getNicknameCheck = async (nickname: string) => {
 // 마지막 접속 권한 조회 endpoint
 export const getLastConnectRole = async () => {
   try {
-    await axios.get('/api/auth/lastConnectRole');
+    return await axios.get('/api/auth/lastConnectRole');
   } catch (error) {
     throw new Error('마지막 권한 조회에 실패했습니다.');
   }
@@ -58,5 +58,17 @@ export const patchLastConnectRole = async (
     await client.patch('/apis/v1/role/select', { trackName, period });
   } catch (error) {
     throw new Error('마지막 권한 등록에 실패했습니다.');
+  }
+};
+
+export const getMyProfile = async (trackName: string, period: number) => {
+  try {
+    return await client.get(
+      `/apis/v1/profile?trackName=${trackName}&period=${period}`,
+    );
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log({ error });
+    }
   }
 };

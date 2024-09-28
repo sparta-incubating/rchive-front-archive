@@ -25,11 +25,16 @@ const HeaderProfileContainer = () => {
       : profileImg;
 
   const { update, data: session } = useSession();
-  const handleToTrack = async (trackName: string, period: number) => {
+  const handleToTrack = async (
+    trackName: string,
+    period: number,
+    trackRoleEnum: string,
+  ) => {
     await update({
       ...session,
       user: {
         ...session?.user,
+        trackRole: trackRoleEnum,
         trackName,
         loginPeriod: period,
       },
@@ -71,29 +76,42 @@ const HeaderProfileContainer = () => {
         </div>
       </div>
       <ProfileDropDown clicked={isOpen} ref={dropdownRef}>
-        {myRoles.map((role) => (
-          <ProfileDropDownItem
-            variant="primary"
-            selected={
-              role.period === Number(period) && role.trackRoleEnum === trackRole
-            }
-            key={role.trackId + role.trackName.key}
-            onClick={() => handleToTrack(role.trackName.key, role.period)}
-          >
-            <ProfileDropDownItemCard
-              profileImage={`/assets/icons/${defaultProfileImg}.svg`}
-              nickname={username}
-              role={
-                role.trackRoleEnum === 'STUDENT' ? '수강생' : role.trackRoleEnum
-              }
-              track={`${role.trackName.value} ${role.period}기`}
+        {myRoles.map((role) => {
+          return (
+            <ProfileDropDownItem
+              variant="primary"
               selected={
                 role.period === Number(period) &&
-                role.trackRoleEnum === trackRole
+                role.trackRoleEnum === trackRole &&
+                trackName === role.trackName.key
               }
-            />
-          </ProfileDropDownItem>
-        ))}
+              key={role.trackId + role.trackName.key}
+              onClick={() =>
+                handleToTrack(
+                  role.trackName.key,
+                  role.period,
+                  role.trackRoleEnum,
+                )
+              }
+            >
+              <ProfileDropDownItemCard
+                profileImage={`/assets/icons/${defaultProfileImg}.svg`}
+                nickname={username}
+                role={
+                  role.trackRoleEnum === 'STUDENT'
+                    ? '수강생'
+                    : role.trackRoleEnum
+                }
+                track={`${role.trackName.value} ${role.period}기`}
+                selected={
+                  role.period === Number(period) &&
+                  role.trackRoleEnum === trackRole &&
+                  trackName === role.trackName.key
+                }
+              />
+            </ProfileDropDownItem>
+          );
+        })}
       </ProfileDropDown>
     </article>
   );

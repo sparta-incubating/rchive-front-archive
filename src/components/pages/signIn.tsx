@@ -27,12 +27,10 @@ import InputContainer from '../atoms/InputContainer';
 import Label from '../atoms/label';
 import InputField from '../molecules/InputField';
 import SignupModal from './signupModal';
-import { getLastConnectRole } from '@/api/server/authApi';
 
 const SignIn = () => {
   const [signInError, setSignInError] = useState<string>('');
   const { data: session } = useSession();
-  const accessToken = session?.user?.accessToken;
 
   const { open } = useModalContext();
   const dispatch = useAppDispatch();
@@ -81,6 +79,7 @@ const SignIn = () => {
         profileImg,
         birth,
         email,
+        roleData,
       } = session.user;
 
       dispatch(
@@ -95,22 +94,11 @@ const SignIn = () => {
           birth: birth || '',
           profileImg: profileImg || '',
           myRoles: myRoles || [],
+          roleData: roleData || false,
           email: email || '',
         }),
       );
-
-      try {
-        const lastRole = getLastConnectRole(accessToken as string);
-        console.log(lastRole, 'lastRole');
-
-        router.push('/');
-      } catch (error) {
-        if (myRoles.length > 1) {
-          router.push('/select');
-        } else {
-          router.push('/');
-        }
-      }
+      router.push('/');
     } else {
       router.push('/login');
     }

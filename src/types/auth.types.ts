@@ -34,3 +34,22 @@ export type SelectProfileRole = {
   trackName: { key: string; value: string };
   period: number;
 };
+
+export type RoleResponseType = {
+  status: number;
+  message: string;
+  data: RoleData;
+};
+
+export type RoleData = {
+  roleResList: RoleResLitType[];
+  nickname: string;
+  profileImg: string;
+};
+
+type RoleResLitType = {
+  trackId: number;
+  trackRoleEnum: string;
+  trackName: { key: string; value: string };
+  period: number;
+};

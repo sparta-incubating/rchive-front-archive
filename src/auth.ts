@@ -3,9 +3,14 @@ import {
   getLastConnectRole,
   getMyProfile,
   getRoleApplyStatus,
+  getRoleInfo,
 } from '@/api/server/authApi';
 import { authConfig } from '@/auth.config';
-import { MyRoleDataType, trackRole } from '@/types/auth.types';
+import {
+  MyRoleDataType,
+  RoleResponseType,
+  trackRole,
+} from '@/types/auth.types';
 
 import NextAuth from 'next-auth';
 import axiosAPI from './utils/axios/axiosAPI';
@@ -45,14 +50,29 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
 
           const myRoleResponse = await getAllMyRoles(user.accessToken);
           token.myRole = myRoleResponse?.data.data.roleResList;
+          token.roleData = false;
         } catch (error) {
           // 권한이 없을때
           // 권한 신청이 있는지 조회
           // 여기도 마찬가지로 session이 없음.
-          const roleResponse = await getRoleApplyStatus(user.accessToken);
-          const { data } = roleResponse.data;
+          const roleInfo = await getRoleInfo<RoleResponseType>(
+            user.accessToken,
+          );
 
-          token.roleApply = data;
+          if (roleInfo.data.data.roleResList.length > 0) {
+            //여기가 권한이 있다.
+            const { data: roleData } = roleInfo.data;
+            token.trackRole = roleData.roleResList[0].trackRoleEnum;
+            token.roleData = true;
+            const myRoleResponse = await getAllMyRoles(user.accessToken);
+            token.myRole = myRoleResponse?.data.data.roleResList;
+          } else {
+            //권한이없다.
+            const roleResponse = await getRoleApplyStatus(user.accessToken);
+            const { data } = roleResponse.data;
+            token.roleApply = data;
+            token.roleData = false;
+          }
         }
       }
 
@@ -63,6 +83,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           accessToken: session.user.accessToken,
           sub: session.user.accessToken,
           refreshToken: session.user.refreshToken,
+          trackRole: session.user.trackRole,
           trackName: session.user.trackName,
           trackLabel: session.user.trackLabel,
           loginPeriod: session.user.loginPeriod,
@@ -72,6 +93,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
           profileImg: session.user.profileImg,
           myRole: [...session.user.myRoles],
           email: session.user.email,
+          roleData: session.user.roleData,
         };
 
         return token;
@@ -95,6 +117,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       session.user.profileImg = token.profileImg as string;
       session.user.myRoles = token.myRole as MyRoleDataType[];
       session.user.email = token.email as string;
+      session.user.roleData = token.roleData as boolean;
 
       return session;
     },
