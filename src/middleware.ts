@@ -44,7 +44,6 @@ export default async function middleware(req: NextRequest) {
   // 1. AccessToken과 Role이 모두 있는 경우, 모든 페이지 접근 허용
 
   if (accessToken && role) {
-    console.log('roleData', roleData);
     if (roleData) {
       if (pathname !== '/select') {
         return NextResponse.redirect(new URL('/select', req.url));

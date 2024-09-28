@@ -51,7 +51,7 @@ const MyProfile = () => {
   }
 
   if (isPending) {
-    return <div>대기중입니다.</div>;
+    return <ProgressModal>데이터 찾아오는중...</ProgressModal>;
   }
   return (
     <div className="mx-auto flex h-screen w-full flex-col items-center gap-[40px] bg-gray-50 py-[56px]">
