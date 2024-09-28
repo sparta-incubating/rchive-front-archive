@@ -21,6 +21,7 @@ import { Collection } from 'react-notion-x/build/third-party/collection';
 import { Equation } from 'react-notion-x/build/third-party/equation';
 import { Modal } from 'react-notion-x/build/third-party/modal';
 import { Pdf } from 'react-notion-x/build/third-party/pdf';
+import ProgressModal from '@/components/pages/progressModal';
 
 const NotionContainer = ({ notionLink }: { notionLink: string }) => {
   const [recordMap, setRecordMap] = useState<ExtendedRecordMap | null>(null);
@@ -35,7 +36,8 @@ const NotionContainer = ({ notionLink }: { notionLink: string }) => {
     })();
   }, []);
 
-  if (recordMap === null) return <div>로딩중...</div>;
+  if (recordMap === null)
+    return <ProgressModal>데이터 찾아오는중...</ProgressModal>;
 
   return (
     <section className="flex flex-col">

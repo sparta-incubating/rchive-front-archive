@@ -20,7 +20,7 @@ import {
 import { useConfirmContext } from '@/context/useConfirmContext';
 import Confirm from '../atoms/confirm';
 import { useRouter } from 'next/navigation';
-import ProgressModal from './progressModal';
+import ProgressModal from '@/components/pages/progressModal';
 
 const BookMarkPage = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -95,7 +95,32 @@ const BookMarkPage = () => {
   const displayList = titleKeyword ? searchBookmarkList : myBookmarkList;
 
   if (isPending) {
-    return <div>대기중입니다.</div>;
+    return (
+      <>
+        <div className="mx-auto flex h-full w-full flex-col items-center bg-gray-50">
+          <div className="relative">
+            <BookmarkInput
+              ref={inputRef}
+              value={keyword}
+              onChange={handleSearchChange}
+              onKeyDown={handleOnKeyDownSearch}
+            />
+
+            <div className="mb-[40px] mt-[84px] flex h-[41px] w-[1152px] flex-row justify-between">
+              <SearchResultTitle
+                keyword={titleKeyword}
+                category={'북마크 목록'}
+              />
+              <button onClick={handleAllItem}>
+                <p className="text-[18px] font-bold">모두 지우기</p>
+              </button>
+            </div>
+          </div>
+          <div className="h-screen"></div>
+        </div>
+        <ProgressModal>데이터 찾아오는중...</ProgressModal>
+      </>
+    );
   }
 
   if (isError) {

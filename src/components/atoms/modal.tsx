@@ -12,7 +12,7 @@ const modalVariants = cva(
       },
       bgColor: {
         default: 'bg-blue-55',
-        black: 'bg-black/50',
+        black: 'bg-black/70 backdrop-blur-md',
       },
     },
     defaultVariants: {

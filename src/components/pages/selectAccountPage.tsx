@@ -8,6 +8,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useGetRoleQuery } from '@/hooks/useQuery';
 
 import PageNation from '../atoms/pageNation';
+import ProgressModal from '@/components/pages/progressModal';
 
 const SelectAccountPage = () => {
   const { data, isPending } = useGetRoleQuery();
@@ -61,7 +62,7 @@ const SelectAccountPage = () => {
   /*페이지 네이션 */
 
   if (isPending) {
-    return <div>로딩중</div>;
+    return <ProgressModal>로딩중...</ProgressModal>;
   }
   const totalPages = Math.ceil(roleList.length / itemsPerPage);
 
