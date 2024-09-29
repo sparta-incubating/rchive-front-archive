@@ -62,7 +62,7 @@ const BookMarkPage = () => {
   const handleAllItem = async () => {
     try {
       const result = await confirm.handleConfirm(
-        <Confirm text="거절">
+        <Confirm text="삭제">
           <div className="flex flex-col gap-2.5">
             <span className="text-center text-xl font-bold">
               요청을 거절하시겠어요?
