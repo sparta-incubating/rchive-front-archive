@@ -28,8 +28,21 @@ export const useBookmarkUpdate = () => {
     },
   });
 
+  //북마크 전체 삭제
+  const deleteAllBookMarkMutate = useMutation({
+    mutationFn: deleteBookMark,
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: [BOOKMARK_QUERY_KEYS.BOOKMARK],
+      }),
+    onError: (error) => {
+      console.log('북마크 삭제 실패:', error);
+    },
+  });
+
   return {
     postBookmarkMutate,
     deleteBookMarkMutate,
+    deleteAllBookMarkMutate,
   };
 };
