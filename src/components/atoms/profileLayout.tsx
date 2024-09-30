@@ -8,7 +8,7 @@ const ProfileBoardVariants = cva(
       variant: {
         primary: '',
         userInfo: 'h-[290px] ',
-        accountInfo: 'h-[248px] ',
+        accountInfo: 'min-h-[248px] ',
       },
     },
     defaultVariants: {

@@ -54,7 +54,7 @@ const MyProfile = () => {
     return <ProgressModal>데이터 찾아오는중...</ProgressModal>;
   }
   return (
-    <div className="mx-auto flex h-screen w-full flex-col items-center gap-[40px] bg-gray-50 py-[56px]">
+    <div className="mx-auto flex h-full w-full flex-col items-center gap-[40px] bg-gray-50 py-[56px]">
       {/*프로필 */}
       <h1 className="w-[1151px] text-3xl font-semibold">프로필 관리</h1>
       {/*회원 정보 */}
