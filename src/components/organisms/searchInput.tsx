@@ -36,6 +36,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
   const {
     isOpen: isOpenSearchDropdown,
     dropdownRef,
+    setIsOpen,
     handleClick: handleClickSearchDropdown,
   } = useDropDownOpen();
 
@@ -78,7 +79,10 @@ const SearchInput: React.FC<SearchInputProps> = ({
         onChange={handleKeywordChange}
         onKeyDown={(e) => {
           handleSearchKeyDown(e);
-          if (e.key === 'Enter') onSearch();
+          if (e.key === 'Enter') {
+            onSearch();
+            setIsOpen(false);
+          }
         }}
       />
 
