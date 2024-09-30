@@ -11,7 +11,9 @@ import useQueryParams from '@/hooks/useQueryParams';
 
 export const usePostList = (initialSearchParams: SearchParamsType) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [tutor, setTutor] = useState<string>('0');
+  const [tutor, setTutor] = useState<string>(
+    initialSearchParams.tutorId || 'all',
+  );
   const [activeTab, setActiveTab] = useState<string>(
     initialSearchParams?.postType || 'all',
   );
