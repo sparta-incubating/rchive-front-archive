@@ -9,9 +9,9 @@ import CategoryCategory from '@/components/molecules/categorySelector';
 import PostListContainer from '@/components/organisms/postList/postListContainer';
 import PageNation from '@/components/atoms/pageNation';
 import EmptyPage from '@/components/pages/emptyPage';
-import { postTabArr } from '@/constatns/post.constant';
 import HelperButton from '@/components/atoms/helperButton';
 import { useEffect, useState } from 'react';
+import usePostTypeNames from '@/hooks/usePostTypeNames';
 
 interface PostListProps {
   searchParams: SearchParamsType;
@@ -36,6 +36,8 @@ const PostList = ({ searchParams, postListDataResponse }: PostListProps) => {
     handleSearchClick,
     setCurrentPage,
   } = usePostList(searchParams);
+
+  const { categoryData } = usePostTypeNames();
 
   useEffect(() => {
     setPostListData(postListDataResponse);
@@ -80,7 +82,8 @@ const PostList = ({ searchParams, postListDataResponse }: PostListProps) => {
           ) : (
             <EmptyPage>
               {searchParams?.title ||
-                postTabArr.find((category) => category.id === activeTab)?.title}
+                categoryData.find((category) => category.id === activeTab)
+                  ?.title}
             </EmptyPage>
           ))}
       </section>

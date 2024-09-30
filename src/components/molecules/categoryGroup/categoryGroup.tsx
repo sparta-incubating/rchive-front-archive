@@ -17,7 +17,6 @@ const CategoryGroup = ({
 }: CategoryGroupProps) => {
   const { categoryData } = usePostTypeNames();
 
-  console.log({ categoryData });
   const activeCategory = categoryData.find(
     (category) => category.id === activeTab,
   );
