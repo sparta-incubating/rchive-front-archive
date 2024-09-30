@@ -98,9 +98,10 @@ const SearchInput: React.FC<SearchInputProps> = ({
             <SearchInputDropDownItem
               key={item.keyword + index}
               variant="secondary"
-              onClick={(e: React.MouseEvent<HTMLDivElement>) =>
-                handleSearchClick(e, item.keyword)
-              }
+              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                handleSearchClick(e, item.keyword);
+                handleClickSearchDropdown(e);
+              }}
             >
               <SearchInputDropDownItemCard
                 keyword={item.keyword}
