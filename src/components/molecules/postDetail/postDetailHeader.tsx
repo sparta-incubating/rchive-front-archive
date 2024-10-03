@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import PostDetailHeaderText from '@/components/atoms/postDetail/postDetailHeaderText';
 import BookmarkIcon from '@/components/atoms/post/bookmarkIcon';
 import { useState } from 'react';
-import { useBookmarkUpdate } from '@/api/bookmark/useMutation';
+import { useBookmarkUpdate } from '@/api/bookmark/useBookmarkMutation';
 
 interface PostDetailHeaderProps {
   title: string;
