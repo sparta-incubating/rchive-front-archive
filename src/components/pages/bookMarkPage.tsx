@@ -4,14 +4,14 @@ import React, { useRef, useState } from 'react';
 import {
   useBookmarkQuery,
   useSearchBookmarkQuery,
-} from '@/api/bookmark/useQuery';
+} from '@/api/bookmark/useBookmarkQuery';
 import PostCard from '../molecules/post/postCard';
 import { PostContentType } from '@/types/posts.types';
 import HelperButton from '../atoms/helperButton';
 import EmptyBookmark from './emptyBookmark';
 import BookmarkInput from '../organisms/bookmarkInput';
 import SearchResultTitle from '../atoms/searchResultTitle';
-import { useBookmarkUpdate } from '@/api/bookmark/useMutation';
+import { useBookmarkUpdate } from '@/api/bookmark/useBookmarkMutation';
 import PageNation from '../atoms/pageNation';
 import {
   BOOKMARK_DEFAULT_PAGE,
@@ -77,9 +77,11 @@ const BookMarkPage = () => {
         false,
       );
       if (result) {
-        myBookmarkList.forEach((item: PostContentType) => {
-          deleteAllBookMarkMutate.mutateAsync(item.postId);
-        });
+        await Promise.all(
+          myBookmarkList.map((item: PostContentType) =>
+            deleteAllBookMarkMutate.mutateAsync(item.postId),
+          ),
+        );
         router.refresh();
       }
     } catch (error) {

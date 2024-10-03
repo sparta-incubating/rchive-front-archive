@@ -9,7 +9,7 @@ import { PostContentType } from '@/types/posts.types';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useBookmarkUpdate } from '@/api/bookmark/useMutation';
+import { useBookmarkUpdate } from '@/api/bookmark/useBookmarkMutation';
 
 interface PostCardProps {
   postData: PostContentType;
