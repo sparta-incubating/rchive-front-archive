@@ -3,8 +3,8 @@ import RoleSelectForm from '@/components/organisms/roleSelectForm';
 import RoleContainerPage from '@/components/pages/roleContainerPage';
 import RoleWait from '@/components/pages/roleResult/roleWait';
 import { RoleResultEnum } from '@/types/role.types';
-import { createServerAPI } from '@/utils/axios/serverAPI';
 import { isAPMEmail } from '@/utils/utils';
+import { serverAxios } from '@/utils/axios/serverAxios';
 
 const RoleResultPage = async () => {
   const session = await auth();
@@ -13,10 +13,8 @@ const RoleResultPage = async () => {
 
   // 권한 신청 결과 조회 endpoint
   const getRoleApplyResult = async () => {
-    const serverAPI = await createServerAPI();
-
     try {
-      const response = await serverAPI.get('/apis/v1/role/result');
+      const response = await serverAxios.get('/apis/v1/role/result');
 
       return response.data.data;
     } catch (error) {
