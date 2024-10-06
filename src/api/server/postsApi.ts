@@ -1,11 +1,10 @@
 import { PostListResponse } from '@/types/posts.types';
-import { createServerAPI } from '@/utils/axios/serverAPI';
 import { cache } from 'react';
+import { serverAxios } from '@/utils/axios/serverAxios';
 
 export const getPostList = cache(
   async (trackName: string, period: number, queryString: string) => {
-    const serverAPI = await createServerAPI();
-    return serverAPI.get<PostListResponse>(
+    return serverAxios.get<PostListResponse>(
       `/apis/v1/posts/search?trackName=${trackName}&selectPeriod=${period}&${queryString}`,
     );
   },
@@ -13,8 +12,7 @@ export const getPostList = cache(
 
 export const getNoSearchKeywordPostList = cache(
   async (trackName: string, period: number, queryString: string) => {
-    const serverAPI = await createServerAPI();
-    return serverAPI.get(
+    return serverAxios.get(
       `/apis/v1/posts/category?trackName=${trackName}&selectPeriod=${period}&${queryString}`,
     );
   },
@@ -22,8 +20,7 @@ export const getNoSearchKeywordPostList = cache(
 
 export const getPost = cache(
   async (postId: number, trackName: string, period: number) => {
-    const serverAPI = await createServerAPI();
-    return await serverAPI.get(
+    return await serverAxios.get(
       `/apis/v1/posts/${postId}?trackName=${trackName}&period=${period}`,
     );
   },
@@ -31,14 +28,8 @@ export const getPost = cache(
 
 export const getPostForTag = cache(
   async (trackName: string, period: number, queryString: string) => {
-    const serverAPI = await createServerAPI();
-    return await serverAPI.get(
+    return await serverAxios.get(
       `/apis/v1/posts/tags/search?trackName=${trackName}&selectPeriod=${period}&${queryString}`,
     );
   },
 );
-
-export const getPostPeriod = async (trackName: string) => {
-  const serverAPI = await createServerAPI();
-  return serverAPI.get(`/apis/v1/role/track/period?trackName=${trackName}`);
-};
